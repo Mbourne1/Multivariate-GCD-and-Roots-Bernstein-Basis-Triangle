@@ -1,4 +1,6 @@
-function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD(ex_num)
+
+function [fxy,gxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num)
+
 
 syms x y;
 
@@ -6,8 +8,8 @@ switch ex_num
     case '1'
         
         u = (y-0.2)^2;
-        v = (y-0.4) * (x-0.3)^3;
-        d = (x + 1) * (x+y+1)^4;
+        v = (y-0.4) * (x - 0.3)^3;
+        d = (x + 1) * (x + 0.8)^4;
         
         f = u*d;
         g = v*d;
@@ -50,11 +52,19 @@ switch ex_num
         g = v*d;
         
         
-        case '6'
+    case '6'
         
-        d = (x-0.5) * (x-0.2)^2 * (x-03)^3 * (y-0.5)^(6);
-        u = (x-4)^4 * (y-4)^4;
-        v = (x-5)^5 * (y-5)^5;
+        d = (x-0.5) * (x-0.2)^2 * (x-0.3)^3 * (y-0.5)^(6);
+        u = (x-0.4445)^4 * (y-0.4)^4;
+        v = (x-0.1)^5 * (y-0.2234)^5;
+        
+        f = u*d;
+        g = v*d;
+        
+    case '7'
+        d = (x-0.5) * (x-0.2)^2 * (x-0.3)^3 ;
+        u = (x-0.4445)^4 ;
+        v = (x-0.1)^5 ;
         
         f = u*d;
         g = v*d;

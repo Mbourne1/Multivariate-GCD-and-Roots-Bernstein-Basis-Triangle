@@ -1,41 +1,37 @@
 function [fxy,m] = Examples_Roots(ex_num)
+% Examples_Roots(ex_num)
+%
+% Given an example number, return the matrix of coefficients of a
+% polynomial f(x,y)
+%
+% % Inputs.
+%
+% ex_num : Example Number as string
+%
+% % Outputs.
+%
+% fxy : Coefficients of matrix f(x,y)
+%
+% m : Total degree of f(x,y)
 
-syms x y;
 
-switch ex_num
-    case '1'
+
+
+TYPE = 'From Coefficients';
+
+switch TYPE 
+    case 'From Roots'
         
-        f = (x + y -0.273547)^(4) * (x + y + 0.6271)^2;
+        [fxy,m] = Examples_Roots_FromRoots(ex_num);
+        
+    case 'From Coefficients'
+        
+        [fxy,m] = Examples_Roots_FromCoefficients(ex_num);
+        
+end
     
-    case '2'
-        f = (x-0.7897)^5 * (y-0.2323)^5 * (x-0.2456)^3;
-        
-    case '3'
-        f = (x-1.213534)^3 * (x-0.645312)^2 * (y-0.55431);
-        
-    otherwise
-        error([mfilename ' : error : Not a valid example number'])
-end
 
 
-% Get the total degree of f(x,y)
-m = double(feval(symengine, 'degree', f));
-
-% Get coefficients of f(x,y) in matrix form
-fxy = double(rot90(coeffs(f,[x,y],'All'),2));
-
-% Get the degree of f(x,y) with respect to x and y
-[m1,m2] = GetDegree(fxy);
-
-temp_mat = zeros(m+1,m+1);
-temp_mat(1:m1+1,1:m2+1) = fxy;
-fxy = temp_mat;
-
-fxy = PowerToBernstein(fxy,m);
-
-display(f)
-
-
-fprintf([mfilename ' : ' sprintf('Total Degree of f(x,y) : %i \n',m)]);
 
 end
+
