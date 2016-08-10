@@ -45,7 +45,7 @@ for i = 1:1:nEntries_wx
             %Overwrite wx and wy with new values
             wxy{i} = dxy_matrix_clc;
             wx{i} = uxy_matrix_clc;
-            wy_new = Deconvolve_Bivariate_Single(wy{i},dxy_matrix_clc);
+            wy_new = Deconvolve_Bivariate(wy{i},dxy_matrix_clc);
             wy{i} = vxy_matrix_clc;
             
             fprintf([mfilename ' : ' sprintf('Roots of degree %i',i)])

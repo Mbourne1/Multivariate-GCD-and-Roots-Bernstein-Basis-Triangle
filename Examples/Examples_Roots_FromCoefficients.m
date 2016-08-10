@@ -13,7 +13,8 @@ switch ex_num
         
     case '3'
         f = (x-1.213534)^3 * (x-0.645312)^2 * (y-0.55431);
-        
+    case '4'
+        f = (x + y -0.273547)^(6) * (x + y + 0.6271)^4;
     otherwise
         error([mfilename ' : error : Not a valid example number'])
 end

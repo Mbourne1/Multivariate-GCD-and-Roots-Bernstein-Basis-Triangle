@@ -4,9 +4,11 @@ function [fxy,m] = Examples_Roots(ex_num)
 % Given an example number, return the matrix of coefficients of a
 % polynomial f(x,y)
 %
+%
 % % Inputs.
 %
 % ex_num : Example Number as string
+%
 %
 % % Outputs.
 %

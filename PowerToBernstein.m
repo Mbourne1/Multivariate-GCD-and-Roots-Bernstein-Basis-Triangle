@@ -16,6 +16,10 @@ function [fx_bb] = PowerToBernstein(fxy,m)
 %
 % m : Total degree of f(x,y)
 
+if m == 0
+   fx_bb = 1;
+   return
+end
 
 b = zeros(m+1,m+1);
 

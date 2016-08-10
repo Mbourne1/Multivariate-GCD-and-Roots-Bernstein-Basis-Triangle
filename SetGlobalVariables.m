@@ -29,7 +29,8 @@ SETTINGS.SEED = 1024;
 %
 % 'Separate'
 % 'Batch'
+% 'Batch Constrained'
 %
 %
-SETTINGS.DECONVOLUTION_METHOD = 'Separate';
+SETTINGS.DECONVOLUTION_METHOD = 'Batch Constrained';
 end

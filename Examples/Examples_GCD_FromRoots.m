@@ -1,9 +1,11 @@
 function [fxy,gxy,dxy,m,n,t] = Examples_GCD_FromRoots(ex_num)
 % Get a GCD example given an example number
 %
+%
 % % Inputs.
 %
 % ex_num : Example Number as a string
+%
 %
 % % Outputs.
 %

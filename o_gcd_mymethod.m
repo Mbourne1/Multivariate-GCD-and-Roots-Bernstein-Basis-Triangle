@@ -11,8 +11,25 @@ function [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n,limits_t)
 % m : Total degree of f(x,y)
 %
 % n : Total degree of g(x,y)
+%
+% limits_t :
+%
+% % Outputs.
+%
+% fxy :
+%
+% gxy : 
+%
+% dxy :
+%
+% uxy :
+%
+% vxy :
+% 
+% t :
 
-% % 
+
+
 % Compute the degree of the GCD
 [t,lambda,mu,alpha,th1,th2] = GetGCDDegree(fxy,gxy,m,n);
 
@@ -24,7 +41,6 @@ gxy_n = gxy ./ mu;
 % Get With Thetas
 fww = GetWithThetas(fxy_n,m,th1,th2);
 gww = GetWithThetas(gxy_n,n,th1,th2);
-
 
 % %
 % Get the cofactor polynomials u(x,y) and v(x,y)
