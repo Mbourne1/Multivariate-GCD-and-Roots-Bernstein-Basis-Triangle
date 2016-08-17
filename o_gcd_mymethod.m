@@ -42,9 +42,17 @@ gxy_n = gxy ./ mu;
 fww = GetWithThetas(fxy_n,m,th1,th2);
 gww = GetWithThetas(gxy_n,n,th1,th2);
 
+% Get low rank approximation of S_{t}(f,g) and use perturbed coefficients.
+% Update f(w,w) and g(w,w).
+[fww,a_gww] = GetLowRankApproximation(fww,alpha.*gww,m,n,t);
+gww = a_gww./alpha;
+
+
 % %
 % Get the cofactor polynomials u(x,y) and v(x,y)
 [uww,vww] = GetCofactors(fww,alpha.*gww,t);
+
+
 
 % %
 % Get the GCD polynomial d(x,y)

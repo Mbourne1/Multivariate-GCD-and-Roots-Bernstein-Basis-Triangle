@@ -43,6 +43,16 @@ switch ex_num
         
         % Set the multiplicity of each factor
         vMult = [10; 15];
+    
+    case '3'
+        % (x + y + 0.5)^7(x + y + 1.2)^10(x + y - 0.15)^15
+        factor(1,1) = (x + y + 0.5);
+        factor(2,1) = (x + y + 1.2);
+        factor(3,1) = (x + y - 0.15);
+        
+        
+        % Set the multiplicity of each factor
+        vMult = [7; 10; 15];
         
 end
 
@@ -136,23 +146,11 @@ LineBreakLarge()
 fprintf('Deconvolve with the constraint that all h_{i} for i between m_{j} and m_{j+1} are equal \n')
 fprintf('Staggered Staircase Method \n\n')
 
-arr_hx_test_1_brn = Deconvolve_Bivariate_Batch_Constrained(arr_fxy_brn_noisy,vDegt_arr_fxy);
+arr_hxy_brn_test_1 = Deconvolve_Bivariate_Batch_Constrained(arr_fxy_brn_noisy,vDegt_arr_fxy);
 
-for i = 1:1:length(arr_hx_test_1_brn)
-    %display(arr_hx_test_1{i} );
-end
+vErrors_1 = GetErrors(arr_hxy_brn_test_1,arr_hxy_brn);
 
-% Compare each computed h{i} with actual h_{i}
-for i = 1:1:length(arr_hx_test_1_brn)
-    
-    exact = arr_hxy_brn{i}./arr_hxy_brn{i}(1,1);
-    comp = arr_hx_test_1_brn{i}./arr_hx_test_1_brn{i}(1,1);
-    
-    err_measure = norm(exact - comp) ./ norm(exact);
-    fprintf([mfilename ': ' sprintf('%i : Error : %2.4e \n', i,err_measure)]);
-end
-
-% %
+% % ----------------------------------------------------------------------
 % %
 % %
 % Testing deconvolution batch method with constraints and low rank approx
@@ -162,24 +160,9 @@ fprintf('Deconvolve with the constraint that all h_{i} for i between m_{j} and m
 fprintf('With STLN \n')
 fprintf('Staggered Staircase Method \n\n')
 
-arr_hxy_brn_test_3 = Deconvolve_Bivariate_Batch(arr_fxy_brn_noisy,vDegt_arr_fxy);
+arr_hxy_brn_test_2 = Deconvolve_Bivariate_Batch(arr_fxy_brn_noisy,vDegt_arr_fxy);
 
-for i = 1:1:length(arr_hxy_brn_test_3)
-    %display(arr_hx_test_1{i} );
-end
-
-% Compare each computed h{i} with actual h_{i}
-for i = 1:1:length(arr_hxy_brn_test_3)
-    
-    exact = arr_hxy_brn{i}./arr_hxy_brn{i}(1,1);
-    comp = arr_hxy_brn_test_3{i}./ arr_hxy_brn_test_3{i}(1,1);
-    
-    err_measure = norm(exact - comp) ./ norm(exact);
-    fprintf([mfilename ': ' sprintf('%i : Error : %2.4e \n', i,err_measure)]);
-end
-
-
-
+vErrors_2 = GetErrors(arr_hxy_brn_test_2,arr_hxy_brn);
 
 %--------------------------------------------------------------------------
 % %
@@ -191,21 +174,47 @@ fprintf('Deconvolve - Each deconvolution is independent \n');
 fprintf('Deconvolution Separate \n');
 
 
-arr_hxy_brn_test_4 = Deconvolve_Bivariate_Separate(arr_fxy_brn_noisy);
+arr_hxy_brn_test_3 = Deconvolve_Bivariate_Separate(arr_fxy_brn_noisy);
 
-for i = 1:1:length(arr_hxy_brn_test_4)
-    %display(arr_hx_test_3{i});
+vErrors_3 = GetErrors(arr_hxy_brn_test_3,arr_hxy_brn);
+
+
+% % 
+% %
+% %
+% % 
+% Plotting
+fig_name = sprintf([mfilename ' : ' 'Plotting Errors']);
+figure('name',fig_name)
+plot(log10(vErrors_1),'-o','DisplayName','Batch Constrained')
+hold on
+plot(log10(vErrors_2),'-*','DisplayName','Batch Unconstrained')
+plot(log10(vErrors_3),'-s','DisplayName','Independent')
+legend(gca,'show')
+xlabel('i')
+ylabel('log_{10} Error in h_{i}(x,y)')
+
+hold off
+
+
+
 end
+
+
+function [vError] = GetErrors(arr_hxy_comp, arr_hxy_exact)
+
+vError = zeros(length(arr_hxy_comp),1);
+
 % Compare each computed h{i} with actual h_{i}
-for i = 1:1:length(arr_hxy_brn_test_4)
+for i = 1:1:length(arr_hxy_comp)
     
-    exact = arr_hxy_brn{i}./arr_hxy_brn{i}(1,1);
-    comp = arr_hxy_brn_test_4{i}./arr_hxy_brn_test_4{i}(1,1);
+    exact = arr_hxy_exact{i}./arr_hxy_exact{i}(1,1);
+    comp = arr_hxy_comp{i}./ arr_hxy_comp{i}(1,1);
     
-    err_measure = norm(exact - comp) ./ norm(exact);
-    fprintf([mfilename ': ' sprintf('%i : Error : %2.4e \n', i,err_measure)]);
+    vError(i) = norm(exact - comp) ./ norm(exact);
+    
 end
 
+display(vError);
 
 end
-

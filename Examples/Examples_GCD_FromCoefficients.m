@@ -1,4 +1,4 @@
-function [fxy,gxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num)
+function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num)
 %
 % % Inputs
 %

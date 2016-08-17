@@ -10,7 +10,7 @@ arr_hx = cell(nPolys-1,1);
 % For each pair of polynomials perform deconvolution.
 for i = 1:1:nPolys-1
     
-    arr_hx{i} = Deconvolve_Bivariate(arr_fx{i},arr_fx{i+1}) ;
+    arr_hx{i,1} = Deconvolve_Bivariate(arr_fx{i,1},arr_fx{i+1,1}) ;
     
 end
 

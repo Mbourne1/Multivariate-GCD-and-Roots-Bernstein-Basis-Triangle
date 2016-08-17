@@ -1,4 +1,4 @@
-function [wy,vDegt_wy] = o_roots_mymethod_y(fxy_matrix,M)
+function [arr_wxy,vDegt_wxy] = o_roots_mymethod_y(fxy_matrix,M)
 % Given a bivariate polynomial compute the roots by differentiating with
 % respect to y.
 
@@ -8,7 +8,7 @@ global SETTINGS
 ite = 1;
 
 % Set the first entry of q to be the input polynomial f(x,y)
-fxy{1} = fxy_matrix;
+arr_fxy{1} = fxy_matrix;
 
 % Get the total degree of f(x,y)
 vDegt_fxy(ite) = M(ite);
@@ -22,10 +22,10 @@ while vDegt_fxy(ite) > 0
         % The derivative is a constant
         
         % The GCD is a constant
-        fxy{ite+1,1} = Differentiate_wrt_y(fxy{ite,1});
+        arr_fxy{ite+1,1} = Differentiate_wrt_y(arr_fxy{ite,1});
         
         % Deconvolve
-        uxy{ite+1,1} = Deconvolve_Bivariate(fxy{ite,1},fxy{ite+1,1});
+        uxy{ite+1,1} = Deconvolve_Bivariate(arr_fxy{ite,1},arr_fxy{ite+1,1});
         
         % Get total degree of d(x,y) and degree with respect to x and y
         vDegt_fxy(ite+1,1) = vDegt_fxy(ite,1)-1;
@@ -38,7 +38,7 @@ while vDegt_fxy(ite) > 0
     fprintf([mfilename ' : ' sprintf('Compute GCD of f_{%i} and derivative f_{%i}\n\n',ite,ite)]);
     
     % Get the derivative of f(x,y) with respect to y.
-    gxy = Differentiate_wrt_y(fxy{ite});
+    gxy = Differentiate_wrt_y(arr_fxy{ite});
     
     % Get the total degree of f(x,y)
     m = vDegt_fxy(ite);
@@ -59,7 +59,7 @@ while vDegt_fxy(ite) > 0
     fprintf([mfilename ' : ' sprintf('Maximum degree of f_{%i}: %i \n', ite+1, upper_lim)]);
     
     % Get the GCD of f(x,y) and g(x,y)
-    [fxy{ite,1},~,fxy{ite+1,1},uxy{ite,1},~,t] = o_gcd_mymethod(fxy{ite,1},gxy,m,n,[lower_lim,upper_lim]);
+    [arr_fxy{ite,1},~,arr_fxy{ite+1,1},uxy{ite,1},~,t] = o_gcd_mymethod(arr_fxy{ite,1},gxy,m,n,[lower_lim,upper_lim]);
     
     % Get total degree of d(x,y) and degree with respect to x and y
     vDegt_fxy(ite+1,1) = t;
@@ -81,10 +81,6 @@ end
 % %
 % % Obtain the series h_{i}
 
-
-% Get number of elements in the series of polynomials q_{i}
-nEntries_fxy = size(fxy,1);
-
 % %
 % %     Get h_{i}(y)
 % %
@@ -98,34 +94,11 @@ switch SETTINGS.HXY_METHOD
     
     case 'From Deconvolutions'
         
-        switch SETTINGS.DECONVOLUTION_METHOD
-            
-            case 'Separate'
-                % For each pair of q_{x}(i) and q_{x}(i+1)
-                for i = 1 : 1 : nEntries_fxy - 1
-                    
-                    % Perform deconvolutions
-                    hy{i} = Deconvolve_Bivariate_Single(fxy{i},fxy{i+1});
-                    
-                end
-            case 'Batch'
-                
-                % Get the set of polynomials hy{i} from the deconvolution of the
-                % set of polynomials fy{i}/fy{i+1}
-                hy = Deconvolve_Bivariate_Batch(fxy,vDegt_fxy);
-                
-            case 'Batch Constrained'
-                
-                hy = Deconvolve_Bivariate_Batch_Constrained(fxy,vDegt_fxy);
-                
-            otherwise
-                error('err')
-                
-        end
+        arr_hxy = Get_arr_hxy(arr_fxy,vDegt_fxy);
         
     case 'From ux'
         
-        hy = ux;
+        arr_hxy = ux;
         
     otherwise
         error('err');
@@ -133,7 +106,7 @@ switch SETTINGS.HXY_METHOD
 end
 
 
-vDegt_hy = vDegt_fxy(1:end-1) - vDegt_fxy(2:end);
+vDegt_hxy = vDegt_fxy(1:end-1) - vDegt_fxy(2:end);
 
 
 % %
@@ -143,54 +116,34 @@ vDegt_hy = vDegt_fxy(1:end-1) - vDegt_fxy(2:end);
 % Each w_{y}(i) is obtained by the deconvolution of h_{y}(i) and h_{y}(i+1)
 
 % Get number of polynomials in the array of h_{y}
-nEntries_hxy = size(hy,1);
+nEntries_hxy = size(arr_hxy,1);
 
 if nEntries_hxy > 1
     
-    switch SETTINGS.DECONVOLUTION_METHOD
-        
-        case 'Separate' % Separate deconvolution
-            
-            for i = 1 : 1 : nEntries_hxy - 1 % For each pair of h_{y}(i) and h_{y}(i+1)
-                
-                % Deconvolve
-                wy{i} = Deconvolve_Bivariate_Single(hy{i},hy{i+1});
-                
-            end
-
-        case 'Batch' % Batch deconvolution
-            wy = Deconvolve_Bivariate_Batch(hy,vDegt_hy);
-        case 'Batch Constrained' % Batch deconvolution
-            wy = Deconvolve_Bivariate_Batch(hy,vDegt_hy);
-        otherwise
-            error('err')
-            
-    end
+    % Get polynomials w_{i}(x,y)
+    arr_wxy = Get_arr_wxy(arr_hxy,vDegt_hxy);
     
-
-    vDegt_wy = vDegt_hy(1:end-1) - vDegt_hy(2:end);
-    
+    % Get total degree of wxy
+    vDegt_wxy = vDegt_hxy(1:end-1) - vDegt_hxy(2:end);
     
     % Set the final w_{x}(i+1) to be equal to h_{x}(i+1)
-    wy{end+1} = hy{end};
+    arr_wxy{end+1} = arr_hxy{end};
     
     % Set the final degree structure
-
-    vDegt_wy(end) = vDegt_hy(end);
+    vDegt_wxy(end) = vDegt_hxy(end);
     
 else
     
     % Number of h_{i} is equal to one, so no deconvolutions to be performed
-    wy{1} = hy{1};
+    arr_wxy{1} = arr_hxy{1};
     
     % Get the degree structure of h_{x,i}
-
-    vDegt_wy(1) = vDegt_hy(1);
+    vDegt_wxy(1) = vDegt_hxy(1);
 end
 
-for i = 1:1:length(wy)
+for i = 1:1:length(arr_wxy)
     fprintf([mfilename ' : ' sprintf('Roots of degree %i',i) ' \n']);
-    factor = wy{i};
+    factor = arr_wxy{i};
     if (length(factor) > 1)
         display(factor./factor(2));
     end

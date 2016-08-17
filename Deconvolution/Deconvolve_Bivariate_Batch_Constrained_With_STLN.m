@@ -8,7 +8,7 @@ function [arr_hx] = Deconvolve_Bivariate_Batch_Constrained_With_STLN(arr_fxy,vDe
 % vDegt_fxy : Vector of total degrees of the polynomials f_{i}(x,y).
 
 
-error([mfilename ' : ' 'File Incomplete');
+error([mfilename ' : ' 'File Incomplete']);
 
 vDeg_f = vDegt_fxy;
 vDeg_h = diff(vDeg_f);

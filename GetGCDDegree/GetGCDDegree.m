@@ -65,20 +65,21 @@ for k = 1:1:min(m,n)
     vMinimumSingularValues(k) = min(vSingularValues);
     
     %
-    if(k == 1)
-        
-        switch SETTINGS.PLOT_GRAPHS
-            case 'y'
-                figure('name',sprintf([mfilename 'Singular Values S_{1}']));
-                plot(log10(svd(Sk)),'-s');
-                hold off
-            case 'n'
-            otherwise
-                error('err')
-                
-        end
-        
+    
+    switch SETTINGS.PLOT_GRAPHS
+        case 'y'
+            figure('name',sprintf([mfilename sprintf('Singular Values S_{%i}',k)]));
+            hold on
+            vSingularValues = svd(Sk);
+            xlim([1 length(vSingularValues)]);
+            plot(log10(vSingularValues),'-s');
+            hold off
+        case 'n'
+        otherwise
+            error('err')
+            
     end
+    
 end
 
 lower_lim = 1;

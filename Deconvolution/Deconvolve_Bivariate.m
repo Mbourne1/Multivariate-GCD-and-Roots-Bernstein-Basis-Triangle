@@ -1,5 +1,5 @@
 function hxy = Deconvolve_Bivariate(fxy,gxy)
-%
+% DECONVOLVE_BIVARIATE :
 % Deconvolve the polynomials f(x,y) and g(x,y) to obtain h(x,y)
 %
 % % Inputs.

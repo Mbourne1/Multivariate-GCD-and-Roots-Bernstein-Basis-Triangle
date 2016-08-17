@@ -1,5 +1,6 @@
-function [] = o_roots(ex_num,emin,mean_method,bool_preproc)
-% o_roots(ex_num,emin,emax,mean_method,bool_alpha_theta,low_rank_approx_method)
+function [] = o_roots(ex_num,emin,mean_method,bool_preproc,low_rank_approx_method)
+% O_ROOTS
+% O_ROOTS(ex_num,emin,emax,mean_method,bool_alpha_theta,low_rank_approx_method)
 %
 % Given an example number and set of parameters, obtain the roots of the
 % example polynomial, where the polynomial is in the power basis
@@ -25,7 +26,7 @@ function [] = o_roots(ex_num,emin,mean_method,bool_preproc)
 %       'None'           : Exclude SNTLN
 %
 % % Examples
-% >> o_roots('1', 1e-10, 'Geometric Mean Matlab Method', 'y')
+% >> o_roots('1', 1e-10, 'Geometric Mean Matlab Method', 'y','Standard STLN')
 
 
 % % 
@@ -41,7 +42,7 @@ addpath(...
     'RootFindingMethods'...
 );
 
-SetGlobalVariables(mean_method,bool_preproc);
+SetGlobalVariables(mean_method,bool_preproc,low_rank_approx_method);
 
 % Set the problem type, used in logging to the outputs file.
 problem_type = 'Roots Bivariate Bernstein Triangle';

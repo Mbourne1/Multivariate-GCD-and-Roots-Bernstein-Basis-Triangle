@@ -1,5 +1,5 @@
-function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta)
-% Compute the GCD of two polynomials f(x,y) and g(x,y)
+function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method)
+% O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y)
 %
 % % Inputs.
 %
@@ -7,21 +7,30 @@ function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta)
 %
 % el : Noise level low
 %
-% mean_method : 
-%               'Geometric Mean Matlab Method' 
-%               'Geometric Mean My Method'
-%               'None'
+% mean_method : Options for mean calculation method 
+%               *Geometric Mean Matlab Method
+%               *Geometric Mean My Method
+%               *None
 %
 % bool_alpha_theta : 'y'/'n' 
 % 
+% low_rank_approx_method : Options are
+%               * Standard STLN
+%               * None
+%
+%
 % % Example
 %
-% >> o_gcd('1',1e-10,'Geometric Mean Matlab Method','y')
+% >> o_gcd('1',1e-10,'Geometric Mean Matlab Method','y','Standard STLN')
 
 
 addpath (...
         'Examples',...
+        'Formatting',...
+        'GetCofactors',...
+        'GetGCDCoefficients',...
         'GetGCDDegree',...
+        'Low Rank Approximation',...
         'Preprocessing'...
         );
     
@@ -29,7 +38,7 @@ global SETTINGS
 SETTINGS.EX_NUM = ex_num;
 SETTINGS.EMIN = el;
 
-SetGlobalVariables(mean_method,bool_alpha_theta);
+SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method);
 
 % %
 % Get two polynomials f(x,y) and g(x,y) from example file.
@@ -46,20 +55,12 @@ gxy = Noise(gxy,el);
 [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n);
 
 
-display(uxy_exact)
-display(uxy)
-display(uxy_exact./uxy);
+dist_uxy = GetError(uxy,uxy_exact);
+dist_vxy = GetError(vxy,vxy_exact);
+dist_dxy = GetError(dxy,dxy_exact);
 
-display(vxy_exact)
-display(vxy)
-display(vxy_exact./vxy);
-
-
-display(dxy_exact)
-display(dxy)
-display(dxy_exact./dxy);
-
-dist_dxy = GetDistance(dxy_exact,dxy);
+fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', dist_uxy)]);
+fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', dist_vxy)]);
 fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', dist_dxy)]);
 
 PrintToResultsFile(m,n,t,dist_dxy)
@@ -101,4 +102,24 @@ else
     warningMessage = sprintf('Warning: file does not exist:\n%s', fullFileName);
     uiwait(msgbox(warningMessage));
 end
+end
+
+function [dist_fxy] = GetError(fxy,fxy_exact)
+% GETERROR : Get distance between f(x,y) and exact form.
+%
+% % Inputs.
+%
+% fxy : Coefficients of f(x,y) as computed.
+%
+% fxy_exact : Coefficients of f(x,y) exact.
+% 
+% % Outputs.
+%
+% dist_fxy : Distance between f(x,y) and exact f(x,y)
+
+dist_fxy = GetDistance(fxy_exact,fxy);
+
+
+
+
 end

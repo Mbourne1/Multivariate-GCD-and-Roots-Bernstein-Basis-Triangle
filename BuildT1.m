@@ -1,5 +1,5 @@
-function Cf = BuildT1(fxy,m,n)
-% Build the matrix C where C(f(x,y))*g = h. 
+function Cf = BuildT1(fxy,m,n_t)
+% Build the matrix C where C(f(x,y))*v = h. 
 
 % Inputs.
 %
@@ -7,16 +7,16 @@ function Cf = BuildT1(fxy,m,n)
 %
 % m : Total degree of f(x,y)
 %
-% n : Total degree of g(x,y)
+% n-t : Total degree of v(x,y)
 
 % Get number of coefficients of nchoosek
-nCoefficients_gxy = nchoosek(n+2,2);
+nCoefficients_gxy = nchoosek(n_t+2,2);
 
 % Get number of coefficients in the product fg = h(x,y)
-nCoefficients_hxy = nchoosek(m+n+2,2);
+nCoefficients_hxy = nchoosek(m+n_t+2,2);
 
 % Initialise a zero matrix
-zero_mat = zeros(m+n+1,m+n+1);
+zero_mat = zeros(m+n_t+1,m+n_t+1);
 
 Cf = zeros(nCoefficients_hxy,nCoefficients_gxy);
 
@@ -26,7 +26,7 @@ fxy_tri = GetWithTrinomials(fxy,m);
 
 count = 1;
 
-for diag_index = 0:1:n
+for diag_index = 0:1:n_t
     for i = diag_index:-1:0
         j = diag_index - i;
         

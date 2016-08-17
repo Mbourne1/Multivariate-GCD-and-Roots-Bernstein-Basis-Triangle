@@ -23,7 +23,6 @@ end
 % Get the total degree of f(x,y)
 m = double(feval(symengine, 'degree', f));
 
-% Get coefficients of f(x,y) in matrix form
 fxy = double(rot90(coeffs(f,[x,y],'All'),2));
 
 % Get the degree of f(x,y) with respect to x and y

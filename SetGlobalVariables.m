@@ -1,4 +1,4 @@
-function [] = SetGlobalVariables(mean_method,bool_alpha_theta)
+function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method)
 
 global SETTINGS
 
@@ -15,6 +15,13 @@ SETTINGS.MEAN_METHOD = mean_method;
 %
 SETTINGS.BOOL_ALPHA_THETA = bool_alpha_theta;
 
+%
+% 'Standard STLN'
+% 'None'
+%
+SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
+
+
 SETTINGS.THRESHOLD = 2;
 SETTINGS.THRESHOLD_RANK = 1e-10;
 
@@ -26,11 +33,23 @@ SETTINGS.PLOT_GRAPHS = 'y';
 
 SETTINGS.SEED = 1024;
 
+% Method used to deconvolve polynomials f_{i}(x,y) to compute h(x,y)
 %
 % 'Separate'
-% 'Batch'
-% 'Batch Constrained'
+% 'Batch Without STLN'
+% 'Batch With STLN'
+% 'Batch Constrained Without STLN'
+% 'Batch Constrained With STLN'
 %
+SETTINGS.HXY_DECONVOLUTION_METHOD = 'Batch Constrained Without STLN';
+
+
+% Method used to deconvolve polynomials h_{i}(x,y) to compute w_{i}(x,y)
 %
-SETTINGS.DECONVOLUTION_METHOD = 'Batch Constrained';
+% 'Separate'
+% 'Batch Without STLN'
+% 'Batch With STLN'
+%
+SETTINGS.WXY_DECONVOLUTION_METHOD = 'Batch Without STLN';
+
 end
