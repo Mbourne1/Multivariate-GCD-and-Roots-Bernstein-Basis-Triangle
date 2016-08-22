@@ -1,4 +1,4 @@
-function [] = Test_Deconvolution(ex_num,emin)
+function [] = Test_Deconvolution(ex_num,noise,bool_preproc)
 % Perform tests on deconvolution methods
 %
 %
@@ -23,7 +23,9 @@ syms x y;
 
 global SETTINGS
 SETTINGS.SEED = 1024;
-
+SETTINGS.PREPROC_DECONVOLUTIONS = bool_preproc;
+SETTINGS.MAX_ERROR_DECONVOLUTIONS = 1e-14;
+SETTINGS.MAX_ITERATIONS_DECONVOLUTIONS = 10;
 
 switch ex_num
     case '1' 
@@ -79,6 +81,8 @@ for i = 0:1:highest_pwr
     vDegt_arr_fxy(i+1) = double(feval(symengine, 'degree', (arr_sym_fxy{i+1})));
 end
 
+display(arr_sym_fxy{1})
+
 % Get the degree structure of the polynomials h_{i} where h_{i} =
 % f_{i-1}/f_{i}.
 vDegt_arr_hxy = -1.*diff(vDegt_arr_fxy);
@@ -133,36 +137,8 @@ end
 arr_fxy_brn_noisy = cell(nPolys_arr_fxy,1);
 
 for i = 1:1:nPolys_arr_fxy
-    arr_fxy_brn_noisy{i,1} = Noise(arr_fxy_brn{i},emin);
+    arr_fxy_brn_noisy{i,1} = Noise(arr_fxy_brn{i},noise);
 end
-
-% -------------------------------------------------------------------------
-% %
-% %
-% %
-% Testing deconvolution batch method with constraints
-
-LineBreakLarge()
-fprintf('Deconvolve with the constraint that all h_{i} for i between m_{j} and m_{j+1} are equal \n')
-fprintf('Staggered Staircase Method \n\n')
-
-arr_hxy_brn_test_1 = Deconvolve_Bivariate_Batch_Constrained(arr_fxy_brn_noisy,vDegt_arr_fxy);
-
-vErrors_1 = GetErrors(arr_hxy_brn_test_1,arr_hxy_brn);
-
-% % ----------------------------------------------------------------------
-% %
-% %
-% Testing deconvolution batch method with constraints and low rank approx
-
-LineBreakLarge()
-fprintf('Deconvolve with the constraint that all h_{i} for i between m_{j} and m_{j+1} are equal \n')
-fprintf('With STLN \n')
-fprintf('Staggered Staircase Method \n\n')
-
-arr_hxy_brn_test_2 = Deconvolve_Bivariate_Batch(arr_fxy_brn_noisy,vDegt_arr_fxy);
-
-vErrors_2 = GetErrors(arr_hxy_brn_test_2,arr_hxy_brn);
 
 %--------------------------------------------------------------------------
 % %
@@ -170,15 +146,60 @@ vErrors_2 = GetErrors(arr_hxy_brn_test_2,arr_hxy_brn);
 % %
 % Testing deconvolution
 LineBreakLarge();
-fprintf('Deconvolve - Each deconvolution is independent \n');
-fprintf('Deconvolution Separate \n');
+fprintf([mfilename ' : ' 'Separate \n'])
+
+arr_hxy_brn_separate = Deconvolve_Bivariate_Separate(arr_fxy_brn_noisy);
+vErrors_separate = GetErrors(arr_hxy_brn_separate,arr_hxy_brn);
+
+% -------------------------------------------------------------------------
+% %
+% %
+% Testing deconvolution batch method with constraints and low rank approx
+LineBreakLarge()
+fprintf([mfilename ' : ' 'Batch \n'])
+
+arr_hxy_brn_batch = Deconvolve_Bivariate_Batch(arr_fxy_brn_noisy,vDegt_arr_fxy);
+vErrors_batch = GetErrors(arr_hxy_brn_batch,arr_hxy_brn);
+
+% -------------------------------------------------------------------------
+% %
+% %
+% Testing deconvolution batch method with constraints and low rank approx
+LineBreakLarge()
+fprintf([mfilename ' : ' 'Batch with STLN \n'])
+
+arr_hxy_brn_batch_with_STLN = Deconvolve_Bivariate_Batch_With_STLN(arr_fxy_brn_noisy,vDegt_arr_fxy);
+vErrors_batch_with_STLN = GetErrors(arr_hxy_brn_batch_with_STLN,arr_hxy_brn);
 
 
-arr_hxy_brn_test_3 = Deconvolve_Bivariate_Separate(arr_fxy_brn_noisy);
-
-vErrors_3 = GetErrors(arr_hxy_brn_test_3,arr_hxy_brn);
 
 
+% -------------------------------------------------------------------------
+% %
+% %
+% %
+% Testing deconvolution batch method with constraints
+LineBreakLarge()
+fprintf([mfilename ' : ' 'Batch Constrained \n'])
+
+arr_hxy_brn_batch_constrained = Deconvolve_Bivariate_Batch_Constrained(arr_fxy_brn_noisy,vDegt_arr_fxy);
+vErrors_batch_constrained = GetErrors(arr_hxy_brn_batch_constrained,arr_hxy_brn);
+
+% -------------------------------------------------------------------------
+% %
+% %
+% %
+% Testing deconvolution batch method with constraints
+LineBreakLarge()
+fprintf([mfilename ' : ' 'Batch Constrained with STLN \n'])
+
+arr_hxy_brn_batch_constrained_with_STLN = Deconvolve_Bivariate_Batch_Constrained_With_STLN(arr_fxy_brn_noisy,vDegt_arr_fxy);
+vErrors_batch_constrained_with_STLN = GetErrors(arr_hxy_brn_batch_constrained_with_STLN,arr_hxy_brn);
+
+
+
+
+%-------------------------------------------------------------------------
 % % 
 % %
 % %
@@ -186,17 +207,38 @@ vErrors_3 = GetErrors(arr_hxy_brn_test_3,arr_hxy_brn);
 % Plotting
 fig_name = sprintf([mfilename ' : ' 'Plotting Errors']);
 figure('name',fig_name)
-plot(log10(vErrors_1),'-o','DisplayName','Batch Constrained')
 hold on
-plot(log10(vErrors_2),'-*','DisplayName','Batch Unconstrained')
-plot(log10(vErrors_3),'-s','DisplayName','Independent')
+plot(log10(vErrors_separate),'-s','DisplayName','Separate')
+plot(log10(vErrors_batch),'-*','DisplayName','Batch')
+plot(log10(vErrors_batch_with_STLN),'-*','DisplayName','Batch STLN')
+plot(log10(vErrors_batch_constrained),'-o','DisplayName','Batch Constrained')
+plot(log10(vErrors_batch_constrained_with_STLN),'-o','DisplayName','Batch Constrained STLN')
 legend(gca,'show')
 xlabel('i')
 ylabel('log_{10} Error in h_{i}(x,y)')
-
 hold off
 
+%--------------------------------------------------------------------------
+GetErr(vErrors_separate,'Separate')
+GetErr(vErrors_batch,'Batch')
+GetErr(vErrors_batch_with_STLN,'Batch With STLN')
+GetErr(vErrors_batch_constrained,'Batch Constrained')
+GetErr(vErrors_batch_constrained_with_STLN,'Batch Constrained STLN');
+%--------------------------------------------------------------------------
 
+A = ...
+    [
+    norm(vErrors_separate),...
+    norm(vErrors_batch),...
+    norm(vErrors_batch_with_STLN),...
+    norm(vErrors_batch_constrained),...
+    norm(vErrors_batch_constrained_with_STLN)
+    ];
+
+
+fileID = fopen('Deconvolution/Test_Deconvolution.txt','a');
+fprintf(fileID,'%s %s %6.2e %6.2e %6.2e %6.2e %6.2e %6.2e\n',ex_num,bool_preproc,noise,A);
+fclose(fileID);
 
 end
 
@@ -216,5 +258,13 @@ for i = 1:1:length(arr_hxy_comp)
 end
 
 display(vError);
+
+end
+
+
+function GetErr(vErrors,name)
+
+err = norm(vErrors);
+fprintf([mfilename ' : ' sprintf('Error in %s Method : %e',name,err) '\n'])
 
 end

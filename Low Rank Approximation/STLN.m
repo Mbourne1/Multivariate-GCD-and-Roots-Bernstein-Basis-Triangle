@@ -14,10 +14,10 @@ nCoefficients_gxy = nchoosek(n+2,2);
 
 % Build Sylvester Matrix
 D = BuildD(m,n-t);
-T1_f = BuildT1(fxy,m,n-t);
-T1_g = BuildT1(gxy,n,m-t);
+T1_fx = BuildT1(fxy,m,n-t);
+T1_gx = BuildT1(gxy,n,m-t);
 Q = BuildQ(m,n,t);
-St = D*[T1_f T1_g] * Q;
+St = D*[T1_fx T1_gx] * Q;
 
 % Get Optimal Column for removal
 opt_col = GetOptimalColumn(St);
@@ -40,7 +40,7 @@ x_ls = SolveAx_b(At,ct);
 ite = 1;
 
 
-g = ct - (At*x_ls);
+res_vec = ct - (At*x_ls);
 
 
 % %
@@ -80,7 +80,7 @@ x2 = x(nCoefficients_x1 + 1 : end);
 
 % Get x1 as a matrix of coefficients for input into BuildT1() function
 try
-nZeros_x1 = nchoosek(n-t+1,2);
+    nZeros_x1 = nchoosek(n-t+1,2);
 catch
     nZeros_x1 = 0;
 end
@@ -127,7 +127,7 @@ H_z = Ct_x1x2 - Pt;
 % Build Hx
 
 % Build matrix C_{t}(f,g)
-Ct_fg = D*[T1_f T1_g] * Q;
+Ct_fg = D*[T1_fx T1_gx] * Q;
 
 z1 = zeros(nchoosek(m+2,2),1);
 z2 = zeros(nchoosek(n+2,2),1);
@@ -177,25 +177,24 @@ start_point     =   ...
 yy = start_point;
 
 % Set the initial value of vector p to be zero
-f = -(yy - start_point);
+f = (start_point);
 
 
 % Initialise the iteration counter
 ite = 1;
 
 % Set the termination criterion
-condition(ite) = norm(g)./norm(ct+ht);
+condition(ite) = norm(res_vec)./norm(ct+ht);
 
-MAX_ERROR = 1E-10;
-MAX_ITERATIONS = 100;
 
-while condition(ite) > MAX_ERROR && ite < MAX_ITERATIONS
+global SETTINGS
+while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERATIONS
     
     % Increment interation counter
     ite = ite + 1;
     
     % Get small petrubations by LSE
-    y_lse = LSE(E,f,C,g);
+    y_lse = LSE(E,f,C,res_vec);
     
     % Increment cummulative peturbations
     yy = yy + y_lse;
@@ -203,7 +202,6 @@ while condition(ite) > MAX_ERROR && ite < MAX_ITERATIONS
     % update z and x_ls
     z = yy(1:nEntries_z);
     x_ls = yy(nEntries_z+1:end);
-    
     
     % Get z1 and z2
     z1 = z(1:nCoefficients_fxy);
@@ -224,9 +222,7 @@ while condition(ite) > MAX_ERROR && ite < MAX_ITERATIONS
     At_z1z2 = Ct_z1z2 * Mq;
     ht = Ct_z1z2(:,opt_col);
     
-    %x_ls = SolveAx_b((Ct_fg + Ct_z1z2) * Mq,ct+ht);
     
-
     % Get x1 and x2
     
     % Obtain the vector \hat{x} which contains x_ls with a zero inserted into
@@ -272,15 +268,15 @@ while condition(ite) > MAX_ERROR && ite < MAX_ITERATIONS
     
     
     
-    
-    g = (ct + ht) - ((At+At_z1z2)*x_ls);
+    % Get the residual vector
+    res_vec = (ct + ht) - ((At+At_z1z2)*x_ls);
     
     
     % Update f - used in LSE Problem.
-    f = -(yy + start_point);
+    f = -(yy - start_point);
     
     % Update the termination criterion
-    condition(ite) = norm(g)./norm(ct+ht) ;
+    condition(ite) = norm(res_vec)./norm(ct+ht) ;
     
 end
 
@@ -306,6 +302,7 @@ if condition(ite) < condition(1) || ite == 1
 
     fxy = fxy + mat_z1;
     gxy = gxy + mat_z2;
+    
     
     
     

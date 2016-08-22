@@ -18,7 +18,7 @@ switch SETTINGS.WXY_DECONVOLUTION_METHOD
         
     case 'Batch Without STLN'
         
-        arr_wxy = Deconvolve_Bivariate_Batch_Without_STLN(arr_hxy,vDegt_hxy);
+        arr_wxy = Deconvolve_Bivariate_Batch(arr_hxy,vDegt_hxy);
         
     case 'Batch With STLN'
         

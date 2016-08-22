@@ -15,11 +15,15 @@ SETTINGS.MEAN_METHOD = mean_method;
 %
 SETTINGS.BOOL_ALPHA_THETA = bool_alpha_theta;
 
+% ------------------------------------------------------------------------
 %
 % 'Standard STLN'
 % 'None'
 %
 SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
+
+SETTINGS.STLN_MAX_ERROR = 1e-13;
+SETTINGS.STLN_MAX_ITERATIONS = 20;
 
 
 SETTINGS.THRESHOLD = 2;
@@ -32,6 +36,10 @@ SETTINGS.THRESHOLD_RANK = 1e-10;
 SETTINGS.PLOT_GRAPHS = 'y';
 
 SETTINGS.SEED = 1024;
+
+%-------------------------------------------------------------------------
+
+% Deconvolution Settings for root finding method
 
 % Method used to deconvolve polynomials f_{i}(x,y) to compute h(x,y)
 %
@@ -52,4 +60,6 @@ SETTINGS.HXY_DECONVOLUTION_METHOD = 'Batch Constrained Without STLN';
 %
 SETTINGS.WXY_DECONVOLUTION_METHOD = 'Batch Without STLN';
 
+
+SETTINGS.PREPROC_DECONVOLUTIONS = 'y';
 end
