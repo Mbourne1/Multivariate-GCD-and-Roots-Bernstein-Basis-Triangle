@@ -11,7 +11,7 @@ function [] = Test_Deconvolution(ex_num,noise,bool_preproc)
 %
 % % Outputs.
 %
-%  
+%
 %
 % Example
 %
@@ -28,7 +28,7 @@ SETTINGS.MAX_ERROR_DECONVOLUTIONS = 1e-14;
 SETTINGS.MAX_ITERATIONS_DECONVOLUTIONS = 10;
 
 switch ex_num
-    case '1' 
+    case '1'
         
         % (x + y + 0.5)^7 * (x+y+1.2)^12
         
@@ -38,14 +38,15 @@ switch ex_num
         % Set the multiplicity of each factor
         vMult = [7; 12];
         
-
+        
     case '2'
         factor(1,1) = (x + y + 0.5);
         factor(2,1) = (x + y + 1.2);
+        factor(3,1) = (2*x - y -0.7654);
         
         % Set the multiplicity of each factor
-        vMult = [10; 15];
-    
+        vMult = [3 ; 7; 11];
+        
     case '3'
         % (x + y + 0.5)^7(x + y + 1.2)^10(x + y - 0.15)^15
         factor(1,1) = (x + y + 0.5);
@@ -114,12 +115,12 @@ arr_hxy_brn = cell(nPolys_arr_hxy,1);
 
 for i = 1:1:nPolys_arr_fxy
     
-        
-        arr_fxy_pwr{i,1} = double(rot90(coeffs(arr_sym_fxy{i},[x,y],'All'),2));
-        
-        arr_fxy_brn{i,1} = PowerToBernstein(arr_fxy_pwr{i,1},vDegt_arr_fxy(i));
-        
-    if i <= nPolys_arr_hxy    
+    
+    arr_fxy_pwr{i,1} = double(rot90(coeffs(arr_sym_fxy{i},[x,y],'All'),2));
+    
+    arr_fxy_brn{i,1} = PowerToBernstein(arr_fxy_pwr{i,1},vDegt_arr_fxy(i));
+    
+    if i <= nPolys_arr_hxy
         arr_hxy_pwr{i,1} = double(rot90(coeffs(arr_sym_h{i},[x,y],'All'),2));
         
         arr_hxy_brn{i,1} = PowerToBernstein(arr_hxy_pwr{i,1},vDegt_arr_hxy(i));
@@ -200,24 +201,31 @@ vErrors_batch_constrained_with_STLN = GetErrors(arr_hxy_brn_batch_constrained_wi
 
 
 %-------------------------------------------------------------------------
-% % 
 % %
 % %
-% % 
+% %
+% %
 % Plotting
-fig_name = sprintf([mfilename ' : ' 'Plotting Errors']);
-figure('name',fig_name)
-hold on
-plot(log10(vErrors_separate),'-s','DisplayName','Separate')
-plot(log10(vErrors_batch),'-*','DisplayName','Batch')
-plot(log10(vErrors_batch_with_STLN),'-*','DisplayName','Batch STLN')
-plot(log10(vErrors_batch_constrained),'-o','DisplayName','Batch Constrained')
-plot(log10(vErrors_batch_constrained_with_STLN),'-o','DisplayName','Batch Constrained STLN')
-legend(gca,'show')
-xlabel('i')
-ylabel('log_{10} Error in h_{i}(x,y)')
-hold off
-
+SETTINGS.PLOT_GRAPHS
+switch SETTINGS.PLOT_GRAPHS
+    case 'n'
+        
+    case 'y'
+        fig_name = sprintf([mfilename ' : ' 'Plotting Errors']);
+        figure('name',fig_name)
+        hold on
+        plot(log10(vErrors_separate),'-s','DisplayName','Separate')
+        plot(log10(vErrors_batch),'-*','DisplayName','Batch')
+        plot(log10(vErrors_batch_with_STLN),'-*','DisplayName','Batch STLN')
+        plot(log10(vErrors_batch_constrained),'-o','DisplayName','Batch Constrained')
+        plot(log10(vErrors_batch_constrained_with_STLN),'-o','DisplayName','Batch Constrained STLN')
+        legend(gca,'show')
+        xlabel('i')
+        ylabel('log_{10} Error in h_{i}(x,y)')
+        hold off
+    otherwise 
+        error('err');
+end
 %--------------------------------------------------------------------------
 GetErr(vErrors_separate,'Separate')
 GetErr(vErrors_batch,'Batch')
@@ -257,7 +265,7 @@ for i = 1:1:length(arr_hxy_comp)
     
 end
 
-display(vError);
+%display(vError);
 
 end
 

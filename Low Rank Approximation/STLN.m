@@ -34,13 +34,13 @@ At(:,opt_col) = [];
 ct = St(:,opt_col);
 
 % Get x_ls
-x_ls = SolveAx_b(At,ct);
+v_x_ls = SolveAx_b(At,ct);
 
 % Set iteration number = 1;
 ite = 1;
 
 
-res_vec = ct - (At*x_ls);
+res_vec = ct - (At*v_x_ls);
 
 
 % %
@@ -49,7 +49,7 @@ res_vec = ct - (At*x_ls);
 % Build Hz
 
 % Build Pt - The matrix P_{t} such that P_{t}z = ht or P_{t}[f;g] = c_{t}
-Pt = BuildYt(m,n,t,opt_col);
+Pt = BuildPt(m,n,t,opt_col);
 
 % Check the BuildYt function
 %------------------------------
@@ -69,7 +69,7 @@ test_g = test_g(1:nCoefficients_gxy);
 
 % Obtain the vector \hat{x} which contains x_ls with a zero inserted into
 % the position of the optimal column.
-x = [x_ls(1:opt_col-1) ; 0 ; x_ls(opt_col:end)];
+x = [v_x_ls(1:opt_col-1) ; 0 ; v_x_ls(opt_col:end)];
 
 % split the vector x into \hat{x}_{1} and \hat{x}_{2}
 % Get number of coefficients in x1
@@ -112,7 +112,7 @@ Qn = BuildQ1(n);
 Ct_x1x2 = D * [T1_x1*Qm T1_x2*Qn];
 
 test1 = Ct_x1x2 * [test_f;test_g];
-test2 = At*x_ls;
+test2 = At*v_x_ls;
 test1./test2;
 % Build Hz = Y_{t} - C_{t}(x1,x2)
 
@@ -131,7 +131,7 @@ Ct_fg = D*[T1_fx T1_gx] * Q;
 
 z1 = zeros(nchoosek(m+2,2),1);
 z2 = zeros(nchoosek(n+2,2),1);
-z = [z1;z2];
+v_zxy = [z1;z2];
 
 % Build matrix C_{t}(z1,z2)
 nZeros_z1 = nchoosek(m+1,2);
@@ -169,15 +169,15 @@ E = eye(nEntries_x+nEntries_z);
 % Define the starting vector for the iterations for the LSE problem.
 start_point     =   ...
     [...
-    z;...
-    x_ls;
+    v_zxy;...
+    v_x_ls;
     ];
 
 % Set yy to be the vector which stores all cummulative perturbations.
 yy = start_point;
 
 % Set the initial value of vector p to be zero
-f = (start_point);
+f = -(yy - start_point);
 
 
 % Initialise the iteration counter
@@ -200,12 +200,12 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     yy = yy + y_lse;
 
     % update z and x_ls
-    z = yy(1:nEntries_z);
-    x_ls = yy(nEntries_z+1:end);
+    v_zxy = yy(1:nEntries_z);
+    v_x_ls = yy(nEntries_z+1:end);
     
     % Get z1 and z2
-    z1 = z(1:nCoefficients_fxy);
-    z2 = z(nCoefficients_fxy+1:end);
+    z1 = v_zxy(1:nCoefficients_fxy);
+    z2 = v_zxy(nCoefficients_fxy+1:end);
     
     % Build matrix C_{t}(z1,z2)
     vec_z1 = [z1 ; zeros(nZeros_z1,1)];
@@ -227,7 +227,7 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     
     % Obtain the vector \hat{x} which contains x_ls with a zero inserted into
     % the position of the optimal column.
-    x = [x_ls(1:opt_col-1) ; 0 ; x_ls(opt_col:end)];
+    x = [v_x_ls(1:opt_col-1) ; 0 ; v_x_ls(opt_col:end)];
 
     % split the vector x into \hat{x}_{1} and \hat{x}_{2}
     % Get number of coefficients in x1
@@ -235,9 +235,9 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     x1 = x(1:nCoefficients_x1);
     x2 = x(nCoefficients_x1 + 1 : end);
     
-    % % % % % % % % % Update C
     
-    % % % Build H_z
+    % Build the matrix Y_{t}(x) such that Y_{t}(x) [f;g] = S_{t}(f,g)x
+    
     vec_x1 = [ x1 ; zeros(nZeros_x1,1)];
     vec_x2 = [ x2 ; zeros(nZeros_x2,1)];
 
@@ -253,23 +253,19 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
 
     Ct_x1x2 = D * [T1_x1*Qm T1_x2*Qn];
     
+    % % % Build the matrix C in the LSE Problem.
+    
+    % Build H_z
     H_z = Ct_x1x2 - Pt;
-    
-    % % % Build H_x
-    
-    
-   
+       
     % Build Hx 
     H_x = (Ct_fg + Ct_z1z2) * Mq;
     
+    % Build C
     C = [H_z H_x];
     
-    % % % % % % % % %  update g
-    
-    
-    
     % Get the residual vector
-    res_vec = (ct + ht) - ((At+At_z1z2)*x_ls);
+    res_vec = (ct + ht) - ((At+At_z1z2)*v_x_ls);
     
     
     % Update f - used in LSE Problem.
@@ -286,12 +282,12 @@ fprintf([mfilename ' : ' sprintf('STLN Number of iterations required : %i \n',it
 if condition(ite) < condition(1) || ite == 1
     
     % Update z and x_ls
-    z = yy(1:nEntries_z);
-    x_ls = yy(nEntries_z+1:end);
+    v_zxy = yy(1:nEntries_z);
+    v_x_ls = yy(nEntries_z+1:end);
 
     % Get z1 and z2
-    z1 = z(1:nCoefficients_fxy);
-    z2 = z(nCoefficients_fxy+1:end);
+    z1 = v_zxy(1:nCoefficients_fxy);
+    z2 = v_zxy(nCoefficients_fxy+1:end);
     
     % Build matrix C_{t}(z1,z2)
     vec_z1 = [z1 ; zeros(nZeros_z1,1)];
@@ -318,7 +314,7 @@ plot(log10(condition))
 end
 
 
-function Yt = BuildYt(m,n,t,opt_col)
+function Yt = BuildPt(m,n,t,opt_col)
 
 nCols_first_part = nchoosek(n-t+2,2);
 

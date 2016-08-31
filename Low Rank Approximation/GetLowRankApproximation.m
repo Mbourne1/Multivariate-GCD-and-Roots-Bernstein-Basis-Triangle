@@ -28,11 +28,15 @@ function [fxy_lr,gxy_lr] = GetLowRankApproximation(fxy,gxy,m,n,t)
 global SETTINGS
 
 switch SETTINGS.LOW_RANK_APPROX_METHOD
+    
+    
     case 'None'
         fxy_lr = fxy;
         gxy_lr = gxy;
         
         return;
+        
+        
     case 'Standard STLN'
         
         

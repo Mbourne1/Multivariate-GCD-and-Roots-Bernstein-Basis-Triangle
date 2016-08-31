@@ -22,6 +22,26 @@ function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num)
 syms x y;
 
 switch ex_num
+    
+    
+        
+    case '8.3' % Example 8.3 in my report
+        
+        u = (x + y + 31/2500)^6;
+        v = (x + y + 282/625)^3;
+        
+        d = (x + 14/25) *(x^2 + y^2 + 51/100)^2*(x + y + 28/25)^3;
+        
+        f = u*d;
+        g = v*d;
+    case '8.4'
+    
+        u = (y - 1/5)^2;
+        v = (x - 3/10)^3 * (y - 2/5);
+        d = (x + 1/10)^4 * (x - 2/5)^20;
+        
+        f = u*d;
+        g = v*d;
     case '1'
         
         u = (y-0.2)^2;

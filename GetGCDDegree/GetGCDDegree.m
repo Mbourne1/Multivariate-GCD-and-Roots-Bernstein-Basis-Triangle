@@ -72,6 +72,8 @@ for k = 1:1:min(m,n)
             hold on
             vSingularValues = svd(Sk);
             xlim([1 length(vSingularValues)]);
+            xlabel('i')
+            ylabel('log_{10} \sigma_{i}')
             plot(log10(vSingularValues),'-s');
             hold off
         case 'n'

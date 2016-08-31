@@ -2,6 +2,14 @@ function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_me
 
 global SETTINGS
 
+
+%--------------------------------------------------------------------------
+%
+%       SETTINGS - PREPROCESSING
+%
+%
+
+
 %
 % 'Geometric Mean Matlab Method'
 % 'Geometric Mean My Method'
@@ -15,20 +23,6 @@ SETTINGS.MEAN_METHOD = mean_method;
 %
 SETTINGS.BOOL_ALPHA_THETA = bool_alpha_theta;
 
-% ------------------------------------------------------------------------
-%
-% 'Standard STLN'
-% 'None'
-%
-SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
-
-SETTINGS.STLN_MAX_ERROR = 1e-13;
-SETTINGS.STLN_MAX_ITERATIONS = 20;
-
-
-SETTINGS.THRESHOLD = 2;
-SETTINGS.THRESHOLD_RANK = 1e-10;
-
 %
 % 'y'
 % 'n'
@@ -37,7 +31,39 @@ SETTINGS.PLOT_GRAPHS = 'y';
 
 SETTINGS.SEED = 1024;
 
+% -------------------------------------------------------------------------
+%
+%   SETTINGS - DEGREE COMPUTATION
+%
+%
+SETTINGS.THRESHOLD = 2;
+SETTINGS.THRESHOLD_RANK = 1e-10;
+
+
+% ------------------------------------------------------------------------
+%
+%   SETTINGS - LOW RANK APPROXIMATION
+%
+%
+
+
+% 'Standard STLN'
+% 'None'
+%
+SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
+
+SETTINGS.STLN_MAX_ERROR = 1e-12;
+SETTINGS.STLN_MAX_ITERATIONS = 20;
+
+%--------------------------------------------------------------------------
+
+
 %-------------------------------------------------------------------------
+%
+%   SETTINGS - DECONVOLUTION
+%
+%
+%
 
 % Deconvolution Settings for root finding method
 
