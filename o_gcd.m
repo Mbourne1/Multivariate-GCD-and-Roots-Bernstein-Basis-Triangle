@@ -59,6 +59,11 @@ dist_uxy = GetError(uxy,uxy_exact);
 dist_vxy = GetError(vxy,vxy_exact);
 dist_dxy = GetError(dxy,dxy_exact);
 
+display(dxy_exact./dxy_exact(1,1));
+display(dxy./dxy(1,1));
+
+
+
 fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', dist_uxy)]);
 fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', dist_vxy)]);
 fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', dist_dxy)]);

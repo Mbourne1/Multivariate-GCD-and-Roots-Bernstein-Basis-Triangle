@@ -153,3 +153,9 @@ Date, example_number, m,   n,   t,   error, mean,  bool_alpha_theta,    error_mi
 30-Aug-2016 15:59:21, 	 4, 	 14, 	 11, 	 8, 	 1.527061e-02, 	 None, 	 y, 	 1.000000e-06 
 30-Aug-2016 16:03:49, 	 4, 	 14, 	 11, 	 8, 	 6.343203e-09, 	 Geometric Mean Matlab Method, 	 y, 	 1.000000e-10 
 30-Aug-2016 16:05:34, 	 4, 	 14, 	 11, 	 8, 	 6.343203e-09, 	 Geometric Mean Matlab Method, 	 y, 	 1.000000e-10 
+26-Sep-2016 13:32:40, 	 1 From Power Basis, 	 7, 	 7, 	 4, 	 NaN, 	 Geometric Mean Matlab Method, 	 y, 	 1.000000e-10 
+26-Sep-2016 13:33:13, 	 1 From Power Basis, 	 7, 	 7, 	 4, 	 NaN, 	 None, 	 n, 	 1.000000e-10 
+26-Sep-2016 13:33:49, 	 1 From Power Basis, 	 7, 	 7, 	 4, 	 NaN, 	 None, 	 n, 	 1.000000e-10 
+26-Sep-2016 13:34:39, 	 1 From Power Basis, 	 7, 	 7, 	 4, 	 NaN, 	 None, 	 n, 	 1.000000e-10 
+26-Sep-2016 13:35:29, 	 1 From Power Basis, 	 7, 	 7, 	 4, 	 2.784979e-10, 	 None, 	 n, 	 1.000000e-10 
+26-Sep-2016 13:36:03, 	 1 From Power Basis, 	 7, 	 7, 	 4, 	 2.784979e-10, 	 None, 	 n, 	 1.000000e-10 
