@@ -1,4 +1,4 @@
-function [] = Test_Deconvolution_Experiments
+function [] = o_deconvolution_Batch()
 
 global SETTINGS
 SETTINGS.PLOT_GRAPHS = 'n';

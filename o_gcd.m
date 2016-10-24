@@ -1,5 +1,7 @@
 function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method)
-% O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y)
+% O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
+% and g(x,y) are given in the Bernstein form, and are taken from the
+% example file.
 %
 % % Inputs.
 %
@@ -23,6 +25,9 @@ function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_metho
 %
 % >> o_gcd('1',1e-10,'Geometric Mean Matlab Method','y','Standard STLN')
 
+
+% Add subfolders
+restoredefaultpath
 
 addpath (...
         'Examples',...
@@ -55,15 +60,12 @@ gxy = Noise(gxy,el);
 [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n);
 
 
+% Get Error in u(x,y), v(x,y) and d(x,y)
 dist_uxy = GetError(uxy,uxy_exact);
 dist_vxy = GetError(vxy,vxy_exact);
 dist_dxy = GetError(dxy,dxy_exact);
 
-display(dxy_exact./dxy_exact(1,1));
-display(dxy./dxy(1,1));
-
-
-
+% Print the error in u(x,y), v(x,y) and d(x,y)
 fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', dist_uxy)]);
 fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', dist_vxy)]);
 fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', dist_dxy)]);
@@ -90,7 +92,7 @@ fullFileName = 'Results/Results_GCD.txt';
 
 if exist(fullFileName, 'file')
     fileID = fopen(fullFileName,'a');
-    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
+    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
         datetime('now'),...
         SETTINGS.EX_NUM,...
         int2str(m),...
@@ -99,6 +101,7 @@ if exist(fullFileName, 'file')
         error_dx,...
         SETTINGS.MEAN_METHOD,...
         SETTINGS.BOOL_ALPHA_THETA,...
+        SETTINGS.LOW_RANK_APPROX_METHOD,...
         SETTINGS.EMIN...
         );
     fclose(fileID);
@@ -110,7 +113,7 @@ end
 end
 
 function [dist_fxy] = GetError(fxy,fxy_exact)
-% GETERROR : Get distance between f(x,y) and exact form.
+% GetError : Get distance between f(x,y) and exact form.
 %
 % % Inputs.
 %

@@ -1,23 +1,33 @@
 function [dfxy] = Differentiate_wrt_x(fxy)
+% Differentiate_wrt_x
+% Differentiate with respect to x, the bivariate polynomial f(x,y) which is
+% given in Bernstein form.
 
-[m1,m2] = GetDegree(fxy);
+% Get the degree of f(x,y)
+[m1,~] = GetDegree(fxy);
 m = m1;
 
-% Get number of non-zero coefficients of f(x,y)
+% Get number of coefficients of f(x,y)
 nCoefficients_fxy = nchoosek(m+2,2);
 
-% Get Vector of coefficients
+% Get vector of coefficients
 v_fxy = GetAsVector(fxy);
 v_fxy = v_fxy(1:nCoefficients_fxy);
 
-% Build matrix of zeros
+% Initialise a temp matrix, consisting of zeros
 temp_mat = zeros(m+1,m+1);
 
+% Get the number of coefficients in the derivative
 nCoefficients_dfxy = nchoosek(m+1,2);
 
-mymat = zeros(nCoefficients_dfxy,nCoefficients_fxy);
+% Initialise a matrix which transforms the coefficients of the polynomial
+% f(x,y) to the coefficients of the derivative of f(x,y).
+trans_mat = zeros(nCoefficients_dfxy,nCoefficients_fxy);
 
+% Initialise a count
 count = 1;
+
+
 for k = 0:1:m-1
     for i = k:-1:0
     
@@ -31,13 +41,13 @@ for k = 0:1:m-1
         temp_vec = GetAsVector(mat)';
         temp_vec = temp_vec(1:nCoefficients_fxy);
         
-        mymat(count,:) = temp_vec;
+        trans_mat(count,:) = temp_vec;
         count = count + 1;
     end
 end
 
 % Get nonzero Coefficients of f(x,y)
-v_dfxy = mymat * v_fxy;
+v_dfxy = trans_mat * v_fxy;
 
 if m > 1
     nZeros = nchoosek(m,2);

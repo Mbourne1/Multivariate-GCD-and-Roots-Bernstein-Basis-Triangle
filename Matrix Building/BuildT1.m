@@ -1,32 +1,41 @@
-function Cf = BuildT1(fxy,m,n_t)
-% Build the matrix C where C(f(x,y))*v = h. 
-
+function Cf = BuildT1(fxy,m,n_k)
+% BuildT1
+% Build the matrix T_{n-k} where T_{n-k}(f(x,y))*v = h. 
+%
+% The matrix is used in computing the product of f(x,y) and v(x,y).
+%
+% The matrix T_{n-k}(f) forms part of the convolution matrix 
+% C_{n-k}(f) = D^{-1}T_{n-k}(f)Q_{n-k}.
+%
+% Also used in the Sylvester subresultant matrix S_{k}(f,g) =
+% D^{-1}[T_{n-k}(f) T_{m-k}(g)] blkdiag(Q_{n-k} Q_{m-k})
+%
 % Inputs.
 %
-% fxy : coefficients of polynomial f(x,y)
+% fxy : Coefficients of bivariate polynomial f(x,y) in Bernstein form.
 %
 % m : Total degree of f(x,y)
 %
-% n-t : Total degree of v(x,y)
+% n-k : Total degree of v(x,y)
 
-% Get number of coefficients of nchoosek
-nCoefficients_gxy = nchoosek(n_t+2,2);
+% Get number of coefficients of v(x,y)
+nCoefficients_vxy = nchoosek(n_k+2,2);
 
 % Get number of coefficients in the product fg = h(x,y)
-nCoefficients_hxy = nchoosek(m+n_t+2,2);
+nCoefficients_hxy = nchoosek(m+n_k+2,2);
 
 % Initialise a zero matrix
-zero_mat = zeros(m+n_t+1,m+n_t+1);
+zero_mat = zeros(m+n_k+1,m+n_k+1);
 
-Cf = zeros(nCoefficients_hxy,nCoefficients_gxy);
+Cf = zeros(nCoefficients_hxy,nCoefficients_vxy);
 
 % Get fxy with trinomial coefficients
 fxy_tri = GetWithTrinomials(fxy,m);
 
-
+% Initialise a count
 count = 1;
 
-for diag_index = 0:1:n_t
+for diag_index = 0:1:n_k
     for i = diag_index:-1:0
         j = diag_index - i;
         

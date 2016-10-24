@@ -16,6 +16,12 @@ function [fx_bb] = PowerToBernstein(fxy,m)
 %
 % m : Total degree of f(x,y)
 
+% put the polynomial of total degree m into a m+1 \times m+1 matrix.
+[m1,m2] = GetDegree(fxy);
+temp = zeros(m+1,m+1);
+temp(1:m1+1,1:m2+1) = fxy;
+fxy = temp;
+
 if m == 0
    fx_bb = 1;
    return
@@ -23,6 +29,8 @@ end
 
 b = zeros(m+1,m+1);
 
+% i and j denote the row and column index for the coefficient matrix of the
+% polynomial in bernstein form.
 for i = 0:1:m
     for j = 0:1:m-i
         

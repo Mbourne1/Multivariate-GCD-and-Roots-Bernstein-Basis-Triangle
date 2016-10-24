@@ -1,4 +1,4 @@
-function [fxy_lr,gxy_lr] = GetLowRankApproximation(fxy,gxy,m,n,t)
+function [fxy_lr,gxy_lr,uxy_lr,vxy_lr] = GetLowRankApproximation(fxy,gxy,m,n,t)
 % Get the low rank approximation of the Sylvester matrix S_{t}(f,g), and
 % return the polynomials f_lr(x,y) and g_lr(x,y) which are the perturbed forms of
 % input polynomials f(x,y) and g(x,y). 
@@ -33,17 +33,16 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
     case 'None'
         fxy_lr = fxy;
         gxy_lr = gxy;
-        
+        [uxy_lr,vxy_lr] = GetCofactors(fxy,gxy,t);
         return;
         
         
     case 'Standard STLN'
-        
-        
-        
+
         % Get low rank approximation
-        [fxy_lr,gxy_lr] = STLN(fxy,gxy,t);
+        [fxy_lr,gxy_lr,uxy_lr,vxy_lr] = STLN(fxy,gxy,t);
         
+        %[uxy_lr,vxy_lr] = GetCofactors(fxy_lr,gxy_lr,t);
                
         switch SETTINGS.PLOT_GRAPHS
             case 'y'

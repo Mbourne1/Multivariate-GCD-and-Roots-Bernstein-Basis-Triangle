@@ -1,4 +1,4 @@
-function [] = Test_Deconvolution(ex_num,noise,bool_preproc)
+function [] = o_deconvolution(ex_num,noise,bool_preproc)
 % Perform tests on deconvolution methods
 %
 %
@@ -27,38 +27,9 @@ SETTINGS.PREPROC_DECONVOLUTIONS = bool_preproc;
 SETTINGS.MAX_ERROR_DECONVOLUTIONS = 1e-14;
 SETTINGS.MAX_ITERATIONS_DECONVOLUTIONS = 10;
 
-switch ex_num
-    case '1'
-        
-        % (x + y + 0.5)^7 * (x+y+1.2)^12
-        
-        factor(1,1) = (x + y + 0.5);
-        factor(2,1) = (x + y + 1.2);
-        
-        % Set the multiplicity of each factor
-        vMult = [7; 12];
-        
-        
-    case '2'
-        factor(1,1) = (x + y + 0.5);
-        factor(2,1) = (x + y + 1.2);
-        factor(3,1) = (2*x - y -0.7654);
-        
-        % Set the multiplicity of each factor
-        vMult = [3 ; 7; 11];
-        
-    case '3'
-        % (x + y + 0.5)^7(x + y + 1.2)^10(x + y - 0.15)^15
-        factor(1,1) = (x + y + 0.5);
-        factor(2,1) = (x + y + 1.2);
-        factor(3,1) = (x + y - 0.15);
-        
-        
-        % Set the multiplicity of each factor
-        vMult = [7; 10; 15];
-        
-end
-
+% Get a matrix containing the symbolic factors of a polynomial and a vector
+% containing the multiplicity of each factor. 
+[factor,vMult] = Examples_Deconvolution(ex_num);
 
 % Get the highest power of any factor
 highest_pwr = max(vMult);
@@ -171,9 +142,6 @@ fprintf([mfilename ' : ' 'Batch with STLN \n'])
 
 arr_hxy_brn_batch_with_STLN = Deconvolve_Bivariate_Batch_With_STLN(arr_fxy_brn_noisy,vDegt_arr_fxy);
 vErrors_batch_with_STLN = GetErrors(arr_hxy_brn_batch_with_STLN,arr_hxy_brn);
-
-
-
 
 % -------------------------------------------------------------------------
 % %
