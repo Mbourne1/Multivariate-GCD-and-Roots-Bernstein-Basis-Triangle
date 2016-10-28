@@ -29,7 +29,7 @@ SETTINGS.MAX_ITERATIONS_DECONVOLUTIONS = 10;
 
 % Get a matrix containing the symbolic factors of a polynomial and a vector
 % containing the multiplicity of each factor. 
-[factor,vMult] = Examples_Deconvolution(ex_num);
+[factor,vMult] = Bivariate_Deconvolution_Examples(ex_num);
 
 % Get the highest power of any factor
 highest_pwr = max(vMult);

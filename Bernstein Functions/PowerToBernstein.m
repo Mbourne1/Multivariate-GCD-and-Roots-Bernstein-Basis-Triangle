@@ -18,6 +18,7 @@ function [fx_bb] = PowerToBernstein(fxy,m)
 
 % put the polynomial of total degree m into a m+1 \times m+1 matrix.
 [m1,m2] = GetDegree(fxy);
+
 temp = zeros(m+1,m+1);
 temp(1:m1+1,1:m2+1) = fxy;
 fxy = temp;

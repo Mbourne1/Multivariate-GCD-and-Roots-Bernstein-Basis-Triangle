@@ -9,12 +9,10 @@ nUniqueFactors = size(root_mult_arr,1);
 % Intialise the symbolic polynomial
 symbolic_fxy = 1;
 
-for i = 1:1:nUniqueFactors
+for i = 1:1:length(root_mult_arr)
     
-    factor = root_mult_arr(i,1);
-    mult = root_mult_arr(i,2);
     
-    symbolic_fxy = symbolic_fxy * (factor.^mult);
+    symbolic_fxy = symbolic_fxy * root_mult_arr{i};
 end
 
 

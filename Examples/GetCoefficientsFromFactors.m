@@ -24,12 +24,14 @@ end
 % Get product of all factors
 fx = arr_factors{1};
 m = arr_m{1};
+
 for i = 2:1:length(arr_factors)
     
     % m = degree of f(x)
     
     % n = degree of next factor
     n = arr_m{i};
+    
     fx = Bernstein_Multiply(fx,arr_factors{i},m,n);
     
     m = m + n;

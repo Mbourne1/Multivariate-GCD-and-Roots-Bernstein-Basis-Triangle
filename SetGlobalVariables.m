@@ -8,7 +8,7 @@ global SETTINGS
 % 'y'
 % 'n'
 %
-SETTINGS.PLOT_GRAPHS = 'y';
+
 
 SETTINGS.SEED = 1024;
 

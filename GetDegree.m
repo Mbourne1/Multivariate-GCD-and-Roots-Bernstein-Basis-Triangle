@@ -20,8 +20,6 @@ function [m1,m2] = GetDegree(fxy)
 m1 = nRows -1;
 m2 = nCols -1;
 
-if (m1 ~= m2)
-    error('m1 should be equal to m2. Check that f(x,y) is a valid polynomial.')
-end
+
 
 end
