@@ -109,7 +109,7 @@ end
 arr_fxy_brn_noisy = cell(nPolys_arr_fxy,1);
 
 for i = 1:1:nPolys_arr_fxy
-    arr_fxy_brn_noisy{i,1} = Noise(arr_fxy_brn{i},noise);
+    arr_fxy_brn_noisy{i,1} = AddNoiseToPoly(arr_fxy_brn{i},noise);
 end
 
 %--------------------------------------------------------------------------

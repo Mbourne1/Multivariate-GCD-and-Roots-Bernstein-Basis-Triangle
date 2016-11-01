@@ -61,7 +61,7 @@ problem_type = 'Roots Bivariate Bernstein Triangle';
 [fxy_exact,m] = Examples_Roots(ex_num);
 
 % Add noise to the coefficients of polynomial f(x,y)
-[fxy,~] = Noise2(fxy_exact,emin);
+[fxy,~] = AddNoiseToPoly(fxy_exact,emin);
 
 o_roots_mymethod(fxy,m);
 

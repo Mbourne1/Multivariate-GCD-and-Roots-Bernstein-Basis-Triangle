@@ -7,11 +7,6 @@ function hxy = Deconvolve_Bivariate(fxy,gxy)
 % fxy : Coefficients of polynomial f(x,y)
 %
 % gxy : Coefficients of polynomial g(x,y)
-%
-% m : Degree of polynomial f(x,y)
-%
-% n : Degree of polynomial g(x,y)
-%
 % 
 % % Outputs
 %
@@ -19,10 +14,10 @@ function hxy = Deconvolve_Bivariate(fxy,gxy)
 
 
 % Get degree of f(x,y) (Note: m1 = m2)
-[m1,m2] = GetDegree(fxy);
+[m1,~] = GetDegree(fxy);
 
 % Get degree of g(x,y) (Note: n1 = n2)
-[n1,n2] = GetDegree(gxy);
+[n1,~] = GetDegree(gxy);
 
 % Get m, the total degree of f(x,y)
 m = m1;

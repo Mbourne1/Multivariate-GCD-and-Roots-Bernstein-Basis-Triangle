@@ -1,5 +1,5 @@
 function [th1,th2] = GetOptimalTheta(arr_fxy)
-
+% GetOptimalTheta(arr_fxy)
 f = [1 -1 0 0];
 
 % Get the number of polynomials in the array 

@@ -1,9 +1,17 @@
 function f_vec = GetAsVector(fxy_matrix)
+% GetAsVector(fxy_matrix)
+%
 % Given the polynomial f in the bernstein basis, whose coefficients are in
 % matrix form, obtain the vector of the coefficients such that the order is
 % increasing and the higher power of x is first.
-
-%% Get Structure of f(x,y)
+%
+% % Inputs.
+%
+% fxy_matrix : Matrix of coefficients of polynomial f(x,y)
+%
+% % Outputs.
+% 
+% f_vec : Vector of coefficients of polynomial f(x,y)
 
 % Get degree of polynomial f(x,y) with respect to x
 [m1,m2] = GetDegree(fxy_matrix);
@@ -15,10 +23,10 @@ count = 1;
 f_vec = zeros((m1+1)*(m2+1),1);
 
 % Get the number of diagonals in the matrix of coefficients of f(x,y)
-num_diags = (m1+1)+(m2+1)-1;
+nDiagonals = (m1+1)+(m2+1)-1;
 
 
-for tot = 0:1:num_diags
+for tot = 0:1:nDiagonals
     for i = tot:-1:0
         j = tot - i;
         

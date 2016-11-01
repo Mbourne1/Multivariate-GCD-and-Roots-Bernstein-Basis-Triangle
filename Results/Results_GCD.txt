@@ -104,3 +104,6 @@ Date, example_number, m,   n,   t,   error, mean_method,  bool_alpha_theta, low_
 28-Oct-2016 14:45:53, 	 1, 	 7, 	 7, 	 4, 	 2.361234e-06, 	 Geometric Mean Matlab Method, 	 y, 	 Standard STLN, 	 1.000000e-10 
 28-Oct-2016 14:46:26, 	 2, 	 13, 	 11, 	 8, 	 7.341878e-03, 	 Geometric Mean Matlab Method, 	 y, 	 Standard STLN, 	 1.000000e-10 
 28-Oct-2016 14:46:43, 	 1, 	 7, 	 7, 	 4, 	 3.294799e-10, 	 Geometric Mean Matlab Method, 	 y, 	 None, 	 1.000000e-10 
+01-Nov-2016 12:09:27, 	 1, 	 7, 	 7, 	 4, 	 2.361234e-06, 	 Geometric Mean Matlab Method, 	 y, 	 Standard STLN, 	 1.000000e-10 
+01-Nov-2016 12:09:40, 	 1, 	 7, 	 7, 	 4, 	 3.294799e-10, 	 Geometric Mean Matlab Method, 	 y, 	 None, 	 1.000000e-10 
+01-Nov-2016 12:09:56, 	 1, 	 7, 	 7, 	 4, 	 2.361234e-06, 	 Geometric Mean Matlab Method, 	 y, 	 Standard STLN, 	 1.000000e-10 
