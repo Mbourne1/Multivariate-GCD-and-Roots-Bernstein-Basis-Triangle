@@ -1,6 +1,14 @@
 function D = BuildD(m,n_t)
+% BuildD(m,n_t)
+%
 % Build the diagonal matrix D^{-1} for the convolution of two polynomials
 % f(x,y) and v(x,y) of degrees m and n-t.
+%
+% Inputs
+%
+% m : Degree of polynomial f(x,y)
+%
+% n_t : Degree of polynomial v(x,y)
 
 % Initialise a temporary matrix to store the (m+n-t+1) x (m+n-t+1) diagonal
 % entries of the matrix D.

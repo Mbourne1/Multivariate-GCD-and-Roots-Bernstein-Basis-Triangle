@@ -1,5 +1,6 @@
-function Cf = BuildT1(fxy,m,n_k)
-% BuildT1
+function T1 = BuildT1(fxy,m,n_k)
+% BuildT1(fxy,m,n_k)
+%
 % Build the matrix T_{n-k} where T_{n-k}(f(x,y))*v = h. 
 %
 % The matrix is used in computing the product of f(x,y) and v(x,y).
@@ -16,7 +17,11 @@ function Cf = BuildT1(fxy,m,n_k)
 %
 % m : Total degree of f(x,y)
 %
-% n-k : Total degree of v(x,y)
+% n_k : Total degree of v(x,y)
+%
+% Outputs.
+%
+% T1 : The partition T_{n-k}(f) of the Sylvester matrix S_{k}(f,g)
 
 % Get number of coefficients of v(x,y)
 nCoefficients_vxy = nchoosek(n_k+2,2);
@@ -27,7 +32,7 @@ nCoefficients_hxy = nchoosek(m+n_k+2,2);
 % Initialise a zero matrix
 zero_mat = zeros(m+n_k+1,m+n_k+1);
 
-Cf = zeros(nCoefficients_hxy,nCoefficients_vxy);
+T1 = zeros(nCoefficients_hxy,nCoefficients_vxy);
 
 % Get fxy with trinomial coefficients
 fxy_tri = GetWithTrinomials(fxy,m);
@@ -51,7 +56,7 @@ for diag_index = 0:1:n_k
         
         % Insert coefficients into the i,j th column of C(f(x,y)).
         
-        Cf(:,count) = temp_vec;
+        T1(:,count) = temp_vec;
         
         % Increment counter
         count = count + 1;

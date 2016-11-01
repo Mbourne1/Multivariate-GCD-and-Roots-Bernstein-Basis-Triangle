@@ -1,11 +1,20 @@
-function Q = BuildQ1(m)
+function Q1 = BuildQ1(m)
+% BuildQ1(m)
+%
 % Given the coefficients of polynomial f(x,y), build the diagonal matrix Q
 % of trinomial coefficients. 
 % Used in convolution the product f*v is given by 
 % D^{-1}T_{n-k}(f)Q_{n-k} * v = h.
 % Also used in construction of the kth Sylvester subresultant matrix. The
 % matrix S_{k}(f,g) = D^{-1}T(f,g)blkdiag(Q_{n-k},Q_{m-k}) 
-
+%
+% Inputs
+%
+% m : Degree of polynomial f(x,y)
+%
+% Outputs.
+%
+% Q : The diagonal matrix Q1
 
 % Initialise a temporary matrix to store the trinomial coefficients.
 temp_mat = zeros(m+1,m+1);
@@ -28,7 +37,7 @@ nNonZeros = nchoosek(m+2,2);
 temp_vec = temp_vec(1:nNonZeros);
 
 % Build the matrix Q_{m}
-Q = diag(temp_vec);
+Q1 = diag(temp_vec);
 
 
 end

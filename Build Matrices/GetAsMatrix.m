@@ -1,4 +1,6 @@
 function fxy_matrix = GetAsMatrix(f_vec,m1,m2)
+% GetAsMatrix(f_vec,m1,m2)
+%
 % Given the vector of coefficients of the polynomial f(x,y), 
 % format the coefficients as a matrix.
 

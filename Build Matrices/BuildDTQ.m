@@ -1,6 +1,15 @@
 function S = BuildDTQ(fxy,gxy,k)
+% BuildDTQ(fxy,gxy,k)
+%
 % Build the Sylvester matrix D^{-1}T_{k}(f,g)Q where Q is block diagonal
 % matrix of matrices Q_{n-k} and Q_{m-k}.
+%
+% fxy : Coefficients of polynomial f(x,y)
+%
+% gxy : Coefficients of polynomial g(x,y)
+%
+% k : index k, determines which Sylvester subresultant matrix is being
+% constructed. S_{k}(f,g)
 
 % Get degree of f(x,y) and g(x,y)
 m = GetDegree(fxy);
