@@ -1,4 +1,4 @@
-function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method)
+function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method,sylvester_matrix_type)
 % O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
 % and g(x,y) are given in the Bernstein form, and are taken from the
 % example file.
@@ -21,12 +21,19 @@ function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_metho
 %               * None
 %
 %
+% sylvester_matrix_type : 
+%       * T
+%       * DT
+%       * DTQ
+%       * TQ
+%
 % % Example
 %
-% >> o_gcd('1',1e-10,'Geometric Mean Matlab Method','y','Standard STLN')
+% >> o_gcd('1',1e-10,'Geometric Mean Matlab Method','y','Standard STLN','DTQ')
 
 
 % Set variables
+global SETTINGS
 SETTINGS.PLOT_GRAPHS = 'y';
 
 % Add subfolders
@@ -45,11 +52,11 @@ addpath (...
         'Preprocessing'...
         );
     
-global SETTINGS
 SETTINGS.EX_NUM = ex_num;
 SETTINGS.EMIN = el;
 
-SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method);
+% Set global variables
+SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method,sylvester_matrix_type);
 
 % %
 % Get two polynomials f(x,y) and g(x,y) from example file.
@@ -98,7 +105,7 @@ fullFileName = 'Results/Results_GCD.txt';
 
 if exist(fullFileName, 'file')
     fileID = fopen(fullFileName,'a');
-    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
+    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
         datetime('now'),...
         SETTINGS.EX_NUM,...
         int2str(m),...
@@ -108,7 +115,8 @@ if exist(fullFileName, 'file')
         SETTINGS.MEAN_METHOD,...
         SETTINGS.BOOL_ALPHA_THETA,...
         SETTINGS.LOW_RANK_APPROX_METHOD,...
-        SETTINGS.EMIN...
+        SETTINGS.EMIN,...
+        SETTINGS.SYLVESTER_MATRIX_TYPE...
         );
     fclose(fileID);
 else

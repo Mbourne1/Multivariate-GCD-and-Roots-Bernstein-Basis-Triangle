@@ -1,4 +1,4 @@
-function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method)
+function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method,sylvester_type)
 
 global SETTINGS
 
@@ -8,10 +8,12 @@ global SETTINGS
 % 'y'
 % 'n'
 %
-
+SETTINGS.PLOT_GRAPHS = 'n';
 
 SETTINGS.SEED = 1024;
 
+% T, DTQ, DT, TQ
+SETTINGS.SYLVESTER_MATRIX_TYPE = sylvester_type;
 
 %--------------------------------------------------------------------------
 %

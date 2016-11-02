@@ -20,21 +20,18 @@ function [uxy,vxy] = GetCofactors(fxy,gxy,t)
 % vxy : Coefficients of polynomial v(x,y)
 
 % Get the degree of f(x,y) (Note m1 = m2)
-[m1,m2] = GetDegree(fxy);
+[m1,~] = GetDegree(fxy);
 m = m1;
 
 % Get the degree of g(x,y) (Note n1 = n2)
-[n1,n2] = GetDegree(gxy);
+[n1,~] = GetDegree(gxy);
 n = n1;
 
 % % Solve the Ax = b problem 
 
 % Build the modified Sylvester matrix S_{k} = D^{-1}_{m+n-k}T_{k}(f,g)Q_{n-k,m-k}
-D = BuildD(m,n-t);
-T1 = BuildT1(fxy,m,n-t);
-T2 = BuildT1(gxy,n,m-t);
-Q = BuildQ(m,n,t);
-Sk = D* [T1 T2] * Q;
+
+Sk = BuildSylvesterMatrix(fxy,gxy,m,n,t);
 
 
 % %
@@ -67,8 +64,33 @@ x = ...
 % Split x to obtain v(x,y) and u(x,y) and get u(x,y) and v(x,y) as matrices
 % of coefficients
 
+
+% If Q is included in Sylvester Matrix, then u(x,y) and v(x,y) coefficients
+% are given by the vector x, otherwise, the vector gives coefficients in 
+% scaled Bernstein form and must remove trinomial coefficients.
+global SETTINGS
+switch SETTINGS.SYLVESTER_TYPE
+    case 'T'
+        Q = BuildQ(m,n,t);
+        x = Q\x;
+    case 'DT'
+        % Matrix Q is included in the solution vector so divide by this to
+        % get coefficients u(x,y) and v(x,y)
+        Q = BuildQ(m,n,t);
+        x = Q\x;
+    case 'DTQ'
+        % Q is included in S_{k} so u(x,y) and v(x,y) are 
+    case 'TQ'
+  
+    otherwise 
+        error('err')
+end
+
+
 % Get number of coefficients in v(x,y)
 nCoefficients_vxy = nchoosek(n-t+2,2);
+
+
 
 % Get vectors of coefficients of u(x,y) and v(x,y)
 v_vxy = x(1:nCoefficients_vxy);

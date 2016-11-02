@@ -1,4 +1,16 @@
-function [fxy,gxy,uxy,vxy] = STLN(fxy,gxy,t)
+function [fxy,gxy,uxy,vxy] = STLN(fxy,gxy,k)
+% Compute the low rank approximation of the Sylvester matrix S_{k}(f,g)
+% by method of Structured Total Least Norm STLN.
+%
+% % Inputs.
+% 
+% fxy : Coefficients of polynomial f(x,y)
+%
+% gxy : Coefficients of polynomial g(x,y)
+%
+% k : Degree of common divisor d(x,y) and index of the Sylvester matrix
+% S_{k} whose low rank approximation is considered.
+
 
 % Get the degree of f(x,y)
 [m,~] = GetDegree(fxy);
@@ -12,12 +24,19 @@ nCoefficients_fxy = nchoosek(m+2,2);
 % Get number of coefficients in g(x,y)
 nCoefficients_gxy = nchoosek(n+2,2);
 
-% Build Sylvester Matrix S_{t}(f,g)
-D = BuildD(m,n-t);
-T1_fx = BuildT1(fxy,m,n-t);
-T1_gx = BuildT1(gxy,n,m-t);
-Q = BuildQ(m,n,t);
+% Build the diagonal matrix D^{-1}
+D = BuildD(m,n-k);
+
+% Build the matrix T_{n-k}(f)
+T1_fx = BuildT1(fxy,m,n-k);
+
+% Build the matrix T_{m-k}(g)
+T1_gx = BuildT1(gxy,n,m-k);
+
+Q = BuildQ(m,n,k);
+
 St = D*[T1_fx T1_gx] * Q;
+
 
 % Get Optimal Column for removal
 opt_col = GetOptimalColumn(St);
@@ -25,7 +44,7 @@ opt_col = GetOptimalColumn(St);
 fprintf([mfilename ' : ' sprintf('Optimal Column for removal : %i \n',opt_col)]);
 
 % Build the matrix M_{q}, the identity matrix of size
-nCols_St = nchoosek(m-t+2,2) + nchoosek(n-t+2,2);
+nCols_St = nchoosek(m-k+2,2) + nchoosek(n-k+2,2);
 Mq = eye(nCols_St);
 Mq(:,opt_col) = [];
 
@@ -41,7 +60,7 @@ x_ls = SolveAx_b(At,ct);
 res_vec = ct - (At*x_ls);
 
 % Build P_{t} - The matrix P_{t} such that P_{t}z = ht or P_{t}[f;g] = c_{t}
-Pt = BuildPt(m,n,t,opt_col);
+Pt = BuildPt(m,n,k,opt_col);
 
 % Build the matrix $C_{t}(\hat{x}_{1},\hat{x}_{2})$ such that $C_{t}(x1,x2)*z
 % = C_{t}(z1,z2)x$
@@ -53,18 +72,18 @@ vec_x1x2 = [x_ls(1:opt_col-1) ; 0 ; x_ls(opt_col:end)];
 
 % split the vector x into \hat{x}_{1} and \hat{x}_{2}
 % Get number of coefficients in x1
-nCoefficients_x1 = nchoosek(n-t+2,2);
-nCoefficients_x2 = nchoosek(m-t+2,2);
+nCoefficients_x1 = nchoosek(n-k+2,2);
+nCoefficients_x2 = nchoosek(m-k+2,2);
 
 % Get x1 as a matrix of coefficients for input into BuildT1() function
 try
-    nZeros_xv = nchoosek(n-t+1,2);
+    nZeros_xv = nchoosek(n-k+1,2);
 catch
     nZeros_xv = 0;
 end
 
 try
-    nZeros_xu = nchoosek(m-t+1,2);
+    nZeros_xu = nchoosek(m-k+1,2);
 catch
     nZeros_xu = 0;
 end
@@ -81,14 +100,14 @@ vec_x1 = [ x1 ; zeros(nZeros_xv,1)];
 vec_x2 = [ x2 ; zeros(nZeros_xu,1)];
 
 % Get as matrix
-mat_xv = GetAsMatrix(vec_xv,n-t,n-t);
-mat_xu = GetAsMatrix(vec_xu,m-t,m-t);
-mat_x1 = GetAsMatrix(vec_x1,n-t,n-t);
-mat_x2 = GetAsMatrix(vec_x2,m-t,m-t);
+mat_xv = GetAsMatrix(vec_xv,n-k,n-k);
+mat_xu = GetAsMatrix(vec_xu,m-k,m-k);
+mat_x1 = GetAsMatrix(vec_x1,n-k,n-k);
+mat_x2 = GetAsMatrix(vec_x2,m-k,m-k);
 
 % Build the matrix T_{m}(\hat{x}_{1})
-T1_x1 = BuildT1(mat_x1,n-t,m);
-T1_x2 = BuildT1(mat_x2,m-t,n);
+T1_x1 = BuildT1(mat_x1,n-k,m);
+T1_x2 = BuildT1(mat_x2,m-k,n);
 
 
 % Build Q_{m}
@@ -126,8 +145,8 @@ nZeros_zg = nchoosek(n+1,2);
 vec_zg = [zg ; zeros(nZeros_zg,1)];
 mat_zg = GetAsMatrix(vec_zg,n,n);
 
-T1_zf = BuildT1(mat_zf,m,n-t);
-T1_zg = BuildT1(mat_zg,n,m-t);
+T1_zf = BuildT1(mat_zf,m,n-k);
+T1_zg = BuildT1(mat_zg,n,m-k);
 
 Ct_zfzg = D*[T1_zf T1_zg] * Q;
 At_zfzg = Ct_zfzg * Mq;
@@ -146,7 +165,7 @@ C = [H_z H_x];
 
 
 % Build the matrix E for LSE Problem
-nEntries_x = nchoosek(m-t+2,2) + nchoosek(n-t+2,2) - 1;
+nEntries_x = nchoosek(m-k+2,2) + nchoosek(n-k+2,2) - 1;
 nEntries_z = nchoosek(m+2,2) + nchoosek(n+2,2);
 
 E = eye(nEntries_x + nEntries_z);
@@ -203,8 +222,8 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     vec_zg = [zg ; zeros(nZeros_zg,1)];
     mat_zg = GetAsMatrix(vec_zg,n,n);
 
-    T1_zf = BuildT1(mat_zf,m,n-t);
-    T1_zg = BuildT1(mat_zg,n,m-t);
+    T1_zf = BuildT1(mat_zf,m,n-k);
+    T1_zg = BuildT1(mat_zg,n,m-k);
 
     Ct_zfzg = D*[T1_zf T1_zg] * Q;
     
@@ -235,21 +254,21 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     vec_xu = [ xu ; zeros(nZeros_xu,1)];
     
     % Get as matrix
-    mat_xv = GetAsMatrix(vec_xv,n-t,n-t);
-    mat_xu = GetAsMatrix(vec_xu,m-t,m-t);
+    mat_xv = GetAsMatrix(vec_xv,n-k,n-k);
+    mat_xu = GetAsMatrix(vec_xu,m-k,m-k);
     
     % Build the matrix Y_{t}(x) such that Y_{t}(x) [f;g] = S_{t}(f,g)x    
     x1 = vec_x1x2(1:nCoefficients_x1);
     x2 = vec_x1x2(nCoefficients_x1 + 1 : nCoefficients_x1 + nCoefficients_x2);
     vec_x1 = [x1 ; zeros(nZeros_xv,1)];
     vec_x2 = [x2 ; zeros(nZeros_xu,1)];
-    mat_x1 = GetAsMatrix(vec_x1,n-t,n-t);
-    mat_x2 = GetAsMatrix(vec_x2,m-t,m-t);
+    mat_x1 = GetAsMatrix(vec_x1,n-k,n-k);
+    mat_x2 = GetAsMatrix(vec_x2,m-k,m-k);
        
     
     % Build the matrix T_{m}(\hat{x}_{1})
-    T1_x1 = BuildT1(mat_x1,n-t,m);
-    T1_x2 = BuildT1(mat_x2,m-t,n);
+    T1_x1 = BuildT1(mat_x1,n-k,m);
+    T1_x2 = BuildT1(mat_x2,m-k,n);
     
     
     Ct_x1x2 = D * [T1_x1*Qm T1_x2*Qn];
@@ -311,13 +330,7 @@ fprintf([mfilename ' : ' sprintf('STLN Number of iterations required : %i \n',it
 % 
 % end
 
-fig_name = sprintf('%s : condition',mfilename);
-figure('name',fig_name)
-hold on
-plot(log10(condition))
-xlabel('iteration');
-ylabel('log_{10} condition');
-hold off
+plotgraphs_STLN();
 
 end
 

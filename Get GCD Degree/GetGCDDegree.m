@@ -41,22 +41,7 @@ for k = 1:1:min(m,n)
     
     % %
     % Build the Sylvester Matrix
-    
-    % Build the diagonal matrix D^{-1}
-    D = BuildD(m,n-k);
-    
-    % Build the matrix T_{n-k}(f)
-    T1 = BuildT1(fww,m,n-k);
-    
-    % Build the matrix T_{m-k}(g)
-    T2 = BuildT1(alpha.*gww,n,m-k);
-    
-    % Build the matrix Q
-    Q = BuildQ(m,n,k);
-    
-    
-    % Build the Sylvester matrix S_{k}
-    Sk = D * [T1 T2] * Q;
+    Sk = BuildSylvesterMatrix(fww,gww,m,n,k);
     
     % Get vector of singular values
     vSingularValues = svd(Sk);
@@ -66,21 +51,21 @@ for k = 1:1:min(m,n)
     
     %
     
-    switch SETTINGS.PLOT_GRAPHS
-        case 'y'
-            figure('name',sprintf([mfilename sprintf('Singular Values S_{%i}',k)]));
-            hold on
-            vSingularValues = svd(Sk);
-            xlim([1 length(vSingularValues)]);
-            xlabel('i')
-            ylabel('log_{10} \sigma_{i}')
-            plot(log10(vSingularValues),'-s');
-            hold off
-        case 'n'
-        otherwise
-            error('err')
-            
-    end
+%     switch SETTINGS.PLOT_GRAPHS
+%         case 'y'
+%             figure('name',sprintf([mfilename sprintf('Singular Values S_{%i}',k)]));
+%             hold on
+%             vSingularValues = svd(Sk);
+%             xlim([1 length(vSingularValues)]);
+%             xlabel('i')
+%             ylabel('log_{10} \sigma_{i}')
+%             plot(log10(vSingularValues),'-s');
+%             hold off
+%         case 'n'
+%         otherwise
+%             error('err')
+%             
+%     end
     
 end
 

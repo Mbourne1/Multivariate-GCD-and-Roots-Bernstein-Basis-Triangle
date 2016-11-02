@@ -31,9 +31,11 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
     
     
     case 'None'
+        
         fxy_lr = fxy;
         gxy_lr = gxy;
         [uxy_lr,vxy_lr] = GetCofactors(fxy,gxy,t);
+        
         return;
         
         

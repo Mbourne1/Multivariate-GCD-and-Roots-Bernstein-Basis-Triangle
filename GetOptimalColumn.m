@@ -14,7 +14,7 @@ function opt_col = GetOptimalColumn(Sk)
 % t2         : Degree of GCD d(x,y) with respect to y
 
 % Get the number
-[~,nColsSt1t2] = size(Sk);
+[~,nCols] = size(Sk);
 
 % QR Decomposition of the Sylvester Matrix S_{k}
 [Qk,Rk] = qr(Sk);
@@ -23,9 +23,13 @@ function opt_col = GetOptimalColumn(Sk)
 % Ax=b, where A consists of the remaining columns of S_{t_{1},t_{2}} and b
 % is the removed column c_{k}
 
-for k = 1 : 1 : nColsSt1t2
+% Intialise a zero vector to store residuals obtained by the removal of
+% each column.
+vec_residuals_QR = zeros(nCols,1);
+
+for k = 1 : 1 : nCols
     
-    % Get column for removal
+    % Get column c_{k} for removal from S_{k}
     ck = Sk(:,k);
     
     % Perform QR delete to remove k column from QR decomposition of 
@@ -34,15 +38,15 @@ for k = 1 : 1 : nColsSt1t2
     
     cd = Q'*ck;
     
-    d = cd(nColsSt1t2+1:end,:);
+    d = cd(nCols+1:end,:);
     
     % Get Residuals
-    residuals_QR(k) = norm(d);
+    vec_residuals_QR(k) = norm(d);
     
 end
 
 %Obtain the column for which the residual is minimal.
-[~,opt_col] = min(log10(residuals_QR));
+[~,opt_col] = min(log10(vec_residuals_QR));
 
 % Print out optimal column for removal.
 fprintf([mfilename ' : ' sprintf('Optimal column for removal is : %i \n',opt_col)]);
