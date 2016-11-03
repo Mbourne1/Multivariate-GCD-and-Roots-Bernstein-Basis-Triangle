@@ -49,15 +49,15 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         switch SETTINGS.PLOT_GRAPHS
             case 'y'
                 % Build the Sylvester matrix of f(x,y) and g(x,y)
-                D = BuildD(m,n);
-                T1 = BuildT1(fxy,m,n);
-                T2 = BuildT1(gxy,n,m);
-                Q = BuildQ(m,n,0);
+                D = BuildD(m,n-t);
+                T1 = BuildT1(fxy,m,n-t);
+                T2 = BuildT1(gxy,n,m-t);
+                Q = BuildQ(m,n,t);
                 [vSingularValues_1] = svd(D*[T1 T2]*Q);
 
                 % Build the sylvester matrix of f_lr(x,y) and g_lr(x,y)
-                T1 = BuildT1(fxy_lr,m,n);
-                T2 = BuildT1(gxy_lr,n,m);
+                T1 = BuildT1(fxy_lr,m,n-t);
+                T2 = BuildT1(gxy_lr,n,m-t);
                 [vSingularValues_2] = svd(D*[T1 T2]*Q);
                 
                 % Plot the singular values.

@@ -8,7 +8,7 @@ global SETTINGS
 % 'y'
 % 'n'
 %
-SETTINGS.PLOT_GRAPHS = 'n';
+SETTINGS.PLOT_GRAPHS = 'y';
 
 SETTINGS.SEED = 1024;
 
@@ -58,8 +58,8 @@ SETTINGS.THRESHOLD_RANK = 1e-10;
 %
 SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
 
-SETTINGS.STLN_MAX_ERROR = 1e-11;
-SETTINGS.STLN_MAX_ITERATIONS = 10;
+SETTINGS.STLN_MAX_ERROR = 1e-13;
+SETTINGS.STLN_MAX_ITERATIONS = 100;
 
 %--------------------------------------------------------------------------
 

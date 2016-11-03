@@ -69,7 +69,7 @@ x = ...
 % are given by the vector x, otherwise, the vector gives coefficients in 
 % scaled Bernstein form and must remove trinomial coefficients.
 global SETTINGS
-switch SETTINGS.SYLVESTER_TYPE
+switch SETTINGS.SYLVESTER_MATRIX_TYPE
     case 'T'
         Q = BuildQ(m,n,t);
         x = Q\x;

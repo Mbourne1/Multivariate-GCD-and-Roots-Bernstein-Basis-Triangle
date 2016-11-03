@@ -35,6 +35,10 @@ addpath('../Examples')
 symbolic_f = GetSymbolicPoly(f_root_mult_arr);
 symbolic_g = GetSymbolicPoly(g_root_mult_arr);
 symbolic_d = GetSymbolicPoly(d_root_mult_arr);
+display(symbolic_f)
+display(symbolic_g)
+display(symbolic_d)
+
 
 % Get the total degree of the polynomials f,g,d when in power form.
 m = double(feval(symengine, 'degree', symbolic_f));
