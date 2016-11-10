@@ -47,19 +47,20 @@ function [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n,limits_t)
 fxy_n = fxy ./ lambda;
 gxy_n = gxy ./ mu;
 
-% Get With Thetas
-fww = GetWithThetas(fxy_n,m,th1,th2);
-gww = GetWithThetas(gxy_n,n,th1,th2);
-
 % Get low rank approximation of S_{t}(f,g) and use perturbed coefficients.
 % Update f(w,w) and g(w,w).
+[fxy_lr,gxy_lr,alpha_lr,th1_lr,th2_lr] = GetLowRankApproximation(fxy_n,gxy_n,alpha,th1,th2,m,n,t);
 
-[fww,a_gww,uww,vww] = GetLowRankApproximation(fww,alpha.*gww,m,n,t);
-gww = a_gww./alpha;
+fww = GetWithThetas(fxy_lr,m,th1_lr,th2_lr);
+gww = GetWithThetas(gxy_lr,n,th1_lr,th2_lr);
+a_gww = alpha_lr.*gww;
+
+% Get cofactors
+[uww,vww] = GetCofactors(fww,a_gww,t);
 
 % %
 % Get the GCD polynomial d(x,y)
-dww = GetGCDCoefficients(fww,alpha.*gww,uww,vww,m,n,t);
+dww = GetGCDCoefficients(fww,a_gww,uww,vww,m,n,t);
 
 % % 
 % Remove thetas

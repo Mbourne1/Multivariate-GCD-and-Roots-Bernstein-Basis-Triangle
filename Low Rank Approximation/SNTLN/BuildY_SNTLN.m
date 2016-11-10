@@ -1,4 +1,4 @@
-function Yk = BuildY(vec_x1x2,m,n,k)
+function Yk = BuildY_STLN(vec_x1x2,m,n,k)
 % BuildY(vec_x1x2,m,n,k)
 %
 % Build the matrix Y_{k}(x1,x2)

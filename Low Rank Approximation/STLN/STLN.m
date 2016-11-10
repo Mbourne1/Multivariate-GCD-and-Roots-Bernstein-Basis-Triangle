@@ -29,10 +29,28 @@ function [fxy_lr,gxy_lr,uxy_lr,vxy_lr] = STLN(fxy,gxy,k)
 [n,~] = GetDegree(gxy);
 
 % Get number of coefficients in f(x,y)
-nCoefficients_fxy = nchoosek(m+2,2);
+nCoeffs_fxy = nchoosek(m+2,2);
+
+% Get the number of zeros in the matrix containing f(x,y)
+nZeros_fxy = nchoosek(m+1,2);
 
 % Get number of coefficients in g(x,y)
-nCoefficients_gxy = nchoosek(n+2,2);
+nCoeffs_gxy = nchoosek(n+2,2);
+
+% Get the number of zeros in the matrix containing g(x,y)
+nZeros_gxy = nchoosek(n+1,2);
+
+% Get number of coefficients in u(x,y)
+nCoeffs_uxy = nchoosek(m-k+2,2);
+
+% Get the number of zeros in the matrix of u(x,y)
+nZeros_uxy = nchoosek(m-k+1,2);
+
+% Get number of coefficients in v(x,y)
+nCoeffs_vxy = nchoosek(n-k+2,2);
+
+% Get number of zeros in the matrix of v(x,y)
+nZeros_vxy = nchoosek(n-k+1,2);
 
 % Build the kth Sylvester Subresultant matrix S_{k}(f,g)
 % Build the diagonal matrix D^{-1}
@@ -67,37 +85,41 @@ x_ls = SolveAx_b(Ak_fg,ck);
 res_vec = (ck) - (Ak_fg*x_ls);
 
 % Build P_{t} - The matrix P_{t} such that P_{t}z = ht or P_{t}[f;g] = c_{t}
-Pk = BuildP(m,n,k,idx_col);
+DPQ = BuildP_STLN(m,n,k,idx_col);
 
 % Obtain the vector \hat{x} which contains x_ls with a zero inserted into
 % the position of the optimal column.
-vec_xvxu = [x_ls(1:idx_col-1) ; -1 ; x_ls(idx_col:end)];
-vec_x1x2 = [x_ls(1:idx_col-1) ; 0 ; x_ls(idx_col:end)];
+xk = [x_ls(1:idx_col-1) ; 0 ; x_ls(idx_col:end)];
 
 % Build matrix Y_{k}
-Yk = BuildY(vec_x1x2,m,n,k);
+DYQ = BuildY_STLN(xk,m,n,k);
 
-zf = zeros(nchoosek(m+2,2),1);
-zg = zeros(nchoosek(n+2,2),1);
-vec_z = [zf;zg];
-
-nZeros_zf = nchoosek(m+1,2);
-vec_zf = [zf ; zeros(nZeros_zf,1)];
+% Get matrix of coefficients of polynomial z_{f}(x,y)
+zf = zeros(nCoeffs_fxy,1);
+vec_zf = [zf ; zeros(nZeros_fxy,1)];
 mat_zf = GetAsMatrix(vec_zf,m,m);
 
-nZeros_zg = nchoosek(n+1,2);
-vec_zg = [zg ; zeros(nZeros_zg,1)];
+% Get matrix of coefficients of polynomial z_{g}(x,y)
+zg = zeros(nCoeffs_gxy,1);
+vec_zg = [zg ; zeros(nZeros_gxy,1)];
 mat_zg = GetAsMatrix(vec_zg,n,n);
 
+% Get vector z = [z_{f} z_{g}]
+vec_z = [zf;zg];
+
+% Build the matrix T_{n-k}(z_{f})
 T1_zf = BuildT1(mat_zf,m,n-k);
+
+% Build the matrix T_{m-k}(z_{g})
 T1_zg = BuildT1(mat_zg,n,m-k);
 
+% Build the matrix S_{k}(z_{f},z_{g})
 Sk_zfzg = D*[T1_zf T1_zg] * Q;
 Ak_zfzg = Sk_zfzg;
 Ak_zfzg(:,idx_col) = [];
 
 % Build matrices H_{z} and H_{x}
-H_z = Yk - Pk;
+H_z = DYQ - DPQ;
 H_x = Ak_fg + Ak_zfzg;
 
 % Build matrix C.
@@ -148,8 +170,8 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     delta_xls = y_lse(nEntries_z + 1:end);
     
     % Get z1 and z2
-    delta_zf = delta_z(1:nCoefficients_fxy);
-    delta_zg = delta_z(nCoefficients_fxy+1:nCoefficients_fxy+nCoefficients_gxy);
+    delta_zf = delta_z(1:nCoeffs_fxy);
+    delta_zg = delta_z(nCoeffs_fxy+1:nCoeffs_fxy+nCoeffs_gxy);
     
     % Update vectors z, z_{f} and z_{g}
     vec_z = vec_z + delta_z;
@@ -157,10 +179,10 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     zg =  zg + delta_zg;
     
     % % Build matrix S_{t}(z1,z2)
-    vec_zf = [zf ; zeros(nZeros_zf,1)];
+    vec_zf = [zf ; zeros(nZeros_fxy,1)];
     mat_zf = GetAsMatrix(vec_zf,m,m);
     
-    vec_zg = [zg ; zeros(nZeros_zg,1)];
+    vec_zg = [zg ; zeros(nZeros_gxy,1)];
     mat_zg = GetAsMatrix(vec_zg,n,n);
     
     T1_zf = BuildT1(mat_zf,m,n-k);
@@ -183,16 +205,16 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     x_ls = x_ls + delta_xls;
     
     
-    vec_x1x2 = [x_ls(1:idx_col-1) ; 0 ; x_ls(idx_col:end)];
+    xk = [x_ls(1:idx_col-1) ; 0 ; x_ls(idx_col:end)];
     
     
     % Build the matrix Y_{k}
-    Yk = BuildY(vec_x1x2,m,n,k);
+    DYQ = BuildY_STLN(xk,m,n,k);
     
     % % % Build the matrix C in the LSE Problem.
     
     % Build H_z
-    H_z = Yk - Pk;
+    H_z = DYQ - DPQ;
     
     % Build Hx
     H_x = (Ak_fg + Ak_zfzg);
@@ -212,8 +234,9 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     
 end
 
+LineBreakLarge()
 fprintf([mfilename ' : ' sprintf('STLN Number of iterations required : %i \n',ite)])
-
+LineBreakLarge()
 
 % if condition(ite) < condition(1) || ite == 1
 
@@ -221,12 +244,12 @@ fprintf([mfilename ' : ' sprintf('STLN Number of iterations required : %i \n',it
 vec_z = yy(1:nEntries_z);
 
 % Get z1 and z2
-zf = vec_z(1:nCoefficients_fxy);
-zg = vec_z(nCoefficients_fxy+1:end);
+zf = vec_z(1:nCoeffs_fxy);
+zg = vec_z(nCoeffs_fxy+1:end);
 
 % Get Coefficients of polynomials f(x,y) and g(x,y)
-vec_zf = [zf ; zeros(nZeros_zf,1)];
-vec_zg = [zg ; zeros(nZeros_zg,1)];
+vec_zf = [zf ; zeros(nZeros_fxy,1)];
+vec_zg = [zg ; zeros(nZeros_gxy,1)];
 
 mat_zf = GetAsMatrix(vec_zf,m,m);
 mat_zg = GetAsMatrix(vec_zg,n,n);

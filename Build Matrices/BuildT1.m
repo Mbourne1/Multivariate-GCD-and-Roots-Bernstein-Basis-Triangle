@@ -24,15 +24,15 @@ function T1 = BuildT1(fxy,m,n_k)
 % T1 : The partition T_{n-k}(f) of the Sylvester matrix S_{k}(f,g)
 
 % Get number of coefficients of v(x,y)
-nCoefficients_vxy = nchoosek(n_k+2,2);
+nCoeffs_vxy = nchoosek(n_k+2,2);
 
 % Get number of coefficients in the product fg = h(x,y)
-nCoefficients_hxy = nchoosek(m+n_k+2,2);
+nCoeffs_hxy = nchoosek(m+n_k+2,2);
 
 % Initialise a zero matrix
 zero_mat = zeros(m+n_k+1,m+n_k+1);
 
-T1 = zeros(nCoefficients_hxy,nCoefficients_vxy);
+T1 = zeros(nCoeffs_hxy,nCoeffs_vxy);
 
 % Get fxy with trinomial coefficients
 fxy_tri = GetWithTrinomials(fxy,m);
@@ -52,7 +52,7 @@ for diag_index = 0:1:n_k
         temp_vec = GetAsVector(temp_mat);
         
         % Remove all but the first nchoosek(m+n+2,2) coefficients
-        temp_vec = temp_vec(1:nCoefficients_hxy);
+        temp_vec = temp_vec(1:nCoeffs_hxy);
         
         % Insert coefficients into the i,j th column of C(f(x,y)).
         

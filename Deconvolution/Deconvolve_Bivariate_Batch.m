@@ -13,7 +13,7 @@ function [arr_hxy] = Deconvolve_Bivariate_Batch(arr_fxy,vDeg_fxy)
 % % Outputs.
 %
 %
-% arr_hxy :
+% arr_hxy : Array of polynomials h{i}(x,y)
 
 % %
 % %

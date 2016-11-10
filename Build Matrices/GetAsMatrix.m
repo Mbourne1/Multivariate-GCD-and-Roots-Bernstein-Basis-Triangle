@@ -3,6 +3,19 @@ function fxy_matrix = GetAsMatrix(f_vec,m1,m2)
 %
 % Given the vector of coefficients of the polynomial f(x,y), 
 % format the coefficients as a matrix.
+%
+% % Inputs.
+%
+% f_vec : Vector of coefficients of polynomial f(x,y)
+%
+% m1 : Degree of f(x,y) with respect to x
+%
+% m2 : Degree of f(x,y) with respect to y
+%
+% % Outputs.
+%
+% fxy_matrix : Matrix of coefficients of polynomial f(x,y)
+
 
 % Initialise an empty matrix fxy
 fxy_matrix = zeros(m1+1,m2+1);
@@ -14,7 +27,7 @@ count = 1;
 % Get number of diagonals in the matrix fxy.
 nDiagonals = (m1+1) + (m2+1) -1;
 
-for tot = 0:1:nDiagonals -1;
+for tot = 0:1:nDiagonals -1
     for i = tot:-1:0
         j = tot-i;
         if i > m1 || j> m2

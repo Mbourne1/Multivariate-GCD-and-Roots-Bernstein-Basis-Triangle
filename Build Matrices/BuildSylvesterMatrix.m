@@ -1,7 +1,7 @@
 function Sk = BuildSylvesterMatrix(fxy,gxy,m,n,k)
 % BuildSylvesterMatrix(fxy,gxy,m,n,k)
 %
-% Build the Sylvester matrix
+% Build the Sylvester subresultant matrix S_{k}(f,g)
 % 
 %
 % Inputs

@@ -53,13 +53,13 @@ G = BuildQ1(t);
 
 % Get vector of coefficients of f(x,y)
 v_fxy = GetAsVector(fxy);
-nCoefficients_fxy = nchoosek(m+2,2);
-v_fxy = v_fxy(1:nCoefficients_fxy);
+nCoeffs_fxy = nchoosek(m+2,2);
+v_fxy = v_fxy(1:nCoeffs_fxy);
 
 % Get vector of coefficients of g(x,y)
 v_gxy = GetAsVector(gxy);
-nCoefficients_gxy = nchoosek(n+2,2);
-v_gxy = v_gxy(1:nCoefficients_gxy);
+nCoeffs_gxy = nchoosek(n+2,2);
+v_gxy = v_gxy(1:nCoeffs_gxy);
 
 % Build RHS Vector
 rhs_vec = [v_fxy;v_gxy];

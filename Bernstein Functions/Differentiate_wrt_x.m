@@ -1,18 +1,29 @@
 function [dfxy] = Differentiate_wrt_x(fxy)
-% Differentiate_wrt_x
+% Differentiate_wrt_x(fxy)
+%
 % Differentiate with respect to x, the bivariate polynomial f(x,y) which is
 % given in Bernstein form.
+% 
+% % Inputs
+%
+% fxy : Coefficients of polynomial f(x,y).
+%
+% % Outputs
+%
+% dfxy : The coefficients of the polynomial \frac{\partial f}{\partial x}
 
 % Get the degree of f(x,y)
 [m1,~] = GetDegree(fxy);
 m = m1;
 
 % Get number of coefficients of f(x,y)
-nCoefficients_fxy = nchoosek(m+2,2);
+nCoeffs_fxy = nchoosek(m+2,2);
 
-% Get vector of coefficients
+% Get vector of coefficients of polynomial f(x,y)
 v_fxy = GetAsVector(fxy);
-v_fxy = v_fxy(1:nCoefficients_fxy);
+
+% Remove zeros from end of vector to get coefficients of f(x,y)
+v_fxy = v_fxy(1:nCoeffs_fxy);
 
 % Initialise a temp matrix, consisting of zeros
 temp_mat = zeros(m+1,m+1);
@@ -22,7 +33,7 @@ nCoefficients_dfxy = nchoosek(m+1,2);
 
 % Initialise a matrix which transforms the coefficients of the polynomial
 % f(x,y) to the coefficients of the derivative of f(x,y).
-trans_mat = zeros(nCoefficients_dfxy,nCoefficients_fxy);
+trans_mat = zeros(nCoefficients_dfxy,nCoeffs_fxy);
 
 % Initialise a count
 count = 1;
@@ -39,7 +50,7 @@ for k = 0:1:m-1
         mat(i+2,j+1) = m;
     
         temp_vec = GetAsVector(mat)';
-        temp_vec = temp_vec(1:nCoefficients_fxy);
+        temp_vec = temp_vec(1:nCoeffs_fxy);
         
         trans_mat(count,:) = temp_vec;
         count = count + 1;

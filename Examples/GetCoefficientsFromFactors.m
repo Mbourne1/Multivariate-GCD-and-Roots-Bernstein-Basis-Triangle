@@ -1,7 +1,17 @@
-
-function [fx] = GetCoefficientsFromFactors(arr_sym_factors_fxy)
+function [fxy] = GetCoefficientsFromFactors(arr_sym_factors_fxy)
+% GetCoefficientsFromFactors(arr_sym_factors_fxy)
+%
 % Given an array of factors of polynomial f(x,y) compute the coefficients
 % of f(x,y) in Bernstein form.
+%
+% % Inputs.
+%
+% arr_sym_factors_fxy : 
+%
+% % Outputs
+% 
+% fxy : Coefficients of polynomial f(x,y)
+
 
 syms x y;
 
@@ -22,7 +32,7 @@ for i = 1:1:length(arr_sym_factors_fxy)
 end
 
 % Get product of all factors
-fx = arr_factors{1};
+fxy = arr_factors{1};
 m = arr_m{1};
 
 for i = 2:1:length(arr_factors)
@@ -32,7 +42,7 @@ for i = 2:1:length(arr_factors)
     % n = degree of next factor
     n = arr_m{i};
     
-    fx = Bernstein_Multiply(fx,arr_factors{i},m,n);
+    fxy = Bernstein_Multiply(fxy,arr_factors{i},m,n);
     
     m = m + n;
     

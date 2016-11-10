@@ -33,7 +33,6 @@ n = n1;
 
 Sk = BuildSylvesterMatrix(fxy,gxy,m,n,t);
 
-
 % %
 % % Remove optimal column of S_{k}(f,g)
 
