@@ -1,38 +1,37 @@
-function Yk = BuildY_STLN(vec_x1x2,m,n,k)
+function DYQ = BuildDYQ_STLN(x,m,n,k)
 % BuildY(vec_x1x2,m,n,k)
 %
 % Build the matrix Y_{k}(x1,x2)
 %
 % % Inputs
 %
-% vec_x1x2 :
+% x : Vector x = [x1 ; x2] where x1 and x2 are vectors.
 %
 % m : Degree of polynomial f(x,y)
 %
 % n : Degree of polynomial g(x,y)
 %
 % k : index of kth Sylvester subresultant.
+%
+% % Outputs
+%
+% DYQ : Matrix DYQ
 
-% split the vector x into \hat{x}_{1} and \hat{x}_{2}
+% %
+% Split the vector x into \hat{x}_{1} and \hat{x}_{2}
+
 % Get number of coefficients in x1
-nCoefficients_x1 = nchoosek(n-k+2,2);
+nCoeffs_x1 = nchoosek(n-k+2,2);
 
+% Get the number of zeros in a matrix containing entries of x1
+nZeros_x1 = nchoosek(n-k+1,2);
 
-% Get x1 as a matrix of coefficients for input into BuildT1() function
-try
-    nZeros_x1 = nchoosek(n-k+1,2);
-catch
-    nZeros_x1 = 0;
-end
+% Get the number of zeros in a matrix containing entries of x2
+nZeros_x2 = nchoosek(m-k+1,2);
 
-try
-    nZeros_x2 = nchoosek(m-k+1,2);
-catch
-    nZeros_x2 = 0;
-end
-
-x1 = vec_x1x2(1:nCoefficients_x1);
-x2 = vec_x1x2(nCoefficients_x1 + 1 : end);
+% Split x into x1 and x2
+x1 = x(1:nCoeffs_x1);
+x2 = x(nCoeffs_x1 + 1 : end);
 
 % Get vectors of coefficients of x_{v} x_{u} x_{1} and x_{2}
 vec_x1 = [ x1 ; zeros(nZeros_x1,1)];
@@ -50,6 +49,6 @@ D = BuildD(m,n-k);
 Qm = BuildQ1(m);
 Qn = BuildQ1(n);
 
-Yk = D * [T1_x1*Qm T1_x2*Qn] ;
+DYQ = D * [T1_x1*Qm T1_x2*Qn] ;
 
 end

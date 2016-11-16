@@ -1,4 +1,4 @@
-function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method,sylvester_type)
+function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method, apf_method, sylvester_type)
 
 global SETTINGS
 
@@ -43,7 +43,7 @@ SETTINGS.BOOL_ALPHA_THETA = bool_alpha_theta;
 %
 %
 SETTINGS.THRESHOLD = 2;
-SETTINGS.THRESHOLD_RANK = 1e-10;
+SETTINGS.THRESHOLD_RANK = 1e-11;
 
 
 % ------------------------------------------------------------------------
@@ -58,10 +58,15 @@ SETTINGS.THRESHOLD_RANK = 1e-10;
 %
 SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
 
-SETTINGS.STLN_MAX_ERROR = 1e-13;
-SETTINGS.STLN_MAX_ITERATIONS = 100;
+SETTINGS.STLN_MAX_ERROR = 1e-12;
+SETTINGS.STLN_MAX_ITERATIONS = 50;
 
 %--------------------------------------------------------------------------
+%
+%   SETTINGS - APPROXIMATE FACTORISATION
+%
+%
+SETTINGS.APF_METHOD = apf_method;
 
 
 %-------------------------------------------------------------------------

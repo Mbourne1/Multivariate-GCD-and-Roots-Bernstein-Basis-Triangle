@@ -1,4 +1,4 @@
-function P1 = BuildP1_STLN(m,n,t,opt_col)
+function P1 = BuildP1_SNTLN(m,n,t,opt_col)
 % Build the matrix G1, which forms a partition of the matrix P, and is used
 % in the BuildP() function. This function forms part of the STLN package.
 

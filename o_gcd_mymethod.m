@@ -1,4 +1,4 @@
-function [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n,limits_t)
+function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t] = o_gcd_mymethod(fxy,gxy,m,n,limits_t)
 % Compute the gcd of two input polynomials f(x,y) and g(x,y), where f(x,y)
 % and g(x,y) are bivariate polynomials in Bernstein form, with total degree
 % m and n respectively.
@@ -16,7 +16,7 @@ function [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n,limits_t)
 %
 % limits_t :
 %
-% % Outputs.
+% % Outputs
 %
 % fxy : Coefficients of bivariate polynomial f(x,y). 
 %
@@ -34,11 +34,6 @@ function [fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n,limits_t)
 % triangle are the coefficients of f(x,y) and g(x,y) respectively. The 
 % lower right triangle entries are all zeros.
 
-% Note the coefficients of f(x,y) and g(x,y) on output may differ from the 
-% input coefficients to this function since f(x,y) and g(x,y) have been
-% normalized by geometric mean, and have been perturbed in the case where
-% low rank approximation of the Sylvester matrix S_{t}(f,g) has been used.
-
 % Compute the degree of the GCD
 [t,lambda,mu,alpha,th1,th2] = GetGCDDegree(fxy,gxy,m,n);
 
@@ -49,26 +44,20 @@ gxy_n = gxy ./ mu;
 
 % Get low rank approximation of S_{t}(f,g) and use perturbed coefficients.
 % Update f(w,w) and g(w,w).
-[fxy_lr,gxy_lr,alpha_lr,th1_lr,th2_lr] = GetLowRankApproximation(fxy_n,gxy_n,alpha,th1,th2,m,n,t);
-
-fww = GetWithThetas(fxy_lr,m,th1_lr,th2_lr);
-gww = GetWithThetas(gxy_lr,n,th1_lr,th2_lr);
-a_gww = alpha_lr.*gww;
-
-% Get cofactors
-[uww,vww] = GetCofactors(fww,a_gww,t);
+[fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
+    GetLowRankApproximation(fxy_n, gxy_n, alpha, th1, th2, m, n, t);
 
 % %
 % Get the GCD polynomial d(x,y)
-dww = GetGCDCoefficients(fww,a_gww,uww,vww,m,n,t);
+[fxy_lra, gxy_lra, uxy_lra, vxy_lra, dxy_lra, alpha_lra, th1_lra, th2_lra] = ...
+    APF(fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr, m, n, t);
 
-% % 
-% Remove thetas
-uxy = GetWithoutThetas(uww,m-t,th1,th2);
-vxy = GetWithoutThetas(vww,n-t,th1,th2);
-dxy = GetWithoutThetas(dww,t,th1,th2);
-fxy = GetWithoutThetas(fww,m,th1,th2);
-gxy = GetWithoutThetas(gww,n,th1,th2);
+% Get outputs
+fxy_o = fxy_lra;
+gxy_o = gxy_lra;
+dxy_o = dxy_lra;
+uxy_o = uxy_lra;
+vxy_o = vxy_lra;
 
 
 end

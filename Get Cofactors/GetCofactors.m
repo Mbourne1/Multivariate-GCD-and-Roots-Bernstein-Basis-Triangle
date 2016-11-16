@@ -1,4 +1,4 @@
-function [uxy,vxy] = GetCofactors(fxy,gxy,t)
+function [uxy, vxy] = GetCofactors(fxy, gxy, t)
 % Given polynomials f(x,y) and g(x,y), and the degree of their GCD d(x,y).
 % Compute the cofactors u(x,y) and v(x,y) by solving the Ax=b problem,
 % where A is a modified Sylvester matrix with column removed, b is the
@@ -95,30 +95,16 @@ nCoefficients_vxy = nchoosek(n-t+2,2);
 v_vxy = x(1:nCoefficients_vxy);
 v_uxy = -1 .* x(nCoefficients_vxy+1:end);
 
-% Include zero coefficients (so that u(x,y) and v(x,y) can be placed into
-% (m-t+1) x (m-t+1) and (n-t+1) x (n-t+1) matrices respectively, where the
-% coefficients take the upper left triangle.
 
 % Get number of zeros in u(x,y)
-try
-    nZeros_uxy = nchoosek(m-t+1,2);
-catch
-    nZeros_uxy = 0;
-end
+nZeros_uxy = nchoosek(m-t+1,2);
 
 % Get number of zeros in v(x,y)
-try
-    nZeros_vxy = nchoosek(n-t+1,2);
-catch
-    nZeros_vxy = 0;
-end
+nZeros_vxy = nchoosek(n-t+1,2);
 
-% Append zeros to vectors of coefficients
-v_uxy = [v_uxy ; zeros(nZeros_uxy,1)];
-v_vxy = [v_vxy ; zeros(nZeros_vxy,1)];
-
-uxy = GetAsMatrix(v_uxy,m-t,m-t);
-vxy = GetAsMatrix(v_vxy,n-t,n-t);
+% Get matrices of coefficients of u(x,y) and v(x,y)
+uxy = GetAsMatrix([v_uxy ; zeros(nZeros_uxy,1)],m-t,m-t);
+vxy = GetAsMatrix([v_vxy ; zeros(nZeros_vxy,1)],n-t,n-t);
     
 
 

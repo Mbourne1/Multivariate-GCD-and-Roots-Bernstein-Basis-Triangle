@@ -1,4 +1,5 @@
-function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method,sylvester_matrix_type)
+function [] = o_gcd(ex_num, el, em, mean_method, bool_alpha_theta, ...
+    low_rank_approx_method, apf_method, sylvester_matrix_type)
 % O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
 % and g(x,y) are given in the Bernstein form, and are taken from the
 % example file.
@@ -7,21 +8,27 @@ function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_metho
 %
 % ex_num : Example Number
 %
-% el : Noise level low
+% el : Noise level - lower level
 %
-% mean_method : Options for mean calculation method 
+% em : Noise level - maximum level
+%
+% mean_method : Options for mean calculation method
 %               *Geometric Mean Matlab Method
 %               *Geometric Mean My Method
 %               *None
 %
-% bool_alpha_theta : 'y'/'n' 
-% 
+% bool_alpha_theta : 'y'/'n'
+%
 % low_rank_approx_method : Options are
 %               * Standard STLN
 %               * None
 %
+% apf_method :
+%       'None'
+%       'Standard Linear APF'
+%       'Standard Nonlinear APF'
 %
-% sylvester_matrix_type : 
+% sylvester_matrix_type :
 %       * T
 %       * DT
 %       * DTQ
@@ -29,34 +36,47 @@ function [] = o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_metho
 %
 % % Example
 %
-% >> o_gcd('1',1e-10,'Geometric Mean Matlab Method','y','Standard STLN','DTQ')
+% >> o_gcd('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','Standard STLN','None','DTQ')
 
 
 % Set variables
 global SETTINGS
 SETTINGS.PLOT_GRAPHS = 'y';
+SETTINGS.EX_NUM = ex_num;
+
+if el > em
+    temp = el;
+    el = em;
+    em = temp;
+end
+
+SETTINGS.EMIN = el;
+SETTINGS.EMAX = em;
+
+
+
 
 % Add subfolders
 restoredefaultpath
 
 addpath (...
-        'Bernstein Functions',...
-        'Build Matrices',...
-        'Examples',...
-        'Examples/Examples_GCD',...
-        'Formatting',...
-        'Get Cofactors',...
-        'Get GCD Coefficients',...
-        'Get GCD Degree',...
-        'Preprocessing'...
-        );
+    'Bernstein Functions',...
+    'Build Matrices',...
+    'Formatting',...
+    'Get Cofactors',...
+    'Get GCD Coefficients',...
+    'Get GCD Degree',...
+    'Preprocessing'...
+    );
+addpath(genpath('APF'));
+addpath(genpath('Examples'));
 addpath(genpath('Low Rank Approximation'));
 
-SETTINGS.EX_NUM = ex_num;
-SETTINGS.EMIN = el;
 
-% Set global variables
-SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method,sylvester_matrix_type);
+
+% % Set global variables
+SetGlobalVariables(mean_method, bool_alpha_theta,...
+    low_rank_approx_method, apf_method, sylvester_matrix_type);
 
 % %
 % Get two polynomials f(x,y) and g(x,y) from example file.
@@ -65,8 +85,8 @@ SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method,sylvester
 % %
 % Add noise to the coefficients
 
-fxy = AddNoiseToPoly(fxy,el);
-gxy = AddNoiseToPoly(gxy,el);
+fxy = AddVariableNoiseToPoly(fxy,el,em);
+gxy = AddVariableNoiseToPoly(gxy,el,em);
 
 % %
 % Get GCD by my method
@@ -91,9 +111,11 @@ function [dist] = GetDistance(fxy,gxy)
 
 fxy = fxy./fxy(1,1);
 gxy = gxy./gxy(1,1);
-
-dist = norm(fxy - gxy) ./ norm(fxy);
-
+try
+    dist = norm(fxy - gxy) ./ norm(fxy);
+catch
+    dist = 1000;
+end
 end
 
 function []= PrintToResultsFile(m,n,t,error_dx)
@@ -105,7 +127,7 @@ fullFileName = 'Results/Results_GCD.txt';
 
 if exist(fullFileName, 'file')
     fileID = fopen(fullFileName,'a');
-    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
+    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
         datetime('now'),...
         SETTINGS.EX_NUM,...
         int2str(m),...
@@ -115,7 +137,9 @@ if exist(fullFileName, 'file')
         SETTINGS.MEAN_METHOD,...
         SETTINGS.BOOL_ALPHA_THETA,...
         SETTINGS.LOW_RANK_APPROX_METHOD,...
+        SETTINGS.APF_METHOD,...
         SETTINGS.EMIN,...
+        SETTINGS.EMAX,...
         SETTINGS.SYLVESTER_MATRIX_TYPE...
         );
     fclose(fileID);
@@ -134,14 +158,11 @@ function [dist_fxy] = GetError(fxy,fxy_exact)
 % fxy : Coefficients of f(x,y) as computed.
 %
 % fxy_exact : Coefficients of f(x,y) exact.
-% 
+%
 % % Outputs.
 %
 % dist_fxy : Distance between f(x,y) and exact f(x,y)
 
 dist_fxy = GetDistance(fxy_exact,fxy);
-
-
-
 
 end

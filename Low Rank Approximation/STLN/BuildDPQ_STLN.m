@@ -1,4 +1,4 @@
-function P = BuildP_STLN(m,n,k,idx_col)
+function DPQ = BuildDPQ_STLN(m,n,k,idx_col)
 % Build the matrix P_{t} such that any column of the Sylvester matrix
 % S_{t}(f,g) is expressed as P_{t}*[f;g]
 %
@@ -9,6 +9,12 @@ function P = BuildP_STLN(m,n,k,idx_col)
 % n : Degree of polynomial g(x,y)
 %
 % k : Index of Sylvester subresultant matrix S_{k}(f,g)
+%
+% alpha : Optimal value of \alpha
+%
+% th1 : Optimal value of \theta_{1}
+% 
+% th2 : Optimal value of \theta_{2}
 %
 % idx_col : Index of column c_{k} to be removed from S_{k}, and formed by 
 % the matrix vector product P*[f;g]
@@ -49,6 +55,6 @@ Q2 = BuildQ1(n);
 Q = blkdiag(Q1,Q2);
 
 % Build the matrix P = DGQ
-P = D*[G1 G2]*Q;
+DPQ = D*[G1 G2]*Q;
 
 end
