@@ -260,9 +260,12 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     
 end
 
+
 LineBreakLarge()
 fprintf([mfilename ' : ' sprintf('STLN Number of iterations required : %i \n',ite)])
 LineBreakLarge()
+SETTINGS.LOW_RANK_APPROX_REQ_ITE = ite;
+
 
 % Update z and x_ls
 vec_z = yy(1:nEntries_z);

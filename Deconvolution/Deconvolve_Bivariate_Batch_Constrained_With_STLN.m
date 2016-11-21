@@ -8,9 +8,13 @@ function [arr_hxy] = Deconvolve_Bivariate_Batch_Constrained_With_STLN(arr_fxy,vD
 %
 % vDegt_fxy : Vector of degrees of the polynomials f_{i}(x,y).
 
-
+% Get vector of degrees of f_{i}(x,y)
 vDeg_arr_fxy = vDegt_fxy;
+
+% Get vector of degrees of h_{i}(x,y) given by f_{i}/f_{i+1}
 vDeg_h = diff(vDeg_arr_fxy);
+
+% Get vector of degrees of w_{i}(x,y) given by h_{i}/h_{i+1}
 vDeg_wxy = diff([vDeg_h; 0]);
 vMult = find(vDeg_wxy~=0);
 
@@ -34,12 +38,8 @@ end
 % For each polynomial h_{i}
 vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 
-%
-% y - Preprocess
-% n - Dont preprocess
-%
 
-% preproc
+% Choose whether to preprocess
 global SETTINGS
 switch SETTINGS.PREPROC_DECONVOLUTIONS
     case 'y'
@@ -284,10 +284,10 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
 end
 
 
-% Plot condiiton
-
-figure()
-plot(log10(condition))
+% Plot termination condiiton
+figure_name = sprintf([mfilename ' : STLN Iterations']);
+figure('name',figure_name)
+plot(log10(condition),'-s','DisplayName','Termination Condition')
 hold off
 
 

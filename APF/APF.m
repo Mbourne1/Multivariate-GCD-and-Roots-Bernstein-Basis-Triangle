@@ -7,11 +7,11 @@ switch SETTINGS.APF_METHOD
     case 'Standard APF Nonlinear'
         
         error([mfilename ' : This APF method is not yet developed.'])
-        
+        SETTINGS.LOW_RANK_APPROX_REQ_ITE = 0;
     case 'Standard APF Linear'
         
         error([mfilename ' : This APF method is not yet developed. '])
-        
+        SETTINGS.LOW_RANK_APPROX_REQ_ITE = 0;
     case 'None'
         
         % Get f(\omega_{1},\omega_{2}) and g(\omega_{1},\omega_{2})
@@ -40,6 +40,7 @@ switch SETTINGS.APF_METHOD
         
         dxy_lr = GetWithoutThetas(dww,k,th1,th2);
         
+        SETTINGS.APF_REQ_ITE = 0;
         
     otherwise
         error([mfilename ' : ' SETTINGS.APF_METHOD ': Not a valid APF method.'])

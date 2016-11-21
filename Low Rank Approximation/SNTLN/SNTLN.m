@@ -89,15 +89,14 @@ nCols_Tg = nCoeffs_uxy;
 nCols_Sk = nCols_Tf + nCols_Tg;
 
 
-
 % %
 % Preprocessing
 
 % Get the polynomial f(\omega_{1},\omega_{2})
-fww = GetWithThetas(fxy,m,th1,th2);
+fww = GetWithThetas(fxy,m,th1(ite),th2(ite));
 
 % Get the polynomial g(\omega_{1},\omega_{2})
-gww = GetWithThetas(gxy,n,th1,th2);
+gww = GetWithThetas(gxy,n,th1(ite),th2(ite));
 
 % % 
 % Build matrices
@@ -185,7 +184,7 @@ DNQ_wrt_th2   = zeros(nRows_Sk_fg, nCols_Tf + nCols_Tg);
 % Initialise the derivative of h_{k}
 % Calculate the derivatives wrt alpha and theta of the column of DNQ
 % that is moved to the right hand side.
-hk_wrt_alpha  = DNQ_wrt_alpha*e;
+hk_wrt_alpha = DNQ_wrt_alpha*e;
 hk_wrt_th1 = DNQ_wrt_th1*e;
 hk_wrt_th2 = DNQ_wrt_th2*e;
 
@@ -194,6 +193,7 @@ hk_wrt_th2 = DNQ_wrt_th2*e;
 DPG = BuildDPG_SNTLN(m,n,k,alpha(ite),th1(ite),th2(ite),idx_col);
 f = GetAsVector(fxy);
 f = f(1:nCoeffs_fxy);
+
 g = GetAsVector(gxy);
 g = g(1:nCoeffs_gxy);
 
@@ -205,10 +205,13 @@ display(norm(test1));
 %%
 % Calculate the derivatives wrt alpha and theta of the removed column.
 
-
-
+% Get parital c_{k} with respect to \alpha 
 ck_wrt_alpha = DTQ_alpha(:,idx_col);
+
+% Get partial c_{k} with respect to \theta_{1}
 ck_wrt_th1 = DTQ_wrt_th1(:,idx_col);
+
+% Get partial c_{k} with respect to \theta_{2}
 ck_wrt_th2 = DTQ_wrt_th2(:,idx_col);
 
 % Remove optimal column from S_{k}(f,g)
@@ -256,9 +259,9 @@ DTNQ_wrt_th2 = BuildDTQ(fww_wrt_th2,alpha(ite).*gww_wrt_th2,k);
 % %
 % Create the matrix C for input into iteration
 
-H_z     = DYQ - DPG;
+H_z = DYQ - DPG;
 
-H_x     = DTNQ*M;
+H_x = DTNQ*M;
 
 H_alpha  = DTNQ_wrt_alpha*M*xk - ...
     (ck_wrt_alpha + hk_wrt_alpha);
@@ -529,9 +532,14 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     
 end
 
+%
+plotgraphs_STLN();
+
+%
 LineBreakLarge()
 fprintf([mfilename ' : ' sprintf('SNTLN Number of iterations required : %i \n',ite)])
 LineBreakLarge()
+SETTINGS.LOW_RANK_APPROX_REQ_ITE = ite;
 
 % Update z and x_ls
 vec_z = yy(1:nCoeffs_fxy + nCoeffs_gxy);
@@ -589,7 +597,7 @@ th2_lr = th2(ite);
 
 
 
-plotgraphs_STLN();
+
 
 end
 

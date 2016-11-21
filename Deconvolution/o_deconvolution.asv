@@ -1,4 +1,4 @@
-function [] = o_deconvolution(ex_num,emin,bool_preproc)
+function [] = o_deconvolution(ex_num,noise,bool_preproc)
 % Perform tests on deconvolution methods
 %
 %
@@ -52,23 +52,20 @@ SETTINGS.PLOT_GRAPHS = 'y';
 [factor_mult_arr] = Bivariate_Deconvolution_Examples(ex_num);
 
 factor = factor_mult_arr(:,1);
-
 vMult = factor_mult_arr(:,2);
-% vMult is symbolic so make it numeric
-vMult = double(vMult);
+
 
 % Get the highest power of any factor
 highest_pwr = max(vMult);
 
-
+type(highest_pwr)
 % %
 % %
 % Generate the polynomials f_{0},...,f_{m}(x)
 
 arr_sym_fxy = cell(highest_pwr + 1,1);
-
+vDegt_arr_fxy = zeros(10 + 1,1);
 vDegt_arr_fxy = zeros(highest_pwr + 1,1);
-
 for i = 0:1:highest_pwr
     
     % Get the multiplicities of the roots of f_{i+1}
@@ -137,7 +134,7 @@ end
 arr_fxy_brn_noisy = cell(nPolys_arr_fxy,1);
 
 for i = 1:1:nPolys_arr_fxy
-    arr_fxy_brn_noisy{i,1} = AddNoiseToPoly(arr_fxy_brn{i},emin);
+    arr_fxy_brn_noisy{i,1} = AddNoiseToPoly(arr_fxy_brn{i},noise);
 end
 
 %--------------------------------------------------------------------------
@@ -245,7 +242,7 @@ my_error.batchSTLN = norm(vErrors_batch_with_STLN);
 my_error.batchConstrained = norm(vErrors_batch_constrained);
 my_error.batchConstrainedSTLN = norm(vErrors_batch_constrained_with_STLN);
 
-PrintToResultsFile(ex_num,bool_preproc,emin,my_error);
+PrintToResultsFile(ex_num,bool_preproc,noise,my_error);
 
 end
 

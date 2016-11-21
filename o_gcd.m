@@ -1,4 +1,4 @@
-function [] = o_gcd(ex_num, el, em, mean_method, bool_alpha_theta, ...
+function [] = o_gcd(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
     low_rank_approx_method, apf_method, sylvester_matrix_type)
 % O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
 % and g(x,y) are given in the Bernstein form, and are taken from the
@@ -39,21 +39,18 @@ function [] = o_gcd(ex_num, el, em, mean_method, bool_alpha_theta, ...
 % >> o_gcd('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','Standard STLN','None','DTQ')
 
 
-% Set variables
-global SETTINGS
-SETTINGS.PLOT_GRAPHS = 'y';
-SETTINGS.EX_NUM = ex_num;
-
-if el > em
-    temp = el;
-    el = em;
-    em = temp;
+% % Ensure that minimum noise level is less than maximum noise level
+if emin > emax
+    temp = emin;
+    emin = emax;
+    emax = temp;
 end
 
-SETTINGS.EMIN = el;
-SETTINGS.EMAX = em;
+problem_type = 'GCD';
 
-
+% % Set global variables
+SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method, bool_alpha_theta,...
+    low_rank_approx_method, apf_method, sylvester_matrix_type);
 
 
 % Add subfolders
@@ -62,21 +59,28 @@ restoredefaultpath
 addpath (...
     'Bernstein Functions',...
     'Build Matrices',...
+    'Build Sylvester Matrices',...
     'Formatting',...
     'Get Cofactors',...
     'Get GCD Coefficients',...
     'Get GCD Degree',...
     'Preprocessing'...
     );
+
 addpath(genpath('APF'));
 addpath(genpath('Examples'));
 addpath(genpath('Low Rank Approximation'));
 
+% Print parameters to console
+fprintf('INPUTS. \n')
+fprintf('EXAMPLE NUMBER %s \n',ex_num)
+fprintf('EMIN : %s \n',emin)
+fprintf('EMAX : %s \n',emax)
+fprintf('MEAN METHOD : %s \n', mean_method)
+fprintf('PREPROCESSING : %s \n',bool_alpha_theta)
+fprintf('LOW RANK METHOD : %s \n',low_rank_approx_method)
+fprintf('APF METHOD : %s \n', apf_method)
 
-
-% % Set global variables
-SetGlobalVariables(mean_method, bool_alpha_theta,...
-    low_rank_approx_method, apf_method, sylvester_matrix_type);
 
 % %
 % Get two polynomials f(x,y) and g(x,y) from example file.
@@ -85,8 +89,8 @@ SetGlobalVariables(mean_method, bool_alpha_theta,...
 % %
 % Add noise to the coefficients
 
-fxy = AddVariableNoiseToPoly(fxy,el,em);
-gxy = AddVariableNoiseToPoly(gxy,el,em);
+fxy = AddVariableNoiseToPoly(fxy,emin,emax);
+gxy = AddVariableNoiseToPoly(gxy,emin,emax);
 
 % %
 % Get GCD by my method
@@ -122,32 +126,51 @@ function []= PrintToResultsFile(m,n,t,error_dx)
 
 global SETTINGS
 
-fullFileName = 'Results/Results_GCD.txt';
+fullFileName = sprintf('Results/Results_o_gcd%s.txt',datetime('today'));
 
-
+% If file already exists append a line
 if exist(fullFileName, 'file')
+    
     fileID = fopen(fullFileName,'a');
-    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s, \t %s \n',...
-        datetime('now'),...
-        SETTINGS.EX_NUM,...
-        int2str(m),...
-        int2str(n),...
-        int2str(t),...
-        error_dx,...
-        SETTINGS.MEAN_METHOD,...
-        SETTINGS.BOOL_ALPHA_THETA,...
-        SETTINGS.LOW_RANK_APPROX_METHOD,...
-        SETTINGS.APF_METHOD,...
-        SETTINGS.EMIN,...
-        SETTINGS.EMAX,...
-        SETTINGS.SYLVESTER_MATRIX_TYPE...
-        );
+    WriteNewLine()
     fclose(fileID);
-else
-    % File does not exist.
-    warningMessage = sprintf('Warning: file does not exist:\n%s', fullFileName);
-    uiwait(msgbox(warningMessage));
+    
+else % File doesnt exist so create it
+    
+    fileID = fopen( fullFileName, 'wt' );
+    WriteHeader()
+    WriteNewLine()
+    fclose(fileID);
+    
 end
+
+    function WriteNewLine()
+        
+        % 15 FIELDS
+        fprintf(fileID,'%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n',...
+            datetime('now'),...
+            SETTINGS.EX_NUM,...
+            int2str(m),...
+            int2str(n),...
+            int2str(t),...
+            error_dx,...
+            SETTINGS.MEAN_METHOD,...
+            SETTINGS.BOOL_ALPHA_THETA,...
+            SETTINGS.LOW_RANK_APPROX_METHOD,...
+            num2str(SETTINGS.LOW_RANK_APPROX_REQ_ITE),...
+            SETTINGS.APF_METHOD,...
+            num2str(SETTINGS.APF_REQ_ITE),...
+            SETTINGS.EMIN,...
+            SETTINGS.EMAX,...
+            SETTINGS.SYLVESTER_MATRIX_TYPE...
+            );
+        
+    end
+
+    function WriteHeader()
+        fprintf(fileID,'DATE,EX_NUM,m,n,t,ERROR_DXY,MEAN_METHOD,BOOL_ALPHA_THETA,LOW_RANK_APPROX_METHOD,LRA_ITE,APF_METHOD,APF_ITE,error_min,error_max,Sylvester_Matrix_Type \n');
+    end
+
 end
 
 function [dist_fxy] = GetError(fxy,fxy_exact)

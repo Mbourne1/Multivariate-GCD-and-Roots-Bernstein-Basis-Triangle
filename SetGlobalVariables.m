@@ -1,4 +1,4 @@
-function [] = SetGlobalVariables(mean_method,bool_alpha_theta,low_rank_approx_method, apf_method, sylvester_type)
+function [] = SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method,bool_alpha_theta,low_rank_approx_method, apf_method, sylvester_type)
 
 global SETTINGS
 
@@ -9,11 +9,18 @@ global SETTINGS
 % 'n'
 %
 SETTINGS.PLOT_GRAPHS = 'y';
-
+SETTINGS.PROBLEM_TYPE = problem_type;
 SETTINGS.SEED = 1024;
 
 % T, DTQ, DT, TQ
 SETTINGS.SYLVESTER_MATRIX_TYPE = sylvester_type;
+
+% Set Noise
+SETTINGS.EMIN = emin;
+SETTINGS.EMAX = emax;
+
+% Set example number
+SETTINGS.EX_NUM = ex_num;
 
 %--------------------------------------------------------------------------
 %

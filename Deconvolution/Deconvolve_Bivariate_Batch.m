@@ -42,12 +42,15 @@ switch SETTINGS.PREPROC_DECONVOLUTIONS
         th1 = 1;
         th2 = 1;
     otherwise 
+        error([mfilename ' : PREPROC_DECONVOLUTIONS must be y or n'])
 end
 
 % Get f(\omega_{1},\omega_{2}) from f(x,y)
 arr_fww = cell(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
+    
     arr_fww{i} = GetWithThetas(arr_fxy{i},vDeg_arr_fxy(i),th1,th2);
+    
 end
 
 % Build the matrix C(f1,...,fd)
@@ -213,3 +216,5 @@ end
 
 
 end
+
+

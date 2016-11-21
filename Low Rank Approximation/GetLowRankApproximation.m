@@ -67,7 +67,7 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         th1_lr = th1;
         th2_lr = th2;
         
-        
+        SETTINGS.LOW_RANK_APPROX_REQ_ITE = 0;
         
         
     case 'Standard STLN'
@@ -122,27 +122,36 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         end
         
     case 'Standard SNTLN'
+        
         [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
             SNTLN(fxy, gxy, alpha, th1, th2, k);
         
-        fww = GetWithThetas(fxy,m,th1,th2);
-        a_gww = alpha .* GetWithThetas(gxy,n,th1,th2);
         
-        fww_lr = GetWithThetas(fxy_lr,m,th1_lr,th2_lr);
-        a_gww_lr = alpha_lr .*GetWithThetas(gxy_lr,n,th1_lr,th2_lr);
         
         switch SETTINGS.PLOT_GRAPHS
             case 'y'
+                
+                % Get f(\omega_{1},\omega_{2}) and g(\omega_{1},\omega_{2})
+                fww = GetWithThetas(fxy,m,th1,th2);
+                a_gww = alpha .* GetWithThetas(gxy,n,th1,th2);
+                
+                %
+                fww_lr = GetWithThetas(fxy_lr,m,th1_lr,th2_lr);
+                a_gww_lr = alpha_lr .*GetWithThetas(gxy_lr,n,th1_lr,th2_lr);
+                
+                % Build sylvester subresultant matrices
                 S1 = BuildDTQ(fxy,gxy,k);
                 S2 = BuildDTQ(fww,a_gww,k);
                 S3 = BuildDTQ(fxy_lr,gxy_lr,k);
                 S4 = BuildDTQ(fww_lr,a_gww_lr,k);
                 
+                % Get singular values
                 vSingularValues_1 = svd(S1);
                 vSingularValues_2 = svd(S2);
                 vSingularValues_3 = svd(S3);
                 vSingularValues_4 = svd(S4);
                 
+                % Plot singular values
                 figure()
                 plot(log10(vSingularValues_1),'-s','DisplayName','f(x,y) g(x,y)')
                 hold on

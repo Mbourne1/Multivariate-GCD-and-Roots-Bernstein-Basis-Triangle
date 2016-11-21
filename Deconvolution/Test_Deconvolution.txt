@@ -23,3 +23,4 @@ ex_num bool_preproc noise err_separate err_batch err_batch_STLN err_batch_const 
 3 n 1.00e-10 1.63e-08 1.63e-08 1.62e-08 3.50e-08 5.53e-09
 3 y 1.00e-12 1.62e-10 1.48e-10 1.48e-10 5.09e-11 5.09e-11
 3 n 1.00e-12 1.62e-10 1.62e-10 1.62e-10 3.50e-10 5.54e-11
+1 y 1.00e-10 3.81e-09 1.98e-10 1.98e-10 6.06e-11 1.90e-11

@@ -27,11 +27,13 @@ function DPG = BuildDPG_SNTLN(m,n,k,alpha,th1,th2,idx_col)
 nCols_Tf = nchoosek(n-k+2,2);
 nCols_Tg = nchoosek(m-k+2,2);
 
-% Get the number of coefficients in f(x,y)
+% Get the number of coefficients in matrix of f(x,y)
 nCoeffs_fxy = nchoosek(m+2,2);
+nZeros_fxy = nchoosek(m+1,2);
 
-% Get the number of coefficients in g(x,y)
+% Get the number of coefficients in matrix of g(x,y)
 nCoeffs_gxy = nchoosek(n+2,2);
+nZeros_gxy = nchoosek(n+1,2);
 
 % Build the matrix D^{-1}
 D = BuildD(m,n-k);
@@ -40,7 +42,7 @@ D = BuildD(m,n-k);
 if idx_col <= nCols_Tf  % Column is in first partition of S_{k}
     
     % Build G
-    G1 = BuildP1_STLN(m,n,k,idx_col);
+    G1 = BuildP1(m,n,k,idx_col);
     G2 = zeros(nchoosek(m+n-k+2,2), nchoosek(n+2,2));
     
     
@@ -52,7 +54,7 @@ else    % Opt col is in second partition
     
     % Build G
     G1 = zeros(nchoosek(m+n-k+2,2), nchoosek(m+2,2));
-    G2 = BuildP1_SNTLN(n,m,k,idx_col);
+    G2 = BuildP1(n,m,k,idx_col);
     
 end
 
@@ -62,19 +64,23 @@ Q2 = BuildQ1(n);
 
 % Get the vector of \theta_{1}\theta_{2} corresponding to coefficients of
 % polynomial f(x,y)
-th_fxy = GetAsVector(GetWithThetas(ones(m+1,m+1),m,th1,th2));
+f_vec = [ones(nCoeffs_fxy,1);zeros(nZeros_fxy,1)];
+mat_fxy = GetAsMatrix(f_vec,m,m);
+th_fxy = GetAsVector(GetWithThetas(mat_fxy,m,th1,th2));
 th_fxy = th_fxy(1:nCoeffs_fxy);
 th_fxy = diag(th_fxy);
 
 % Get the vector of \theta_{1}\theta_{2} corresponding to coefficients of
 % polynomial g(x,y)
-th_gxy = GetAsVector(GetWithThetas(ones(n+1,n+1),n,th1,th2));
+g_vec = [ones(nCoeffs_gxy,1);zeros(nZeros_gxy,1)];
+mat_gxy = GetAsMatrix(g_vec,n,n);
+th_gxy = GetAsVector(GetWithThetas(mat_gxy,n,th1,th2));
 th_gxy = th_gxy(1:nCoeffs_gxy);
 th_gxy = diag(th_gxy);
 
 
 
 % Build the matrix P = DGQ
-DPG = D*[G1*th_fxy*Q1 alpha.*G2*th_gxy*Q2];
+DPG = D*[ G1*th_fxy*Q1 alpha.*G2*th_gxy*Q2];
 
 end
