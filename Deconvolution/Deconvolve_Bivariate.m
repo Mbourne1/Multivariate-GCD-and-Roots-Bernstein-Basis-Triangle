@@ -32,7 +32,7 @@ n = n1;
 % f(x,y).
 
 % Build the matrix D^{-1}_{n}
-D = BuildD(n,m-n);
+D = BuildD_2Polys(n,m-n);
 
 % Build the matrix T_{m-n}(g)
 T1 = BuildT1(gxy,n,m-n);

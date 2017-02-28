@@ -1,4 +1,4 @@
-function [maximum,minimum] = GetMaxMin2(a_i1i2,i1,i2,m,n_k)
+function [maximum,minimum] = GetMaxMin2(a_i1i2, i1, i2, m, n_k)
 % Note this function assumes the inclusion of Q in the coefficient matrix.
 
 % Build a 2 dimensional vector to store all occurences of the coefficient

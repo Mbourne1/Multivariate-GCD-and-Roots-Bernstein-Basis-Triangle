@@ -1,4 +1,4 @@
-function [uxy, vxy] = GetCofactors(fxy, gxy, t)
+function [uxy, vxy] = GetCofactors_2Polys(fxy, gxy, t)
 % Given polynomials f(x,y) and g(x,y), and the degree of their GCD d(x,y).
 % Compute the cofactors u(x,y) and v(x,y) by solving the Ax=b problem,
 % where A is a modified Sylvester matrix with column removed, b is the
@@ -31,7 +31,7 @@ n = n1;
 
 % Build the modified Sylvester matrix S_{k} = D^{-1}_{m+n-k}T_{k}(f,g)Q_{n-k,m-k}
 
-Sk = BuildSylvesterMatrix(fxy,gxy,m,n,t);
+Sk = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, t);
 
 % %
 % % Remove optimal column of S_{k}(f,g)

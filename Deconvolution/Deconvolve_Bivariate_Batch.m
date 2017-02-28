@@ -37,7 +37,10 @@ vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 global SETTINGS
 switch SETTINGS.PREPROC_DECONVOLUTIONS
     case 'y'
-        [th1, th2] = GetOptimalTheta(arr_fxy);
+        %[th1, th2] = GetOptimalTheta(arr_fxy);
+        
+        th1 = 1;
+        th2 = 1;
     case 'n'
         th1 = 1;
         th2 = 1;
@@ -122,7 +125,7 @@ for i = 2:1:nPolys_arr_fxy
     T1 = BuildT1(fxy,m,n-m);
     
     
-    D = BuildD(m,n-m);
+    D = BuildD_2Polys(m,n-m);
     Q1 = BuildQ1(n-m);
     
     arr_DT1Q1{i-1} = D*T1*Q1;

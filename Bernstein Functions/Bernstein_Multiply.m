@@ -1,4 +1,4 @@
-function [hxy] = Bernstein_Multiply(fxy,gxy,m,n)
+function [hxy] = Bernstein_Multiply(fxy, gxy, m, n)
 % Multiply the bivariate bernstein polynomials f(x,y) and g(x,y) of degrees
 % m and n respectively.
 %
@@ -13,10 +13,10 @@ function [hxy] = Bernstein_Multiply(fxy,gxy,m,n)
 % n : Total degree of polynomial g(x,y)
 
 % Build the matrix D^{-1}_{m+n-k}
-D = BuildD(m,n);
+D = BuildD_2Polys(m,n);
 
 % T_{n}(f)
-T1 = BuildT1(fxy,m,n);
+T1 = BuildT1(fxy, m, n);
 
 % Build the matrix Q_{n}
 Q1 = BuildQ1(n);

@@ -30,7 +30,7 @@ switch EXAMPLE_TYPE
         [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromRoots(ex_num);
         
     case 'From Coefficients'
-        [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num);
+        [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients_2Polys(ex_num);
         
     otherwise
         error('err');

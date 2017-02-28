@@ -11,10 +11,10 @@ function [lambda] = GeometricMean_MatlabMethod(fxy,m,n_k)
 % n_k : Total degree of v_{k}(x,y)
 
 % Build the diagonal matrix D^{-1}
-D = BuildD(m,n_k);
+D = BuildD_2Polys(m,n_k);
 
 % Build the matrix T_{n-k}(f(x,y))
-T1 = BuildT1(fxy,m,n_k);
+T1 = BuildT1(fxy, m, n_k);
 
 % Build the matrix Q
 Q1 = BuildQ1(n_k);

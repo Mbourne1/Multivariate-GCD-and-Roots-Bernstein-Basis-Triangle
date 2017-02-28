@@ -1,4 +1,4 @@
-function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num)
+function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients_2Polys(ex_num)
 %
 % % Inputs
 %
@@ -21,10 +21,14 @@ function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients(ex_num)
 
 syms x y;
 
-addpath('../Examples')
-[f_root_mult_arr,g_root_mult_arr,d_root_mult_arr,...
-    u_root_mult_arr,v_root_mult_arr] = Bivariate_GCD_Examples(ex_num);
+% Add path to examples file
+addpath(genpath('../Examples'));
 
+% Get the symbolic factors f_{i} and corresponding multiplicity m_{i}
+[f_root_mult_arr,g_root_mult_arr,d_root_mult_arr,...
+    u_root_mult_arr,v_root_mult_arr] = GCD_Examples_Bivariate_2Polys(ex_num);
+
+% Get coefficients of the polynomials
 [fxy] = GetCoefficientsFromSymbolicRoots(f_root_mult_arr);
 [gxy] = GetCoefficientsFromSymbolicRoots(g_root_mult_arr);
 [dxy] = GetCoefficientsFromSymbolicRoots(d_root_mult_arr);

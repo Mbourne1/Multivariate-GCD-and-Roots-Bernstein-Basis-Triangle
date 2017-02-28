@@ -22,7 +22,7 @@ m = GetDegree(fxy);
 n = GetDegree(gxy);
 
 % Build the matrix D^{-1}
-D = BuildD(m,n-k);
+D = BuildD_2Polys(m,n-k);
 
 % Build the matrices T_{n-k}(f) and T_{m-k}(g)
 T1 = BuildT1(fxy,m,n-k);

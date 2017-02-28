@@ -45,7 +45,7 @@ mat_x2 = GetAsMatrix(vec_x2,m-k,m-k);
 T1_x1 = BuildT1(mat_x1,n-k,m);
 T1_x2 = BuildT1(mat_x2,m-k,n);
 
-D = BuildD(m,n-k);
+D = BuildD_2Polys(m,n-k);
 Qm = BuildQ1(m);
 Qn = BuildQ1(n);
 

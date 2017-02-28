@@ -1,4 +1,4 @@
-function [max_mtrx,min_mtrx] = GetMaxMin(fxy,m,n_k)
+function [max_mtrx,min_mtrx] = GetMaxMin(fxy, m, n_k)
 % Get the maximum and minimum of each entry of f(x,y) in the Sylvester
 % matrix.
 %

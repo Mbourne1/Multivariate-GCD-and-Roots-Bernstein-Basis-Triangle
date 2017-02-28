@@ -1,10 +1,20 @@
 
-function [fxy,m] = Examples_Roots_FromCoefficients(ex_num)
+function [fxy, m] = Examples_Roots_FromCoefficients(ex_num)
+%
+% % Inputs
+%
+% ex_num : (String)
+%
+% % Outputs
+%
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
+%
+% m : Total degree of f(x,y)
 
 syms x y;
-addpath('../Examples');
+addpath(genpath('../Examples'));
 
-f_root_mult_arr = Bivariate_Roots_Examples(ex_num);
+f_root_mult_arr = Roots_Examples_Bivariate(ex_num);
 
 
 [fxy] = GetCoefficientsFromSymbolicRoots(f_root_mult_arr);

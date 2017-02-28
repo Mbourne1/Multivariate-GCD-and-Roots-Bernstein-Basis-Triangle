@@ -1,5 +1,5 @@
 function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, dxy_lr, alpha_lr, th1_lr, th2_lr] = ...
-    APF(fxy, gxy, uxy, vxy, alpha, th1, th2, m, n, k)
+    APF_2Polys(fxy, gxy, uxy, vxy, alpha, th1, th2, m, n, k)
 
 global SETTINGS
 
@@ -23,7 +23,7 @@ switch SETTINGS.APF_METHOD
         vww = GetWithThetas(vxy, n-k, th1, th2);
    
         % Get d(\omega_{1},\omega_{2})
-        dww = GetGCDCoefficients(fww,a_gww,uww,vww,m,n,k);
+        dww = GetGCDCoefficients_2Polys(fww,a_gww,uww,vww,m,n,k);
         
         % Get f(x,y) and g(x,y)
         fxy_lr = fxy;

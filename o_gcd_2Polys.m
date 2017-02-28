@@ -1,4 +1,4 @@
-function [] = o_gcd(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
+function [] = o_gcd_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
     low_rank_approx_method, apf_method, sylvester_matrix_type)
 % O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
 % and g(x,y) are given in the Bernstein form, and are taken from the
@@ -6,21 +6,25 @@ function [] = o_gcd(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
 %
 % % Inputs.
 %
-% ex_num : Example Number
+% ex_num : (String) Example Number
 %
 % el : Noise level - lower level
 %
 % em : Noise level - maximum level
 %
-% mean_method : Options for mean calculation method
+% mean_method : (String) Options for mean calculation method
 %               *Geometric Mean Matlab Method
 %               *Geometric Mean My Method
 %               *None
 %
-% bool_alpha_theta : 'y'/'n'
+% bool_alpha_theta : (Boolean) Determines whether optimal values of alpha
+% and theta are computed.
+%           *true : 
+%           *false
 %
 % low_rank_approx_method : Options are
 %               * Standard STLN
+%               * Standard SNTLN
 %               * None
 %
 % apf_method :
@@ -34,9 +38,11 @@ function [] = o_gcd(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
 %       * DTQ
 %       * TQ
 %
-% % Example
+% % Examples
 %
-% >> o_gcd('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','Standard STLN','None','DTQ')
+% >> o_gcd_2Polys('1',1e-10,1e-12,'None','n','None','None','DTQ')
+% >> o_gcd_2Polys('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','None','None','DTQ')
+% >> o_gcd_2Polys('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','Standard STLN','None','DTQ')
 
 
 % % Ensure that minimum noise level is less than maximum noise level
@@ -61,14 +67,16 @@ addpath (...
     'Build Matrices',...
     'Build Sylvester Matrix',...
     'Formatting',...
-    'Get Cofactors',...
+    'GCD Methods',...
+    'Get Cofactor Coefficients',...
     'Get GCD Coefficients',...
-    'Get GCD Degree',...
+    'Plotting',...
     'Preprocessing'...
     );
 
 addpath(genpath('APF'));
 addpath(genpath('Examples'));
+addpath(genpath('Get GCD Degree'));
 addpath(genpath('Low Rank Approximation'));
 
 % Print parameters to console
@@ -84,30 +92,32 @@ fprintf('APF METHOD : %s \n', apf_method)
 
 % %
 % Get two polynomials f(x,y) and g(x,y) from example file.
-[fxy,gxy,uxy_exact,vxy_exact,dxy_exact,m,n,t_exact] = Examples_GCD(ex_num);
+[fxy, gxy, uxy_exact, vxy_exact, dxy_exact, m, n, t_exact] = Examples_GCD(ex_num);
+
 
 % %
 % Add noise to the coefficients
 
-fxy = AddVariableNoiseToPoly(fxy,emin,emax);
-gxy = AddVariableNoiseToPoly(gxy,emin,emax);
+fxy = AddVariableNoiseToPoly(fxy, emin, emax);
+gxy = AddVariableNoiseToPoly(gxy, emin, emax);
 
 % %
 % Get GCD by my method
-[fxy,gxy,dxy,uxy, vxy, t] = o_gcd_mymethod(fxy,gxy,m,n);
+limits_t = [0 min(m,n)];
+[fxy, gxy, dxy, uxy, vxy, t] = o_gcd_2Polys_mymethod(fxy, gxy, m, n, limits_t);
 
 
 % Get Error in u(x,y), v(x,y) and d(x,y)
-dist_uxy = GetError(uxy,uxy_exact);
-dist_vxy = GetError(vxy,vxy_exact);
-dist_dxy = GetError(dxy,dxy_exact);
+my_error.uxy = GetError(uxy, uxy_exact);
+my_error.vxy = GetError(vxy, vxy_exact);
+my_error.dxy = GetError(dxy, dxy_exact);
 
 % Print the error in u(x,y), v(x,y) and d(x,y)
-fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', dist_uxy)]);
-fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', dist_vxy)]);
-fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', dist_dxy)]);
+fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', my_error.uxy)]);
+fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', my_error.vxy)]);
+fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', my_error.dxy)]);
 
-PrintToResultsFile(m,n,t,dist_dxy)
+PrintToResultsFile(m,n,t,my_error)
 
 end
 
@@ -122,7 +132,7 @@ catch
 end
 end
 
-function []= PrintToResultsFile(m,n,t,error_dx)
+function []= PrintToResultsFile(m,n,t,my_error)
 
 global SETTINGS
 
@@ -153,7 +163,7 @@ end
             int2str(m),...
             int2str(n),...
             int2str(t),...
-            error_dx,...
+            my_error.dxy,...
             SETTINGS.MEAN_METHOD,...
             SETTINGS.BOOL_ALPHA_THETA,...
             SETTINGS.LOW_RANK_APPROX_METHOD,...
@@ -186,6 +196,6 @@ function [dist_fxy] = GetError(fxy,fxy_exact)
 %
 % dist_fxy : Distance between f(x,y) and exact f(x,y)
 
-dist_fxy = GetDistance(fxy_exact,fxy);
+dist_fxy = GetDistance(fxy_exact, fxy);
 
 end

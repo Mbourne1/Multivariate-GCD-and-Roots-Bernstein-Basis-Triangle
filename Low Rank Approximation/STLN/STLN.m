@@ -60,16 +60,16 @@ nZeros_vxy = nchoosek(n-k+1,2);
 % Build the kth Sylvester Subresultant matrix S_{k}(f,g) = D*T(f,g)*Q
 
 % Build the diagonal matrix D^{-1}
-D = BuildD(m,n-k);
+D = BuildD_2Polys(m, n-k);
 
 % Build the matrix T_{n-k}(f)
-T1_fxy = BuildT1(fxy,m,n-k);
+T1_fxy = BuildT1(fxy, m, n-k);
 
 % Build the matrix T_{m-k}(g)
-T1_gxy = BuildT1(gxy,n,m-k);
+T1_gxy = BuildT1(gxy, n, m-k);
 
 % Build the matrix Q_{k}
-Q = BuildQ(m,n,k);
+Q = BuildQ_2Polys(m,n,k);
 
 % Build the kth Sylvester subresultant matrix.
 DTQ_fg = D*[T1_fxy T1_gxy] * Q;
@@ -97,12 +97,16 @@ res_vec = (ck) - (Ak_fg*xk);
 
 % Build D*P*Q - The product DPQ * [f;g] returns the column of the Sylvester
 % matrix S(f,g).
-DPQ = BuildDPQ_STLN(m,n,k,idx_col);
+DPQ = BuildDPQ_STLN(m, n, k, idx_col);
 
+% Get coefficients of polynomial f(x,y)
 f = GetAsVector(fxy);
 f = f(1:nCoeffs_fxy);
+
+% Get coefficients of polynomial g(x,y)
 g = GetAsVector(gxy);
 g = g(1:nCoeffs_gxy);
+
 test1a = DPQ * [f;g];
 test1b = ck;
 test1 = norm(test1a - test1b);
@@ -308,8 +312,8 @@ vec_xv = [ xv ; zeros(nZeros_xv,1)];
 vec_xu = [ xu ; zeros(nZeros_xu,1)];
 
 % Get as matrix
-mat_xv = GetAsMatrix(vec_xv,n-k,n-k);
-mat_xu = GetAsMatrix(vec_xu,m-k,m-k);
+mat_xv = GetAsMatrix(vec_xv, n-k, n-k);
+mat_xu = GetAsMatrix(vec_xu, m-k, m-k);
 
 vxy_lr = mat_xv;
 uxy_lr = mat_xu;

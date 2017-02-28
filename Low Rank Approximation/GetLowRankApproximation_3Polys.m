@@ -1,5 +1,6 @@
-function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
-    GetLowRankApproximation(fxy, gxy, alpha, th1, th2, m, n, k)
+function [fxy_lr, gxy_lr, hxy_lr, uxy_lr, vxy_lr, wxy_lr,...
+    alpha_lr, th1_lr, th2_lr] = ...
+    GetLowRankApproximation_3Polys(fxy, gxy, hxy, alpha, th1, th2, m, n, o, k)
 % Get the low rank approximation of the Sylvester matrix S_{t}(f,g), and
 % return the polynomials f_lr(x,y) and g_lr(x,y) which are the perturbed forms of
 % input polynomials f(x,y) and g(x,y).
@@ -7,39 +8,24 @@ function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
 %
 % % Inputs.
 %
-% fxy : Coefficients of polynomial f(x,y).
-%
-% gxy : Coefficients of polynomial g(x,y).
+% [fxy, gxy, hxy] : Coefficients of polynomial f(x,y), g(x,y) and h(x,y)
 %
 % alpha : \alpha
 %
-% th1 : \theta_{1}
+% [th1, th2] : \theta_{1}
 %
-% th2 : \theta_{2}
-%
-% m : Total degree of f(x,y).
-%
-% n : Total degree of g(x,y).
-%
-% k : Total degree of d(x,y).
+% [m, n, o] : Total degree of f(x,y), g(x,y) and h(x,y)
 %
 % % Outputs
 %
-% fxy_lr : Coefficients of polynomial f_lr(x,y) which is used in the low
-% rank approximation of S_{t}(f,g).
+% [fxy_lr, gxy_lr, hxy_lr] : Coefficients of polynomial f_lr(x,y) which is 
+% used in the low rank approximation of S_{t}(f,g).
 %
-% gxy_lr : Coefficients of polynomial g_lr(x,y) which is used in the low
-% rank approximation of S_{t}(f,g).
-%
-% uxy_lr :
-%
-% vxy_lr :
+% [uxy_lr, vxy_lr, wxy_lr] :
 %
 % alpha : \alpha
 %
-% th1 : \theta_{1}
-%
-% th2 : \theta_{2}
+% [th1, th2] : \theta_{1}
 
 global SETTINGS
 
@@ -48,20 +34,28 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
     
     case 'None'
         
-        
+        % Get f(\omega_{1},\omega_{2})
         fww = GetWithThetas(fxy, m, th1, th2);
+        
+        % Get g(\omega_{1}, \omega_{2}) 
         gww = GetWithThetas(gxy, n, th1, th2);
-        a_gww = alpha.*gww;
+        
+        % Get h(\omega_{1}, \omega_{2})
+        hww = GetWithThetas(hxy, o, th1, th2);
+       
+        
         
         % Get polynomials u(\omega_{1},\omega_{2}) and
         % v(\omega_{1},\omega_{2}).
-        [uww,vww] = GetCofactors(fww,a_gww,k);
+        [uww, vww, www] = GetCofactors_3Polys(fww, gww, hww, m, n, o, k);
         
         fxy_lr = fxy;
         gxy_lr = gxy;
-        
-        uxy_lr = GetWithoutThetas(uww,m-k,th1,th2);
-        vxy_lr = GetWithoutThetas(vww,n-k,th1,th2);
+        hxy_lr = hxy;
+                
+        uxy_lr = GetWithoutThetas(uww, m-k, th1, th2);
+        vxy_lr = GetWithoutThetas(vww, n-k, th1, th2);
+        wxy_lr = GetWithoutThetas(www, o-k, th1, th2);
         
         alpha_lr = alpha;
         th1_lr = th1;
@@ -72,12 +66,14 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         
     case 'Standard STLN'
         
-        fww = GetWithThetas(fxy,m,th1,th2);
-        gww = GetWithThetas(gxy,n,th1,th2);
+        error('Not Yet Complete')
+        
+        fww = GetWithThetas(fxy, m, th1, th2);
+        gww = GetWithThetas(gxy, n, th1, th2);
         a_gww = alpha.*gww;
         
         % Get low rank approximation
-        [fww_lr,a_gww_lr,uww_lr,vww_lr] = STLN(fww,a_gww,k);
+        [fww_lr, a_gww_lr, uww_lr, vww_lr] = STLN(fww, a_gww,k);
         
         fxy_lr = GetWithoutThetas(fww_lr, m, th1, th2);
         gxy_lr = GetWithoutThetas(a_gww_lr, n, th1, th2) ./ alpha;
@@ -94,10 +90,10 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         switch SETTINGS.PLOT_GRAPHS
             case 'y'
                 % Build the Sylvester matrix of f(x,y) and g(x,y)
-                S1 = BuildDTQ(fxy,gxy,k);
-                S2 = BuildDTQ(fww,a_gww,k);
-                S3 = BuildDTQ(fxy_lr,gxy_lr,k);
-                S4 = BuildDTQ(fww_lr,a_gww_lr,k);
+                S1 = BuildDTQ(fxy, gxy, k);
+                S2 = BuildDTQ(fww, a_gww, k);
+                S3 = BuildDTQ(fxy_lr, gxy_lr, k);
+                S4 = BuildDTQ(fww_lr, a_gww_lr, k);
                 
                 
                 [vSingularValues_1] = svd(S1);
@@ -122,6 +118,8 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         end
         
     case 'Standard SNTLN'
+        
+        error('Not Yet Complete')
         
         [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
             SNTLN(fxy, gxy, alpha, th1, th2, k);

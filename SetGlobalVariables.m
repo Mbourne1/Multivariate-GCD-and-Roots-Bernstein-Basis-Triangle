@@ -1,4 +1,5 @@
-function [] = SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method,bool_alpha_theta,low_rank_approx_method, apf_method, sylvester_type)
+function [] = SetGlobalVariables(problem_type, ex_num, emin, emax,...
+    mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type)
 
 global SETTINGS
 
@@ -50,8 +51,14 @@ SETTINGS.BOOL_ALPHA_THETA = bool_alpha_theta;
 %
 %
 SETTINGS.THRESHOLD = 2;
-SETTINGS.THRESHOLD_RANK = 1e-11;
+SETTINGS.THRESHOLD_RANK = 1e-3;
 
+% Metric used to compute the degree of the GCD
+% R1 Row Norms
+% R1 Row Diagonals
+% Singular Values
+% Residuals
+SETTINGS.RANK_REVEALING_METRIC = 'R1 Row Diagonals';
 
 % ------------------------------------------------------------------------
 %
@@ -65,7 +72,7 @@ SETTINGS.THRESHOLD_RANK = 1e-11;
 %
 SETTINGS.LOW_RANK_APPROX_METHOD = low_rank_approx_method;
 
-SETTINGS.STLN_MAX_ERROR = 1e-12;
+SETTINGS.STLN_MAX_ERROR = 1e-10;
 SETTINGS.STLN_MAX_ITERATIONS = 50;
 
 %--------------------------------------------------------------------------

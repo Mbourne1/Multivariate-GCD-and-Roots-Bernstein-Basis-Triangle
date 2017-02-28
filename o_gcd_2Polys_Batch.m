@@ -1,4 +1,4 @@
-function [] = o_gcd_Multiple
+function [] = o_gcd_2Polys_Batch
 % Peform multiple gcd computations
 
 
@@ -34,14 +34,10 @@ parfor i1 = 1:1:length(arr_ex_num)
                     bool_alpha_theta = arr_bool_alpha_theta{i4};
                     low_rank_approx_method = arr_low_rank_approx_method{i5};
                     
-                    fprintf([mfilename ' : ' 'Example Number :' ex_num '\n'])
-                    fprintf([mfilename ' : ' 'Noise : ' sprintf('%e',el) '\n'])
-                    fprintf([mfilename ' : ' 'Mean Method : ' mean_method '\n'])
-                    fprintf([mfilename ' : ' 'Bool_alpha_theta : ' bool_alpha_theta '\n'])
-                    fprintf([mfilename ' : ' 'Low_rank_approx_method : ' low_rank_approx_method '\n'])
+         
                     try
 
-                        o_gcd(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method);
+                        o_gcd_2Polys(ex_num,el,mean_method,bool_alpha_theta,low_rank_approx_method);
 
                     catch error
                         error.message

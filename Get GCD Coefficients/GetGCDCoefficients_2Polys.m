@@ -1,4 +1,4 @@
-function dxy = GetGCDCoefficients(fxy,gxy,uxy,vxy,m,n,t)
+function dxy = GetGCDCoefficients_2Polys(fxy, gxy, uxy, vxy, m, n, t)
 % Compute coefficients of polynomial d(x,y), by solving the system Ax = b
 % where A is the coefficient matrix given by H^{-1}[C(u);C(v)]G, b is the
 % vector of coefficients of f(x,y) and g(x,y) and b is an unknown vector of
@@ -6,17 +6,11 @@ function dxy = GetGCDCoefficients(fxy,gxy,uxy,vxy,m,n,t)
 %
 % % Inputs.
 %
-% fxy : Coefficients of polynomial f(x,y)
+% [fxy, gxy] : Coefficients of polynomial f(x,y) and g(x,y)
 % 
-% gxy : Coefficients of polynomial g(x,y)
+% [uxy, vxy] : Coefficients of polynomial u(x,y) and v(x,y)
 %
-% uxy : Coefficients of polynomial u(x,y)
-%
-% vxy : Coefficients of polynomial v(x,y)
-%
-% m : Total degree of f(x,y)
-%
-% n : Total degree of g(x,y)
+% [m, n] : Total degree of f(x,y) and g(x,y)
 %
 % t : Total degree of d(x,y)
 %
@@ -24,22 +18,22 @@ function dxy = GetGCDCoefficients(fxy,gxy,uxy,vxy,m,n,t)
 % % Outputs.
 %
 % dxy : Coefficients of polynomail d(x,y)
-%
+
 
 
 % % 
 % Build the matrix HCG
 
-% Build matrix H
-H1 = BuildD(m-t,t);
-H2 = BuildD(n-t,t);
+% Build matrix H^{-1}
+H1 = BuildD_2Polys(m-t, t);
+H2 = BuildD_2Polys(n-t, t);
 H = blkdiag(H1,H2);
 
 % Build matrix C_{t}(u)
-C1 = BuildT1(uxy,m-t,t);
+C1 = BuildT1(uxy, m-t, t);
 
 % Build matrix C_{t}(v)
-C2 = BuildT1(vxy,n-t,t);
+C2 = BuildT1(vxy, n-t, t);
 
 C = [C1 ; C2];
 
@@ -62,17 +56,17 @@ nCoeffs_gxy = nchoosek(n+2,2);
 v_gxy = v_gxy(1:nCoeffs_gxy);
 
 % Build RHS Vector
-rhs_vec = [v_fxy;v_gxy];
+rhs_vec = [v_fxy ; v_gxy];
 
 % % Solve System
 % Build System
-x_ls = SolveAx_b(H*C*G,rhs_vec);
+x_ls = SolveAx_b(H*C*G, rhs_vec);
 
 % % Get coefficients of d(x,y)
 
 % Get number of zeros in d(x,y)
 try
-    nZeros_dxy = nchoosek(t+1,2);
+    nZeros_dxy = nchoosek(t+1, 2);
 catch
     nZeros_dxy = 0;
 end
@@ -81,10 +75,10 @@ end
 % formed
 v_dxy = [...
     x_ls;
-    zeros(nZeros_dxy,1)
+    zeros(nZeros_dxy, 1)
     ];
 
 % Get matrix d(x,y)
-dxy = GetAsMatrix(v_dxy,t,t);
+dxy = GetAsMatrix(v_dxy, t, t);
 
 end

@@ -1,4 +1,4 @@
-function Sk = BuildSylvesterMatrix(fxy,gxy,m,n,k)
+function Sk = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, k)
 % BuildSylvesterMatrix(fxy,gxy,m,n,k)
 %
 % Build the Sylvester subresultant matrix S_{k}(f,g)
@@ -17,15 +17,15 @@ function Sk = BuildSylvesterMatrix(fxy,gxy,m,n,k)
 % k : Index of the Sylvester subresultant matrix S_{k} to be constructed.
 
 % Build the diagonal matrix D^{-1}
-D = BuildD(m,n-k);
+D = BuildD_2Polys(m, n-k);
 
 % Build the matrix T_{n-k}(f)
-T1_fx = BuildT1(fxy,m,n-k);
+T1_fx = BuildT1(fxy, m, n-k);
 
 % Build the matrix T_{m-k}(g)
-T1_gx = BuildT1(gxy,n,m-k);
+T1_gx = BuildT1(gxy, n, m-k);
 
-Q = BuildQ(m,n,k);
+Q = BuildQ_2Polys(m,n,k);
 
 global SETTINGS
 switch SETTINGS.SYLVESTER_MATRIX_TYPE

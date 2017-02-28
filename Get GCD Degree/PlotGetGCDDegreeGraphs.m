@@ -2,9 +2,9 @@ global SETTINGS
 switch SETTINGS.PLOT_GRAPHS
     case 'y'
         %% plot the minimum singular values
-        figure_name = sprintf('%s : Minimum Singular Values',mfilename);
+        figure_name = sprintf('%s : Minimum Singular Values of %s',mfilename,SETTINGS.SYLVESTER_MATRIX_TYPE);
         figure('name',figure_name)
-        title('minimum Singular Value for each subresultant matrix S_{k,k}')
+        title('Minimum Singular Value for each subresultant matrix S_{k,k}')
         hold on
         plot(log10(vMinimumSingularValues),'-s','DisplayName','Preprocessed');
         %plot(log10(min_sing_val_vec_unproc),'-s','DisplayName','Unprocessed');

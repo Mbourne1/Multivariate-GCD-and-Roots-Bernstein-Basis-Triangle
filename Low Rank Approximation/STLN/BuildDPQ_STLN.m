@@ -27,7 +27,7 @@ function DPQ = BuildDPQ_STLN(m,n,k,idx_col)
 nCols_Tf = nchoosek(n-k+2,2);
 
 % Build the matrix D^{-1}
-D = BuildD(m,n-k);
+D = BuildD_2Polys(m,n-k);
 
 % Build The middle 
 if idx_col <= nCols_Tf  % Column is in first partition of S_{k}
