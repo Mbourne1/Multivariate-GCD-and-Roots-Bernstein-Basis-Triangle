@@ -1,11 +1,12 @@
 function [] = o_deconvolution_Batch()
 
 global SETTINGS
-SETTINGS.PLOT_GRAPHS = 'n';
+
+SETTINGS.PLOT_GRAPHS = false;
 
 arr_ex_num = {'1','2','3'};
 arr_noise = {1e-6,1e-8,1e-10,1e-12};
-arr_bool_preproc = {'y','n'};
+arr_bool_preproc = {true, false};
 
 
 for i1 = 1:1:length(arr_ex_num)

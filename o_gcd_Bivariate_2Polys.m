@@ -8,9 +8,9 @@ function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha
 %
 % ex_num : (String) Example Number
 %
-% el : Noise level - lower level
+% el : (Float) Noise level - lower level
 %
-% em : Noise level - maximum level
+% em : (Float) Noise level - maximum level
 %
 % mean_method : (String) Options for mean calculation method
 %               *Geometric Mean Matlab Method
@@ -22,17 +22,17 @@ function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha
 %           * true :  
 %           * false :
 %
-% low_rank_approx_method : Options are
+% low_rank_approx_method : Options are (String)
 %               * Standard STLN
 %               * Standard SNTLN
 %               * None
 %
-% apf_method :
+% apf_method : (String)
 %       'None'
 %       'Standard Linear APF'
 %       'Standard Nonlinear APF'
 %
-% sylvester_matrix_type :
+% sylvester_matrix_type : (String)
 %       * T
 %       * DT
 %       * DTQ
@@ -111,18 +111,31 @@ PrintToResultsFile(m,n,t,my_error)
 
 end
 
-function [dist] = GetDistance(fxy,gxy)
+function [dist] = GetDistance(fxy, gxy)
+%
+% % Inputs
+%
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
+%
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
+%
+%
+% % Outputs
+%
+% dist : Distance between two polynomials
 
 fxy = fxy./fxy(1,1);
 gxy = gxy./gxy(1,1);
+
 try
     dist = norm(fxy - gxy) ./ norm(fxy);
 catch
     dist = 1000;
 end
+
 end
 
-function []= PrintToResultsFile(m,n,t,my_error)
+function []= PrintToResultsFile(m, n, t, my_error)
 
 global SETTINGS
 
@@ -173,14 +186,14 @@ end
 
 end
 
-function [dist_fxy] = GetError(fxy,fxy_exact)
+function [dist_fxy] = GetError(fxy, fxy_exact)
 % GetError : Get distance between f(x,y) and exact form.
 %
 % % Inputs.
 %
-% fxy : Coefficients of f(x,y) as computed.
+% fxy : (Matrix) Coefficients of f(x,y) as computed.
 %
-% fxy_exact : Coefficients of f(x,y) exact.
+% fxy_exact : (Matrix) Coefficients of f(x,y) exact.
 %
 % % Outputs.
 %

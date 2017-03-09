@@ -54,7 +54,7 @@ f = GetAsVector(fxy);
 nCoefficients_fxy = nchoosek(m+2, 2);
 
 % Remove trailing zeros
-v_fxy = f(1:nCoefficients_fxy);
+v_fxy = f(1 : nCoefficients_fxy);
 
 % % Solve for x
 % Get coefficients of h(x,y) 

@@ -1,41 +1,32 @@
-function [] = o_deconvolution(ex_num,emin,bool_preproc)
+function [] = o_deconvolution(ex_num, emin, bool_preproc)
 % Perform tests on deconvolution methods
 %
 %
 % % Inputs
 %
-% ex_num : Example number (String)
+% ex_num : (String) Example number (String)
 %
-% bool_preproc : Boolean whether preprocessing is included.
+% bool_preproc : (Boolean) whether preprocessing is included.
 %
-% emin : Noise level
+% emin : (Float) Noise level
 %
 %
 % % Outputs.
 %
 %
 %
-% Example
+% % Example
 %
-% >> o_deconvolution('1','y',1e-10);
+% >> o_deconvolution('1', true, 1e-10);
 
 % add location for Bivariate_Deconvolution_Examples() function
-addpath '../Examples';
+addpath(genpath('../Examples'));
 
-% add location of PowerToBernstein() function
-addpath 'Bernstein Functions'
+% Determine where your m-file's folder is.
+folder = fileparts(which(mfilename)); 
 
-% add location of BuildD()
-addpath 'Build Sylvester Matrix'
-
-% add location of GetAsVector() and GetAsMatrix()
-addpath 'Build Matrices'
-
-% add location of LineBreakLarge() function
-addpath 'Formatting'
-
-% add location of 'GetWithThetas()'
-addpath 'Preprocessing'
+% Add that folder plus all subfolders to the path.
+addpath(genpath(folder));
 
 % Add symbolic variables
 syms x y;
@@ -45,11 +36,11 @@ SETTINGS.SEED = 1024;
 SETTINGS.PREPROC_DECONVOLUTIONS = bool_preproc;
 SETTINGS.MAX_ERROR_DECONVOLUTIONS = 1e-14;
 SETTINGS.MAX_ITERATIONS_DECONVOLUTIONS = 10;
-SETTINGS.PLOT_GRAPHS = 'y';
+SETTINGS.PLOT_GRAPHS = true;
 
 % Get a matrix containing the symbolic factors of a polynomial and a vector
 % containing the multiplicity of each factor.
-[factor_mult_arr] = Bivariate_Deconvolution_Examples(ex_num);
+[factor_mult_arr] = Deconvolution_Examples_Bivariate(ex_num);
 
 factor = factor_mult_arr(:,1);
 
@@ -85,18 +76,14 @@ display(arr_sym_fxy{1})
 
 % Get the degree structure of the polynomials h_{i} where h_{i} =
 % f_{i-1}/f_{i}.
-vDegt_arr_hxy = -1.*diff(vDegt_arr_fxy);
-
-% Get the degree structure of the polynomials w_{i}
-vDegt_arr_wxy = diff([vDegt_arr_hxy; 0]);
-
-% Get the multiplicities of the roots
-vMultiplicities = find(vDegt_arr_wxy~=0);
+vDegt_arr_hxy = -1 .* diff(vDegt_arr_fxy);
 
 % Get the sequence of polynomials h_{i}(x) in symbolic form
-arr_sym_h = cell(length(arr_sym_fxy)-1,1);
-for i = 1:1:length(arr_sym_fxy)-1
+arr_sym_h = cell(length(arr_sym_fxy)-1, 1);
+for i = 1:1:length(arr_sym_fxy) - 1
+    
     arr_sym_h{i} = arr_sym_fxy{i} / arr_sym_fxy{i+1};
+    
 end
 
 
@@ -106,11 +93,11 @@ end
 nPolys_arr_fxy = length(arr_sym_fxy);
 nPolys_arr_hxy = length(arr_sym_fxy) - 1;
 
-arr_fxy_pwr = cell(nPolys_arr_fxy,1);
-arr_fxy_brn = cell(nPolys_arr_fxy,1);
+arr_fxy_pwr = cell(nPolys_arr_fxy, 1);
+arr_fxy_brn = cell(nPolys_arr_fxy, 1);
 
-arr_hxy_pwr = cell(nPolys_arr_hxy,1);
-arr_hxy_brn = cell(nPolys_arr_hxy,1);
+arr_hxy_pwr = cell(nPolys_arr_hxy, 1);
+arr_hxy_brn = cell(nPolys_arr_hxy, 1);
 
 for i = 1:1:nPolys_arr_fxy
     
@@ -120,6 +107,7 @@ for i = 1:1:nPolys_arr_fxy
     arr_fxy_brn{i,1} = PowerToBernstein(arr_fxy_pwr{i,1},vDegt_arr_fxy(i));
     
     if i <= nPolys_arr_hxy
+        
         arr_hxy_pwr{i,1} = double(rot90(coeffs(arr_sym_h{i},[x,y],'All'),2));
         
         arr_hxy_brn{i,1} = PowerToBernstein(arr_hxy_pwr{i,1},vDegt_arr_hxy(i));
@@ -137,7 +125,9 @@ end
 arr_fxy_brn_noisy = cell(nPolys_arr_fxy,1);
 
 for i = 1:1:nPolys_arr_fxy
+    
     arr_fxy_brn_noisy{i,1} = AddNoiseToPoly(arr_fxy_brn{i},emin);
+    
 end
 
 %--------------------------------------------------------------------------
@@ -149,7 +139,7 @@ LineBreakLarge();
 fprintf([mfilename ' : ' 'Separate \n'])
 
 arr_hxy_brn_separate = Deconvolve_Bivariate_Separate(arr_fxy_brn_noisy);
-vErrors_separate = GetErrors(arr_hxy_brn_separate,arr_hxy_brn);
+vErrors_separate = GetErrors(arr_hxy_brn_separate, arr_hxy_brn);
 
 % -------------------------------------------------------------------------
 % %
@@ -158,8 +148,8 @@ vErrors_separate = GetErrors(arr_hxy_brn_separate,arr_hxy_brn);
 LineBreakLarge()
 fprintf([mfilename ' : ' 'Batch \n'])
 
-arr_hxy_brn_batch = Deconvolve_Bivariate_Batch(arr_fxy_brn_noisy,vDegt_arr_fxy);
-vErrors_batch = GetErrors(arr_hxy_brn_batch,arr_hxy_brn);
+arr_hxy_brn_batch = Deconvolve_Bivariate_Batch(arr_fxy_brn_noisy, vDegt_arr_fxy);
+vErrors_batch = GetErrors(arr_hxy_brn_batch, arr_hxy_brn);
 
 % -------------------------------------------------------------------------
 % %
@@ -169,7 +159,7 @@ LineBreakLarge()
 fprintf([mfilename ' : ' 'Batch with STLN \n'])
 
 arr_hxy_brn_batch_with_STLN = Deconvolve_Bivariate_Batch_With_STLN(arr_fxy_brn_noisy,vDegt_arr_fxy);
-vErrors_batch_with_STLN = GetErrors(arr_hxy_brn_batch_with_STLN,arr_hxy_brn);
+vErrors_batch_with_STLN = GetErrors(arr_hxy_brn_batch_with_STLN, arr_hxy_brn);
 
 % -------------------------------------------------------------------------
 % %
@@ -202,25 +192,24 @@ vErrors_batch_constrained_with_STLN = GetErrors(arr_hxy_brn_batch_constrained_wi
 % %
 % %
 % Plotting
-SETTINGS.PLOT_GRAPHS
-switch SETTINGS.PLOT_GRAPHS
-    case 'n'
-        
-    case 'y'
-        fig_name = sprintf([mfilename ' : ' 'Plotting Errors']);
-        figure('name',fig_name)
-        hold on
-        plot(log10(vErrors_separate),'-s','DisplayName','Separate')
-        plot(log10(vErrors_batch),'-*','DisplayName','Batch')
-        plot(log10(vErrors_batch_with_STLN),'-*','DisplayName','Batch STLN')
-        plot(log10(vErrors_batch_constrained),'-o','DisplayName','Batch Constrained')
-        plot(log10(vErrors_batch_constrained_with_STLN),'-o','DisplayName','Batch Constrained STLN')
-        legend(gca,'show')
-        xlabel('i')
-        ylabel('log_{10} Error in h_{i}(x,y)')
-        hold off
-    otherwise
-        my_error('err');
+
+if( SETTINGS.PLOT_GRAPHS)
+    
+    
+    
+    fig_name = sprintf([mfilename ' : ' 'Plotting Errors']);
+    figure('name',fig_name)
+    hold on
+    plot(log10(vErrors_separate),'-s','DisplayName','Separate')
+    plot(log10(vErrors_batch),'-*','DisplayName','Batch')
+    plot(log10(vErrors_batch_with_STLN),'-*','DisplayName','Batch STLN')
+    plot(log10(vErrors_batch_constrained),'-o','DisplayName','Batch Constrained')
+    plot(log10(vErrors_batch_constrained_with_STLN),'-o','DisplayName','Batch Constrained STLN')
+    legend(gca,'show')
+    xlabel('i')
+    ylabel('log_{10} Error in h_{i}(x,y)')
+    hold off
+    
 end
 %--------------------------------------------------------------------------
 GetErr(vErrors_separate,'Separate')

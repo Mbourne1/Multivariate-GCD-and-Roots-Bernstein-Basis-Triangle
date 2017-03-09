@@ -3,16 +3,16 @@ function [arr_hxy] = Deconvolve_Bivariate_Batch_Constrained(arr_fxy,vDegt_fxy)
 %
 % % Inputs
 %
-% arr_fxy : Array of polynomials f_{i}(x,y) in Bernstein form.
+% arr_fxy : (Array of Matrices) Array of polynomials f_{i}(x,y) in Bernstein form.
 %
-% vDegt_fxy : Vector of total degrees of the polynomials f_{i}(x,y).
+% vDegt_fxy : (Vector) Vector of total degrees of the polynomials f_{i}(x,y).
 
 
 vDeg_arr_fxy = vDegt_fxy;
 vDeg_arr_hxy = diff(vDeg_arr_fxy);
 vDeg_arr_wxy = diff([vDeg_arr_hxy; 0]);
 vMult = find(vDeg_arr_wxy~=0);
-unique_vMult = unique(vMult);
+
 
 % Get the number of polynomials in arr_fxy of f_{i}(x,y)
 nPolys_arr_fxy = size(arr_fxy,1);
@@ -22,35 +22,43 @@ nPolys_arr_hxy = nPolys_arr_fxy - 1;
 
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-   vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
+    
+    vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
+    
 end
 
-vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 
 
 % preproc
 global SETTINGS
-switch SETTINGS.PREPROC_DECONVOLUTIONS
-    case 'y'
-        [th1, th2] = GetOptimalTheta(arr_fxy);
-    case 'n'
-        th1 = 1;
-        th2 = 1;
-    otherwise
+if SETTINGS.PREPROC_DECONVOLUTIONS
+    
+    
+    [th1, th2] = GetOptimalTheta(arr_fxy);
+    
+else
+    
+    th1 = 1;
+    th2 = 1;
+    
+    
 end
 
 % Get f(\omega_{1},\omega_{2}) from f(x,y)
 arr_fww = cell(nPolys_arr_fxy,1);
+
 for i = 1:1:nPolys_arr_fxy
+    
     m = vDeg_arr_fxy(i);
-    arr_fww{i} = GetWithThetas(arr_fxy{i},m,th1,th2);
+    arr_fww{i} = GetWithThetas(arr_fxy{i}, m, th1, th2);
+    
 end
 
 
 % %
 % %
 % Build the LHS Matrix
-DT_fwwQ = BuildDTQ_2Polys(arr_fww,vDeg_arr_fxy);
+DT_fwwQ = BuildDTQ_2Polys(arr_fww, vDeg_arr_fxy);
 
 % %
 % %
@@ -58,7 +66,7 @@ DT_fwwQ = BuildDTQ_2Polys(arr_fww,vDeg_arr_fxy);
 rhs_fww = BuildRHS_vec(arr_fww);
 
 
-x_ls = SolveAx_b(DT_fwwQ,rhs_fww);
+x_ls = SolveAx_b(DT_fwwQ, rhs_fww);
 
 unique_vMult = unique(vMult);
 
@@ -86,11 +94,11 @@ for i = 1:1:length(unique_vMult)
     
     vec_px = ...
         [
-            vec_px;
-            zeros(nZeros_px,1)
+        vec_px;
+        zeros(nZeros_px,1)
         ];
     
-    arr_pww{i,1} = GetAsMatrix(vec_px,deg_px,deg_px);
+    arr_pww{i,1} = GetAsMatrix(vec_px, deg_px, deg_px);
     
     
     
@@ -130,6 +138,17 @@ end
 
 
 function LHS_Matrix = BuildDTQ_2Polys(arr_fxy, vDegt_fxy)
+%
+% % Inputs
+%
+% arr_fxy : (Array of Matrices)
+%
+% vDegt_fxy : (Vector) Degree of each polynomial in array
+%
+% % Outputs
+%
+% LHS_Matrix : (Matrix)
+
 
 vDeg_arr_fxy = vDegt_fxy;
 vDeg_arr_hxy = diff(vDeg_arr_fxy);
@@ -150,14 +169,11 @@ for i = 1:1:nDistinct_hx
     
     new_mult = vMult(i);
     
-    Cf{i} = [];
+    arr_Cf{i} = [];
     
     for j = (old_mult+1+1) : 1 : (new_mult+1)
         
-        % Get coefficients of previous f(x,y)
-        fxy_prev = arr_fxy{j-1};
-        
-        % Get the degree of previous f(x,y)
+        % Get the degree of previous f(x,y) in the array of polynomials
         deg_fx_prev = vDeg_arr_fxy(j-1);
         
         % Get polynomial f(x,y)
@@ -169,35 +185,49 @@ for i = 1:1:nDistinct_hx
         % Get the degree of polynomial h_{i}
         deg_hx = deg_fx_prev - m;
         
-        % Build the cauchy like matrix
-        Tf{j} = BuildT1(fxy,m,deg_hx);
+        % Build the Toeplitz matrix
+        arr_Tf{j} = BuildT1(fxy, m, deg_hx);
         
         % Build the diagonal matrix D
-        D{j} = BuildD(m,deg_hx);
+        arr_D{j} = BuildD_2Polys(m, deg_hx);
         
         % Stack beneath all other T_f
-        Cf{i} = [Cf{i} ; D{j}*Tf{j}];
+        arr_Cf{i} = [arr_Cf{i} ; arr_D{j}*arr_Tf{j}];
         
     end
     
-    Q{i} = BuildQ1(deg_hx);
+    arr_Q{i} = BuildQ1(deg_hx);
     
-    DTQ{i} = Cf{i} * Q{i};
+    arr_DTQ{i} = arr_Cf{i} * arr_Q{i};
 end
 
-LHS_Matrix = blkdiag(DTQ{:});
+LHS_Matrix = blkdiag(arr_DTQ{:});
 
 end
 
 function rhs_fxy = BuildRHS_vec(arr_fxy)
+%
+% % Inputs
+%
+% arr_fxy : (Array of Matrices)
+%
+% % Outputs
+%
+% rhs_fxy : (Vector) Vector of coefficients of the set of polynomials
+% f_{i}(x,y)
+
+
 
 % Get number of polynomials in array of f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy,1);
+nPolys_arr_fxy = size(arr_fxy, 1);
 
 % Get the degree of the polynomials f_{i}(x,y)
-vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
-for i = 1:1:nPolys_arr_fxy 
+vDeg_arr_fxy = zeros(nPolys_arr_fxy, 1);
+
+for i = 1:1:nPolys_arr_fxy
+    
     vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
+    
 end
 
 
@@ -205,7 +235,7 @@ end
 rhs_fxy = cell(nPolys_arr_fxy-1,1);
 
 % Get RHS vector of polynomials f_{0} ... f_{d-1}
-for i = 1:1:nPolys_arr_fxy-1;
+for i = 1 : 1 : (nPolys_arr_fxy - 1)
     
     % Get coefficients of f(x,y)
     fxy = arr_fxy{i,1};
@@ -219,6 +249,7 @@ for i = 1:1:nPolys_arr_fxy-1;
     % Get the nonzero coefficients of f(x,y) from upper left triangle of
     % the coefficient matrix.
     v_fxy = GetAsVector(fxy);
+    
     rhs_fxy{i,1} = v_fxy(1:nCoefficients_fxy);
     
 end
@@ -227,60 +258,25 @@ end
 rhs_fxy = cell2mat(rhs_fxy);
 end
 
-function arr_zxy = GetArray(v_zx,v_deg_arr_fxy)
-% Given the vector of perturbations of f(x) given by v_zx
 
-% Get number of polynomials in arr_fx
-nPolys_fx = size(v_deg_arr_fxy,1);
+function arr_hxy = Get_hxy(arr_pxy, unique_vMult)
+%
+% % Inputs
+%
+% arr_pxy : (Array of Matrices)
+%
+% unique_vMult : (Vector)
+%
+% % Outputs
+%
+% arr_hxy :(Array of Matrices)
 
-% Initialise an array
-arr_zxy = cell(nPolys_fx,1);
-
-for i = 1:1:nPolys_fx
-    
-    % Get degree of f_{i}(x)
-    m = v_deg_arr_fxy(i);
-    
-    % Get number of coefficients in f_{i}(x)
-    nCoefficients_fxy = nchoosek(m+2,2);
-    
-    % Get the coefficients from the vector
-    temp_vec = v_zx(1:nCoefficients_fxy);
-    
-    % Remove the m+1 coefficients
-    v_zx(1:v_deg_arr_fxy(i)+1) = [];
-    
-    % Get number of zeros in f_{i}(x,y) to be added to form a matrix
-    try
-        nZeros = nchoosek(m+1,2);
-    catch
-        nZeros = 0;
-    end
-    
-    % Add zeros
-    temp_vec = ...
-        [
-        temp_vec;
-        zeros(nZeros,1)
-        ];
-    
-    % Get as matrix
-    mat = GetAsMatrix(temp_vec,m,m);
-    
-    arr_zxy{i} = mat;
-    
-    
-end
-
-
-end
-
-function arr_hxy = Get_hxy(arr_pxy,unique_vMult)
-
+% Get number of polynomials p_{i}(x,y)
 nPolys_arr_pxy = size(arr_pxy,1);
 
 % Initialise a count
 count = 1;
+
 for i = 1:1:nPolys_arr_pxy
     
     if i == 1
@@ -289,9 +285,11 @@ for i = 1:1:nPolys_arr_pxy
         nReps = (unique_vMult(i) - unique_vMult(i-1));
     end
     
-    for j = 1:1:nReps
+    for j = 1 : 1 : nReps
+        
         arr_hxy{count,1} = arr_pxy{i};
         count = count + 1;
+        
     end
     
 end

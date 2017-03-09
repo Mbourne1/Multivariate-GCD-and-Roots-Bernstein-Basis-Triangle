@@ -31,7 +31,7 @@ function [] = o_roots_Bivariate(ex_num, emin, emax, mean_method, bool_alpha_thet
 
 % Set variables
 global SETTINGS
-SETTINGS.PLOT_GRAPHS = 'n';
+
 
 % Add subfolders
 restoredefaultpath

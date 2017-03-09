@@ -6,31 +6,31 @@ function [] = o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha
 %
 % % Inputs.
 %
-% ex_num  : Example Number (String)
+% ex_num  : (String) Example Number (String)
 %
-% emin    : Minimum Noise level
+% emin : (Float) Minimum Noise level
 %
-% emax : Maximum signal to noise ratio
+% emax : (Float) Maximum signal to noise ratio
 %
-% mean_method :
+% mean_method : (String)
 %       'Geometric Mean Matlab Method'
 %       'None'
 %
-% bool_alpha_theta ('y'/'n')
+% bool_alpha_theta (Boolean)
 %       true - Include Preprocessing
 %       false - Exclude Preprocessing
 %
-% low_rank_approx_method ('y'/'n')
+% low_rank_approx_method (String)
 %       'Standard SNTLN'
 %       'None'
 %
-% apf_method
+% apf_method (String)
 %       'None'
 %       'Standard APF Linear'
 %       'Standard APF Nonlinear'
 %
 %
-% sylvester_matrix_type :
+% sylvester_matrix_type : (String)
 %       * T
 %       * DT
 %       * DTQ
@@ -93,10 +93,8 @@ fprintf('SYLVESTER TYPE : %s \n', sylvester_type)
 [fxy_exact, gxy_exact, hxy_exact,...
     uxy_exact,vxy_exact, wxy_exact,...
     dxy_exact,...
-    m,m1,m2,...
-    n,n1,n2,...
-    o,o1,o2,...
-    t_exact, t1_exact, t2_exact] = Examples_GCD_3Polys(ex_num);
+    m,~,~,n,~,~,o,~,~,...
+    ~, ~, ~] = Examples_GCD_3Polys(ex_num);
 
 
 
@@ -118,22 +116,23 @@ DisplayDegreeStructure_3Polys();
 
 
 % Get GCD d(x,y) and quotient polynomials u(x,y) and v(x,y)
-lower_limit = 1;
-upper_limit = min([m,n,o]);
-t_limits = [lower_limit,upper_limit];
+lowerLimit = 1;
+upperLimit = min([m,n,o]);
+t_limits = [lower_limit, upperLimit];
 
 
 
 switch SETTINGS.DEGREE_METHOD
     case 'Total'
+        
         fxy_matrix_padd = zeros(m+1,m+1);
         gxy_matrix_padd = zeros(n+1,n+1);
         
-        [r,c] = size(fxy);
-        fxy_matrix_padd(1:r,1:c) = fxy;
+        [m1, m2] = GetDegree_Bivariate(fxy);
+        fxy_matrix_padd(1:m1+1, 1:m2+1) = fxy;
         
-        [r,c] = size(gxy);
-        gxy_matrix_padd(1:r,1:c) = gxy;
+        [n1, n2] = size(gxy);
+        gxy_matrix_padd(1:n1+1, 1:n2+1) = gxy;
         
         fxy = fxy_matrix_padd;
         gxy = gxy_matrix_padd;
@@ -150,11 +149,11 @@ end
 
 
 % Get Error in u(x,y), v(x,y) and d(x,y)
-my_error.uxy = GetError(uxy,uxy_exact);
-my_error.vxy = GetError(vxy,vxy_exact);
-my_error.wxy = GetError(wxy,wxy_exact);
+my_error.uxy = GetError(uxy, uxy_exact);
+my_error.vxy = GetError(vxy, vxy_exact);
+my_error.wxy = GetError(wxy, wxy_exact);
 
-my_error.dxy = GetError(dxy,dxy_exact);
+my_error.dxy = GetError(dxy, dxy_exact);
 
 % Print the error in u(x,y), v(x,y) and d(x,y)
 fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', my_error.uxy)]);
@@ -167,17 +166,38 @@ PrintToResultsFile(m, n, o, t, my_error)
 end
 
 function [dist] = GetDistance(fxy,gxy)
+%
+% % Inputs
+%
+% fxy : (Matrix)
+%
+% gxy : (Matrix) 
+
 
 fxy = fxy./fxy(1,1);
 gxy = gxy./gxy(1,1);
+
 try
     dist = norm(fxy - gxy) ./ norm(fxy);
 catch
     dist = 1000;
 end
+
 end
 
 function []= PrintToResultsFile(m,n,o,t,my_error)
+%
+% % Inputs
+%
+% m : (Int)
+%
+% n : (Int) 
+%
+% o : (Int)
+%
+% t : (Int)
+%
+% my_error :
 
 global SETTINGS
 
@@ -238,9 +258,9 @@ function [dist_fxy] = GetError(fxy,fxy_exact)
 %
 % % Inputs.
 %
-% fxy : Coefficients of f(x,y) as computed.
+% fxy : (Matrix) Coefficients of f(x,y) as computed.
 %
-% fxy_exact : Coefficients of f(x,y) exact.
+% fxy_exact : (Matrix) Coefficients of f(x,y) exact.
 %
 % % Outputs.
 %
@@ -250,30 +270,3 @@ dist_fxy = GetDistance(fxy_exact,fxy);
 
 end
 
-function [] = DisplayDegreeStructure()
-
-
-
-fprintf('\n')
-fprintf('----------------------------------------------------------------\n')
-fprintf('Input Polynomials Degrees:\n')
-fprintf('m  : %i \n',m)
-fprintf('m1 : %i \n',m1)
-fprintf('m2 : %i \n\n',m2)
-fprintf('n  : %i \n',n)
-fprintf('n1 : %i \n',n1)
-fprintf('n2 : %i \n',n2)
-fprintf('o  : %i \n',o)
-fprintf('o1 : %i \n',o1)
-fprintf('o2 : %i \n\n',o2)
-
-
-fprintf('t  : %i \n',t_exact)
-fprintf('t1 : %i \n',t1_exact)
-fprintf('t2 : %i \n',t2_exact)
-fprintf('----------------------------------------------------------------\n')
-fprintf('\n')
-fprintf('----------------------------------------------------------------\n')
-
-
-end

@@ -39,8 +39,8 @@ vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 % For each polynomial f_{i} get its degree
 for i = 1:1:nPolys_arr_fxy
     
-   vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
-   
+    vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
+    
 end
 
 % %
@@ -56,14 +56,13 @@ vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 % y - Preprocess.
 % n - Dont preprocess.
 
-switch SETTINGS.PREPROC_DECONVOLUTIONS
-    case 'y'
-        [th1, th2] = GetOptimalTheta(arr_fxy);
-    case 'n'
-        th1 = 1;
-        th2 = 1;
-    otherwise 
-        error([mfilename ' : error '])
+if( SETTINGS.PREPROC_DECONVOLUTIONS)
+    
+    [th1, th2] = GetOptimalTheta(arr_fxy);
+else
+    th1 = 1;
+    th2 = 1;
+    
 end
 
 % %
@@ -98,15 +97,15 @@ v_hww = SolveAx_b(DT_fwwQ,vRHS_fww);
 arr_hww = GetArray(v_hww,vDeg_arr_hxy);
 
 
-% % 
 % %
-% Let z be vector of perturbations of polynomails f_{i} such that 
+% %
+% Let z be vector of perturbations of polynomails f_{i} such that
 % z = [z0 z1 ... zd]
 arr_zww = cell(nPolys_arr_fxy,1);
 
 for i = 1:1:nPolys_arr_fxy
-   m = vDeg_arr_fxy(i);
-   arr_zww{i,1} = zeros(m+1,m+1);
+    m = vDeg_arr_fxy(i);
+    arr_zww{i,1} = zeros(m+1,m+1);
 end
 
 % Build vector z, consisting of all vectors z_{i}
@@ -116,7 +115,7 @@ v_RHS_zww = BuildRHS_vec(arr_zww);
 
 % %
 % %
-% Build the matrix P 
+% Build the matrix P
 
 % Get number of coefficients across all polynomials f_{i}(x,y)
 v_nCoefficients_arr_fxy = zeros(nPolys_arr_fxy,1);
@@ -130,8 +129,8 @@ end
 v_nCoefficients_arr_hxy = zeros(nPolys_arr_hxy,1);
 
 for i = 1:1:nPolys_arr_hxy
-   n = vDeg_arr_hxy(i);
-   v_nCoefficients_arr_hxy(i,1) = nchoosek(n+2,2);
+    n = vDeg_arr_hxy(i);
+    v_nCoefficients_arr_hxy(i,1) = nchoosek(n+2,2);
 end
 
 % Get number of coefficients in all polynomials f_{i}(x,y)
@@ -147,7 +146,7 @@ P = [...
     eye(nCoefficients_rhs) ...
     zeros(nCoefficients_rhs,v_nCoefficients_arr_fxy(end))
     ];
-    
+
 % %
 % %
 % %
@@ -170,8 +169,8 @@ condition(ite) = norm(res_vec) ./ norm(vRHS_fww);
 
 start_point = ...
     [
-        v_hww;
-        v_zww;
+    v_hww;
+    v_zww;
     ];
 
 yy = start_point;
@@ -279,7 +278,7 @@ arr_DT1Q1 = cell(nPolys_arr_fxy-1,1);
 % For each of the polynomials excluding the first f_{1},...,f_{d}
 for i = 1:1:nPolys_arr_fxy-1
     
-        
+    
     % Get the degree of f{i}
     m = vDeg_arr_fxy(i+1);
     
@@ -289,9 +288,9 @@ for i = 1:1:nPolys_arr_fxy-1
     fxy = arr_fxy{i+1};
     
     % Build the matrix T_{n-m}(f(x,y))
-    T1 = BuildT1(fxy,m,n);
+    T1 = BuildT1(fxy, m, n);
     
-    D = BuildD(m,n);
+    D = BuildD_2Polys(m, n);
     Q1 = BuildQ1(n);
     
     arr_DT1Q1{i} = D*T1*Q1;
@@ -356,7 +355,7 @@ end
 arr_rhs = cell(nPolys_arr_fxy,1);
 
 % For each polynomial f_{1},...,f_{d} (Note exclude f_{0})
-for i = 1:1:nPolys_arr_fxy 
+for i = 1:1:nPolys_arr_fxy
     
     % Get degree of f(x,y)
     m = vDeg_arr_zxy(i);
@@ -424,24 +423,30 @@ end
 
 
 
-function C_fxy = BuildDYQ(arr_hxy,vDeg_arr_fxy)
+function C_fxy = BuildDYQ(arr_hxy, vDeg_arr_fxy)
 % Build the matrix C(f1,...,fd)
 %
 % Inputs.
 %
-% arr_fxy : Array of polynomials f(x,y)
+% arr_fxy : (Array of Matrices) Array of polynomials f(x,y)
+%
+% vDeg_arr_fxy : (Vector)
+%
 %
 % Outputs.
 %
-% C_fxy :
+% C_fxy : (Matrix)
 
 % Get number of polynomials in f_{i}(x,y)
 nPolys_arr_hxy = size(arr_hxy,1);
 
 % Get degree of each polynomial f_{i}(x,y)
 vDeg_arr_hxy = zeros(nPolys_arr_hxy,1);
+
 for i = 1 : 1 : nPolys_arr_hxy
+    
     vDeg_arr_hxy(i) = GetDegree_Bivariate(arr_hxy{i});
+    
 end
 
 
@@ -451,7 +456,7 @@ arr_DT1Q1 = cell(nPolys_arr_hxy,1);
 % For each of the polynomials excluding the first f_{1},...,f_{d}
 for i = 1:1:nPolys_arr_hxy
     
-        
+    
     % Get the degree of h{i}(x,y)
     m = vDeg_arr_hxy(i);
     
@@ -464,13 +469,13 @@ for i = 1:1:nPolys_arr_hxy
     % Build the matrix T_{n-m}(f(x,y))
     T1 = BuildT1(hxy,m,n);
     
-    D = BuildD(m,n);
+    D = BuildD_2Polys(m,n);
     Q1 = BuildQ1(n);
     
     arr_DT1Q1{i} = D*T1*Q1;
 end
 
-% Include a section of zeros 
+% Include a section of zeros
 
 C_fxy = blkdiag(arr_DT1Q1{:});
 nRows = size(C_fxy,1);
