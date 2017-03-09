@@ -38,13 +38,13 @@ function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, dxy_lr, alpha_lr, th1_lr, th2_lr] = ..
 % vxy_lr : (Matrix) Coefficients of the polynomial u(x,y), the quotient
 % polynomial such that g(x,y)/v(x,y) = d(x,y)
 %
-% dxy_lr : (Matrix) Coefficients of the polynomial d(x,y)
+% dxy_lr : (Matrix) Coefficien
 %
-% alpha_lr : (Float) 
+% alpha_lr :
 %
-% th1_lr : (Float)
+% th1_lr :
 %
-% th2_lr : (Float)
+% th2_lr :
 
 
 global SETTINGS

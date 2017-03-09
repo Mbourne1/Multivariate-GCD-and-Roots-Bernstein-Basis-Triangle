@@ -8,7 +8,7 @@ nPolys_arr_fxy = size(arr_fxy,1);
 % Get the degree of the array of polynomials
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
+    vDeg_arr_fxy(i) = GetDegree_Biva(arr_fxy{i});
 end
 
 vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
@@ -28,7 +28,7 @@ tau = cell(nPolys_arr_fxy,1);
 
 for i = 2:1:nPolys_arr_fxy
     
-    m = GetDegree_Bivariate(arr_fxy{i});
+    m = GetDegree(arr_fxy{i});
     nCoefficients_fxy = nchoosek(m+2,2);
     
     temp_max = GetAsVector(arr_max_fxy{i});
@@ -106,17 +106,12 @@ end
 
 function [max_matrix,min_matrix] = GetMaxMin_fxy(fxy,n)
 % Get maximum occurence of each coefficient 
-%
-% fxy : (Matrix) Coefficients of the polynomial f(x,y)
-%
-% n : Total degree of polynomial g(x,y)
 
 % Get the degree of f(x,y)
-m = GetDegree_Bivariate(fxy);
+m = GetDegree(fxy);
 
 max_matrix = zeros(m+1,m+1);
 min_matrix = zeros(m+1,m+1);
-
 for i = 0:1:m
     for i1 = i:-1:0
 

@@ -1,5 +1,5 @@
-function Sk = BuildDTQ_from_prev(S_prev,m,n,k)
-% BuildDTQ_from_prev(S_prev,m,n,k)
+function Sk = BuildDTQ_from_prev(S_prev, m, n, k)
+% BuildDTQ_from_prev(S_prev, m, n, k)
 %
 % Construct the kth Sylvester subresultant matrix 
 % S_{k}(f,g) = D^{-1}T_{k}(f,g)Q_{k} from the (k-1)th Sylvester 
@@ -21,10 +21,10 @@ function Sk = BuildDTQ_from_prev(S_prev,m,n,k)
 % Sk : The kth Sylvester Subresultant matrix
 
 % Build the matrix VD which premultiplies S_{k-1}(f,g)
-VD = BuildVD(m,n,k-1);
+VD = BuildVD(m, n, k-1);
 
 % Build the matrix WQ which postmultiplies S_{k-1})(f,g)
-WQ = BuildWQ(m,n,k-1);
+WQ = BuildWQ(m, n, k-1);
 
 % Get the Sylvester subresultant matrix S_{k}
 Sk = VD * S_prev * WQ;
@@ -32,7 +32,7 @@ Sk = VD * S_prev * WQ;
 end
 
 
-function VD = BuildVD(m,n,k)
+function VD = BuildVD(m, n, k)
 % Polynomial f is multiplied by a polynomial g of degree n-k
 
 mat = zeros(m+n-k,m+n-k);
@@ -65,7 +65,7 @@ VD = [V1 zero_mat];
 
 end
 
-function WQ = BuildWQ(m,n,k)
+function WQ = BuildWQ(m, n, k)
 
 part1 = BuildWQ_Partition(n-k);
 part2 = BuildWQ_Partition(m-k);
@@ -78,7 +78,7 @@ end
 function WQ = BuildWQ_Partition(n_k)
 
 % Build the WQ matrix for first partition
-mat_W1 = zeros(n_k,n_k);
+mat_W1 = zeros(n_k, n_k);
 
 for i1 = 0:1:n_k-1
     for i2 = 0:1:n_k-1

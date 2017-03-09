@@ -1,30 +1,32 @@
-function [t, GM_fx, GM_gx, alpha, th1, th2] = GetGCDDegree_2Polys(fxy, gxy, m, n, limits_t)
+function [t, GM_fx, GM_gx, alpha, th1, th2] = GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t)
 % GetGCDDegree(fxy,gxy,m,n)
 %
 % Inputs.
 %
-% [fxy, gxy] : Coefficients of polynomial f(x,y) and g(x,y)
+% fxy : (Matrix) Coefficients of the polynomial f(x,y)
+% gxy : (Matrix) Coefficients of the polynomial g(x,y)
+% m : (Int) Total degree of f(x,y)
+% n : (Int) Total degree of g(x,y)
 %
-% [m, n] : Total degree of f(x,y) and g(x,y)
+% limits_t = []
 %
 % % Outputs
 %
-% t :
-%
-% [lambda, mu] :
-%
-% alpha :
-%
-% [th1, th2] :
+% t : (Int)
+% GM_fx : (Float)
+% GM_gx : (Float)
+% alpha : (Float)
+% th1 : (Float)
+% th2 : (Float)
 
 global SETTINGS
 
-my_limits = [0 min(m,n)];
+myLimits = [0 min(m,n)];
 
-lowerLimit = my_limits(1);
-upperLimit = my_limits(2);
+myLowerLimit = myLimits(1);
+myUpperLimit = myLimits(2);
 
-nSubresultants = upperLimit - lowerLimit + 1;
+nSubresultants = myUpperLimit - myLowerLimit + 1;
 
 
 arr_SingularValues = cell(nSubresultants,1);
@@ -39,7 +41,7 @@ vTh2 = zeros(nSubresultants,1);
 
 for i = 1:1:nSubresultants
     
-    k = lowerLimit + (i-1);
+    k = myLowerLimit + (i-1);
     
     % %
     % Geometric Mean
@@ -89,8 +91,8 @@ switch SETTINGS.RANK_REVEALING_METRIC
         vMinRowNormR1 = zeros(nSubresultants,1);
         
         for i = 1:1:nSubresultants
-           
-            arr_R1_RowNorms{i} = sqrt(sum(arr_R1{i}.^2,2))./norm(arr_R1{i}); 
+            
+            arr_R1_RowNorms{i} = sqrt(sum(arr_R1{i}.^2,2))./norm(arr_R1{i});
             
             % Get maximum and minimum row norms of rows of R1.
             vMaxRowNormR1(i) = max(arr_R1_RowNorms{i});
@@ -98,11 +100,12 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        plotRowNorms(arr_R1RowNorms, my_limits, limits_t)
-        plotMaxMinRowNorms(vMaxRowNormR1,vMinRowNormR1, my_limits, limits_t)
-        
+        if(SETTINGS.PLOT_GRAPHS)
+            plotRowNorms(arr_R1RowNorms, myLimits, limits_t)
+            plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, myLimits, limits_t)
+        end
         metric = vMinRowNormR1 ./ vMaxRowNormR1;
-    
+        
     case 'R1 Row Diagonals'
         
         vMaxDiagonalEntry = zeros(nSubresultants,1);
@@ -120,10 +123,10 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vRatio_MaxMin_DiagonalEntry = vMinDiagonalEntry ./ vMaxDiagonalEntry;
         
-        
-        plotDiagonalsR1(arr_R1, my_limits, limits_t)
-        plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, my_limits, limits_t);
-        
+        if(SETTINGS.PLOT_GRAPHS)
+            %plotDiagonalsR1(arr_R1, my_limits, limits_t)
+            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, myLimits, limits_t);
+        end
         
         metric = vRatio_MaxMin_DiagonalEntry;
         
@@ -131,37 +134,41 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vMinimumSingularValues = zeros(length(arr_SingularValues),1);
         for i = 1:1:length(arr_SingularValues)
-           
+            
             vec = arr_SingularValues{i};
             vMinimumSingularValues(i) = min(vec);
             
             
         end
         
-        plotSingularValues(arr_SingularValues, my_limits, limits_t);
-        plotMinimumSingularValues(vMinimumSingularValues, my_limits, limits_t);
+        if(SETTINGS.PLOT_GRAPHS)
+            plotSingularValues(arr_SingularValues, myLimits, limits_t);
+            plotMinimumSingularValues(vMinimumSingularValues, myLimits, limits_t);
+        end
         
         metric = vMinimumSingularValues;
         
+
     case 'Residuals'
         error('err')
+
     otherwise
         error('err')
 end
 
-if min(m,n) == 1
+if (myLowerLimit == myUpperLimit)
     
     t = GetGCDDegree_OneSubresultant(metric);
     
 else
     
-    t = GetGCDDegree_MultipleSubresultants(metric,[lowerLimit, upperLimit]);
+    t = GetGCDDegree_MultipleSubresultants(metric,[myLowerLimit, myUpperLimit]);
     
-    GM_fx = vGM_fx(t-lowerLimit + 1);
-    GM_gx = vGM_gx(t-lowerLimit + 1);
-    alpha = vAlpha(t-lowerLimit + 1);
-    th1 = vTh1(t-lowerLimit + 1);
-    th2 = vTh2(t-lowerLimit + 1);
+    GM_fx = vGM_fx(t-myLowerLimit + 1);
+    GM_gx = vGM_gx(t-myLowerLimit + 1);
+    alpha = vAlpha(t-myLowerLimit + 1);
+    th1 = vTh1(t-myLowerLimit + 1);
+    th2 = vTh2(t-myLowerLimit + 1);
     
 end
 

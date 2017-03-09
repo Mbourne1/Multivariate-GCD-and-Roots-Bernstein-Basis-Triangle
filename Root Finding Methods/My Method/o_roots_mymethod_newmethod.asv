@@ -178,6 +178,8 @@ switch SETTINGS.HXY_METHOD
         
 end
 
+vDeg_x_hxy = vDeg_x_arr_fxy(1:end-1) - vDeg_x_arr_fxy(2:end);
+vDeg_y_hxy = vDeg_y_arr_fxy(1:end-1) - vDeg_y_arr_fxy(2:end);
 vDeg_t_hxy = vDeg_t_arr_fxy(1:end-1) - vDeg_t_arr_fxy(2:end);
 
 
@@ -199,6 +201,7 @@ if nEntries_hx > 1
             for i = 1 : 1 : nEntries_hx - 1 % For each pair of q_{x}(i) and q_{x}(i+1)
                 
                 % Deconvolve
+                %arr_wxy{i,1} = Deconvolve_Bivariate_Single(arr_hxy{i},arr_hxy{i+1},vDeg_t_hxy(i),vDeg_t_hxy(i+1));
                 arr_wxy{i,1} = Deconvolve_Bivariate(arr_hxy{i}, arr_hxy{i+1});
             end
 
@@ -227,6 +230,8 @@ else
     arr_wxy{1} = arr_hxy{1};
     
     % Get the degree structure of h_{x,i}
+    vDeg_x_wx(1) = vDeg_x_hxy(1);
+    vDeg_y_wx(1) = vDeg_y_hxy(1);
     vDeg_t_wxy(1) = vDeg_t_hxy(1);
 end
 

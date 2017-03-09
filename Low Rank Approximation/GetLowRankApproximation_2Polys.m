@@ -95,10 +95,10 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         switch SETTINGS.PLOT_GRAPHS
             case 'y'
                 % Build the Sylvester matrix of f(x,y) and g(x,y)
-                S1 = BuildDTQ(fxy,gxy,k);
-                S2 = BuildDTQ(fww,a_gww,k);
-                S3 = BuildDTQ(fxy_lr,gxy_lr,k);
-                S4 = BuildDTQ(fww_lr,a_gww_lr,k);
+                S1 = BuildDTQ_2Polys(fxy, gxy, k);
+                S2 = BuildDTQ_2Polys(fww, a_gww, k);
+                S3 = BuildDTQ_2Polys(fxy_lr, gxy_lr, k);
+                S4 = BuildDTQ_2Polys(fww_lr, a_gww_lr, k);
                 
                 
                 [vSingularValues_1] = svd(S1);
@@ -133,18 +133,18 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
             case 'y'
                 
                 % Get f(\omega_{1},\omega_{2}) and g(\omega_{1},\omega_{2})
-                fww = GetWithThetas(fxy,m,th1,th2);
-                a_gww = alpha .* GetWithThetas(gxy,n,th1,th2);
+                fww = GetWithThetas(fxy, m, th1, th2);
+                a_gww = alpha .* GetWithThetas(gxy, n, th1, th2);
                 
                 %
-                fww_lr = GetWithThetas(fxy_lr,m,th1_lr,th2_lr);
-                a_gww_lr = alpha_lr .*GetWithThetas(gxy_lr,n,th1_lr,th2_lr);
+                fww_lr = GetWithThetas(fxy_lr, m, th1_lr, th2_lr);
+                a_gww_lr = alpha_lr .*GetWithThetas(gxy_lr, n, th1_lr, th2_lr);
                 
                 % Build sylvester subresultant matrices
-                S1 = BuildDTQ(fxy,gxy,k);
-                S2 = BuildDTQ(fww,a_gww,k);
-                S3 = BuildDTQ(fxy_lr,gxy_lr,k);
-                S4 = BuildDTQ(fww_lr,a_gww_lr,k);
+                S1 = BuildDTQ_2Polys(fxy, gxy, k);
+                S2 = BuildDTQ_2Polys(fww, a_gww, k);
+                S3 = BuildDTQ_2Polys(fxy_lr, gxy_lr, k);
+                S4 = BuildDTQ_2Polys(fww_lr, a_gww_lr, k);
                 
                 % Get singular values
                 vSingularValues_1 = svd(S1);

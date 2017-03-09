@@ -1,38 +1,44 @@
-function [] = plotDiagonalsR1(arr_R1, my_limits, limits_t)
+function [] = plotDiagonalsR1(arr_R1, myLimits, limits_t)
 %
 % % Inputs
 %
 % arr_R1 : 
 %
-% my_limits :
+% myLimits :
 %
 % limits_t : [lower upper] :
 %
 % 
 
-my_lowerLimit = my_limits(1);
-my_upperLimit = my_limits(2);
+% Get my limits
+myLowerLimit = myLimits(1);
+myUpperLimit = myLimits(2);
 
+% Get actual limits
 lowerLimit = limits_t(1);
 upperLimit = limits_t(2);
 
-nSubresultants = my_upperLimit - my_lowerLimit + 1;
+% Get number of subresultants constructed
+nSubresultants = myUpperLimit - myLowerLimit + 1;
 
 global SETTINGS
 
 figure_name = sprintf('Diagonals of R1 from QR decomposition of %s',SETTINGS.SYLVESTER_BUILD_METHOD);
 figure('name',figure_name)
 hold on
-for i = 1:1:nSubresultants
+
+for i = 1 : 1 : nSubresultants
    
+    k = myLowerLimit + (i-1);
+    
     % Get diagonal entries of R1
-    vec = diag(arr_R1{i});
+    temp_vec = diag(arr_R1{i});
     
     % Get vector of [ i i i i ...]
-    v_i = i*ones(length(vec));
+    vec_x = k*ones(length(temp_vec));
     
     % plot
-    plot(v_i,log10(vec),'*')
+    plot(vec_x, log10(temp_vec), '*')
     
     
 end

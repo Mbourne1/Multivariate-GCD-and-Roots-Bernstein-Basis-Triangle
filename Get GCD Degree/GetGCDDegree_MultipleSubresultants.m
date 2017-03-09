@@ -1,4 +1,10 @@
-function [t] = GetGCDDegree_MultipleSubresultants(vMinimumSingularValues,deg_limits)
+function [t] = GetGCDDegree_MultipleSubresultants(vMetric, limits_t)
+%
+% % Inputs
+%
+% vMetric
+%
+% limits_t
 
 global SETTINGS
 
@@ -6,12 +12,12 @@ global SETTINGS
 [St,~] = dbstack();
 calling_function = St(2).name;
 
-% Get maximum change in the minimum singular values
-[maxDelta,index] = Analysis(vMinimumSingularValues);
+% Get maximum change in the rank revealing metric
+[maxDelta, index] = Analysis(vMetric);
 
 % Get upper and lower bounds
-lower_lim = deg_limits(1);
-upper_lim = deg_limits(2);
+lowerLimit = limits_t(1);
+upperLimit = limits_t(2);
 
 % check if the maximum change is significant
 fprintf([mfilename ' : ' sprintf('THRESHOLD :  %2.4f \n', SETTINGS.THRESHOLD)]);
@@ -26,7 +32,7 @@ if abs(maxDelta) < SETTINGS.THRESHOLD
     % subresultants are rank deficient or full rank
     
     % Get the average of the minimum singular values
-    avg = mean(vMinimumSingularValues);
+    avg = mean(vMetric);
     
     fprintf([mfilename ' : ' sprintf('THRESHOLD RANK :  %2.4e \n', SETTINGS.THRESHOLD_RANK)]);
     fprintf([calling_function ' : ' mfilename ' : ' sprintf('Average Singular Value : %e \n',avg) ])
@@ -40,13 +46,13 @@ if abs(maxDelta) < SETTINGS.THRESHOLD
         % All minimum singular values are above threshold so all
         % subresultants are full rank. deg(GCD) = min(m,n)
        fprintf([calling_function ' : ' mfilename ' : ' 'All Subresultants are rank deficient : GCD = g(x) \n' ])
-       t = upper_lim;
+       t = upperLimit;
     end
 
 else
     % change is significant
     fprintf([mfilename ' : ' 'Significant Change' ]);
-    t = lower_lim + index - 1;
+    t = lowerLimit + index - 1;
     fprintf(': %i \n',t);
     
 end

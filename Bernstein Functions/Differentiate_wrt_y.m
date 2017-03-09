@@ -5,11 +5,11 @@ function [d_fxy] = Differentiate_wrt_y(fxy)
 %
 % % Inputs
 %
-% fxy : Coefficients of the polynomial f(x,y)
+% fxy : (Matrix) Coefficients of the polynomial f(x,y)
 %
 % % Outputs.
 %
-% d_fxy : The partial derivative of f(x,y) with respect to x
+% d_fxy : (Matrix) The partial derivative of f(x,y) with respect to x
 
 
 fxy = transpose(fxy);

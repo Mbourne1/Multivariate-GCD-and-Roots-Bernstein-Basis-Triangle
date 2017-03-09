@@ -1,32 +1,30 @@
-function [fxy_lr,gxy_lr,uxy_lr,vxy_lr] = STLN(fxy,gxy,k)
+function [fxy_lr, gxy_lr, uxy_lr, vxy_lr] = STLN(fxy, gxy, k)
 % Compute the low rank approximation of the Sylvester matrix S_{k}(f,g)
 % by method of Structured Total Least Norm STLN.
 %
 % % Inputs.
 %
-% fxy : Coefficients of polynomial f(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
 %
-% gxy : Coefficients of polynomial g(x,y)
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
 %
-% k : Degree of common divisor d(x,y) and index of the Sylvester matrix
+% k : (Int) Degree of common divisor d(x,y) and index of the Sylvester matrix
 %     S_{k} whose low rank approximation is considered.
 %
 % % Outputs.
 %
-% fxy_lr : Coefficients f(x,y) obtained from the low rank approx of S_{k}(f,g)
+% fxy_lr : (Matrix) Coefficients f(x,y) obtained from the low rank approx of S_{k}(f,g)
 %
-% gxy_lr : Coefficients g(x,y) obtained from the low rank approx of S_{k}(f,g)
+% gxy_lr : (Matrix) Coefficients g(x,y) obtained from the low rank approx of S_{k}(f,g)
 %
-% uxy_lr : Coefficients u(x,y) obtained from the low rank approx of S_{k}(f,g)
+% uxy_lr : (Matrix) Coefficients u(x,y) obtained from the low rank approx of S_{k}(f,g)
 %
-% vxy_lr : Coefficients v(x,y) obtained from the low rank approx of S_{k}(f,g)
+% vxy_lr : (Matrix) Coefficients v(x,y) obtained from the low rank approx of S_{k}(f,g)
 
 
-% Get the degree of f(x,y)
-[m,~] = GetDegree(fxy);
-
-% Get the degree of g(x,y)
-[n,~] = GetDegree(gxy);
+% Get the degree of f(x,y) and g(x,y)
+[m,~] = GetDegree_Bivariate(fxy);
+[n,~] = GetDegree_Bivariate(gxy);
 
 % Get number of coefficients in f(x,y)
 nCoeffs_fxy = nchoosek(m+2,2);

@@ -1,5 +1,5 @@
 function [fxy_o, gxy_o, hxy_o, dxy_o, uxy_o, vxy_o, wxy_o, t] = ...
-    o_gcd_mymethod_3Polys(fxy, gxy, hxy, m, n, o, limits_t)
+    o_gcd_mymethod_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t)
 % o_gcd_mymethod(fxy, gxy, m, n, limits_t)
 
 % Given two bivariate polynomials, return the GCD d(x,y) and the coprime
@@ -36,7 +36,7 @@ function [fxy_o, gxy_o, hxy_o, dxy_o, uxy_o, vxy_o, wxy_o, t] = ...
 % dxy : Calculated coefficients of d(x,y)
 
 % Compute the degree of the GCD
-[t,GM_fx, GM_gx, GM_hx, alpha, th1, th2] = GetGCDDegree_3Polys(fxy, gxy, hxy, m, n, o);
+[t,GM_fx, GM_gx, GM_hx, alpha, th1, th2] = GetGCDDegree_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t);
 
 fprintf([mfilename sprintf(':Degree of GCD : %i \n',t)])
 

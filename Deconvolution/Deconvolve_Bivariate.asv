@@ -4,20 +4,20 @@ function hxy = Deconvolve_Bivariate(fxy,gxy)
 %
 % % Inputs.
 %
-% fxy : (Matrix) Coefficients of polynomial f(x,y)
+% fxy : Coefficients of polynomial f(x,y)
 %
-% gxy : (Matrix) Coefficients of polynomial g(x,y)
+% gxy : Coefficients of polynomial g(x,y)
 % 
 % % Outputs
 %
-% hxy : (Matrix) Coefficients of polynomial h(x,y) = f(x,y) / g(x,y).
+% hxy : Coefficients of polynomial h(x,y) = f(x,y) / g(x,y).
 
 
 % Get degree of f(x,y) (Note: m1 = m2)
 [m1,~] = GetDegree_Bivariate(fxy);
 
 % Get degree of g(x,y) (Note: n1 = n2)
-[n1,~] = GetDegree_Bivariate(gxy);
+[n1,~] = GetDegree_B(gxy);
 
 % Get m, the total degree of f(x,y)
 m = m1;
@@ -32,10 +32,10 @@ n = n1;
 % f(x,y).
 
 % Build the matrix D^{-1}_{n}
-D = BuildD_2Polys(n, m-n);
+D = BuildD_2Polys(n,m-n);
 
 % Build the matrix T_{m-n}(g)
-T1 = BuildT1(gxy, n, m-n);
+T1 = BuildT1(gxy,n,m-n);
 
 % Build the matrix Q_{m-n}
 Q = BuildQ1(m-n);
@@ -51,14 +51,14 @@ DTQ = D*T1*Q;
 f = GetAsVector(fxy);
 
 % Get number of coefficients in f(x,y)
-nCoefficients_fxy = nchoosek(m+2, 2);
+nCoefficients_fxy = nchoosek(m+2,2);
 
 % Remove trailing zeros
 v_fxy = f(1:nCoefficients_fxy);
 
 % % Solve for x
 % Get coefficients of h(x,y) 
-x_ls = SolveAx_b(DTQ, v_fxy);
+x_ls = SolveAx_b(DTQ,v_fxy);
 
 % %
 % (Note that x_ls only gives the upper left triangle of coefficients, so 
@@ -66,7 +66,7 @@ x_ls = SolveAx_b(DTQ, v_fxy);
 
 % Get number of zeros in the coefficient matrix for polynomial h(x,y)
 if (m-n+1 > 1)
-    nZeros_hxy = nchoosek(m-n+1, 2);
+    nZeros_hxy = nchoosek(m-n+1,2);
 else
     nZeros_hxy = 0;
 end
@@ -75,11 +75,11 @@ end
 v_hxy = ...
     [
     x_ls;
-    zeros(nZeros_hxy, 1);
+    zeros(nZeros_hxy,1);
     ];
 
 % Get the matrix of coefficients of h(x,y).
-hxy = GetAsMatrix(v_hxy, m-n, m-n);
+hxy = GetAsMatrix(v_hxy,m-n,m-n);
 
 
 

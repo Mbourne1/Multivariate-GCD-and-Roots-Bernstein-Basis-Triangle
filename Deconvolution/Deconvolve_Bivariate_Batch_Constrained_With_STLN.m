@@ -32,7 +32,7 @@ vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 
 % For each polynomial f_{i} get the degree
 for i = 1:1:nPolys_arr_fxy
-    vDeg_arr_fxy(i) = GetDegree(arr_fxy{i});
+    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
 end
 
 % For each polynomial h_{i}
@@ -59,7 +59,7 @@ end
 % %
 % %
 % Build the LHS Matrix
-DT_fwwQ = BuildDTQ(arr_fww,vDeg_arr_fxy);
+DT_fwwQ = BuildDTQ_2Polys(arr_fww,vDeg_arr_fxy);
 
 % %
 % %
@@ -106,7 +106,7 @@ end
 nPolys_arr_pxy = size(arr_pww,1);
 vDeg_arr_pxy = zeros(nPolys_arr_pxy,1);
 for i = 1:1: nPolys_arr_pxy
-    vDeg_arr_pxy(i,1) = GetDegree(arr_pww{i});
+    vDeg_arr_pxy(i,1) = GetDegree_Bivariate(arr_pww{i});
 end
 
 arr_hww = Get_hxy(arr_pww,unique_vMult);
@@ -257,10 +257,10 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     DY_hQ = BuildDYQ(arr_hww,vDeg_arr_fxy);
     
     % Build the matrix C(f)
-    DT_fwwQ = BuildDTQ(arr_fww,vDeg_arr_fxy);
+    DT_fwwQ = BuildDTQ_2Polys(arr_fww,vDeg_arr_fxy);
     
     % Build the matrix C(z)
-    DT_zwwQ = BuildDTQ(arr_zww,vDeg_arr_fxy);
+    DT_zwwQ = BuildDTQ_2Polys(arr_zww,vDeg_arr_fxy);
     
     % Build G
     H_z = DY_hQ - P;
@@ -303,7 +303,7 @@ end
 end
 
 
-function LHS_Matrix = BuildDTQ(arr_fxy,vDegt_fxy)
+function LHS_Matrix = BuildDTQ_2Polys(arr_fxy,vDegt_fxy)
 
 vDeg_f = vDegt_fxy;
 vDeg_h = diff(vDeg_f);
@@ -371,7 +371,9 @@ nPolys_arr_fxy = size(arr_fxy,1);
 % Get the degree of the polynomials
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-    vDeg_arr_fxy(i) = GetDegree(arr_fxy{i});
+    
+    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
+    
 end
 
 
@@ -411,7 +413,9 @@ nPolys_arr_zxy = size(arr_zxy,1);
 vDeg_arr_zxy = zeros(nPolys_arr_zxy);
 
 for i = 1:1:nPolys_arr_zxy
-    vDeg_arr_zxy(i) = GetDegree(arr_zxy{i});
+    
+    vDeg_arr_zxy(i) = GetDegree_Bivariate(arr_zxy{i});
+    
 end
 
 % For each polynomial in the array, get as a vector
@@ -476,12 +480,14 @@ nPolys_arr_hxy = size(arr_hxy,1);
 % Get degree of each polynomial f_{i}(x,y)
 vDeg_arr_hxy = zeros(nPolys_arr_hxy,1);
 for i = 1 : 1 : nPolys_arr_hxy
-    vDeg_arr_hxy(i) = GetDegree(arr_hxy{i});
+    
+    vDeg_arr_hxy(i) = GetDegree_Bivariate(arr_hxy{i});
+    
 end
 
 
 % Initialise a cell array
-arr_DT1Q1 = cell(nPolys_arr_hxy,1);
+arr_DT1Q1 = cell(nPolys_arr_hxy, 1);
 
 % For each of the polynomials excluding the first f_{1},...,f_{d}
 for i = 1:1:nPolys_arr_hxy

@@ -1,4 +1,4 @@
-function fxy_matrix = GetAsMatrix(f_vec,m1,m2)
+function fxy_matrix = GetAsMatrix(f_vec, m1, m2)
 % GetAsMatrix(f_vec,m1,m2)
 %
 % Given the vector of coefficients of the polynomial f(x,y), 
@@ -6,19 +6,19 @@ function fxy_matrix = GetAsMatrix(f_vec,m1,m2)
 %
 % % Inputs.
 %
-% f_vec : Vector of coefficients of polynomial f(x,y)
+% f_vec : (Vector) Coefficients of polynomial f(x,y)
 %
-% m1 : Degree of f(x,y) with respect to x
+% m1 : (Int) Degree of f(x,y) with respect to x
 %
-% m2 : Degree of f(x,y) with respect to y
+% m2 : (Int) Degree of f(x,y) with respect to y
 %
 % % Outputs.
 %
-% fxy_matrix : Matrix of coefficients of polynomial f(x,y)
+% fxy_matrix : (Matrix) Matrix of coefficients of polynomial f(x,y)
 
 
 % Initialise an empty matrix fxy
-fxy_matrix = zeros(m1+1,m2+1);
+fxy_matrix = zeros(m1+1, m2+1);
 
 % Intialise a counter which will go through each entry of f_vec (The vector
 % of coefficients of of f).
@@ -33,7 +33,7 @@ for tot = 0:1:nDiagonals -1
         if i > m1 || j> m2
             % restrict to only the i and j values within the matrix.
         else
-            fxy_matrix(i+1,j+1) = f_vec(count);
+            fxy_matrix(i+1, j+1) = f_vec(count);
             count = count + 1;
         end
     end

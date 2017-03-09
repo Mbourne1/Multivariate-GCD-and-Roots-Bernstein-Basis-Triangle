@@ -22,7 +22,7 @@ nPolys_arr_hxy = nPolys_arr_fxy - 1;
 
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-   vDeg_arr_fxy(i)  = GetDegree(arr_fxy{i});
+   vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
 end
 
 vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
@@ -50,7 +50,7 @@ end
 % %
 % %
 % Build the LHS Matrix
-DT_fwwQ = BuildDTQ(arr_fww,vDeg_arr_fxy);
+DT_fwwQ = BuildDTQ_2Polys(arr_fww,vDeg_arr_fxy);
 
 % %
 % %
@@ -109,7 +109,7 @@ arr_hww = Get_hxy(arr_pww,unique_vMult);
 vDeg_arr_hxy = zeros(nPolys_arr_hxy,1);
 
 for i = 1:1:nPolys_arr_hxy
-    vDeg_arr_hxy(i) = GetDegree(arr_hww{i});
+    vDeg_arr_hxy(i) = GetDegree_Bivariate(arr_hww{i});
 end
 
 
@@ -129,7 +129,7 @@ end
 end
 
 
-function LHS_Matrix = BuildDTQ(arr_fxy,vDegt_fxy)
+function LHS_Matrix = BuildDTQ_2Polys(arr_fxy, vDegt_fxy)
 
 vDeg_arr_fxy = vDegt_fxy;
 vDeg_arr_hxy = diff(vDeg_arr_fxy);
@@ -197,7 +197,7 @@ nPolys_arr_fxy = size(arr_fxy,1);
 % Get the degree of the polynomials f_{i}(x,y)
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy 
-    vDeg_arr_fxy(i) = GetDegree(arr_fxy{i});
+    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
 end
 
 

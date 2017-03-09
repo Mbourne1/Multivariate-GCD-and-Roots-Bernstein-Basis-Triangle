@@ -1,4 +1,4 @@
-function [] = o_gcd_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type)
+function [] = o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type)
 % o_gcd(ex_num,emin,mean_method,bool_alpha_theta,low_rank_approx_method,apf_method,degree_method)
 %
 % Calculate the GCD d(x,y) of two polynomials f(x,y) and g(x,y) taken from
@@ -17,8 +17,8 @@ function [] = o_gcd_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, lo
 %       'None'
 %
 % bool_alpha_theta ('y'/'n')
-%       'y' - Include Preprocessing
-%       'n' - Exclude Preprocessing
+%       true - Include Preprocessing
+%       false - Exclude Preprocessing
 %
 % low_rank_approx_method ('y'/'n')
 %       'Standard SNTLN'
@@ -37,9 +37,9 @@ function [] = o_gcd_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, lo
 %       * TQ
 %
 % % Example
-% >> o_gcd_3Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', 'y','None','None','DTQ')
 %
-% >> o_gcd_3Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', 'y','Standard STLN','Standard Nonlinear APF','DTQ')
+% >> o_gcd_Bivariate_3Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'None', 'None', 'DTQ')
+% >> o_gcd_Bivariate_3Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'Standard Nonlinear APF', 'DTQ')
 
 
 % Set the Global Variables

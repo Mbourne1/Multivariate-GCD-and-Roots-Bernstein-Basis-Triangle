@@ -28,7 +28,7 @@ nPolys_arr_hxy = nPolys_arr_fxy - 1;
 % Get the degrees of polynomials f_{i}(x,y)
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-   vDeg_arr_fxy(i)  = GetDegree(arr_fxy{i});
+   vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
 end
 
 vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
@@ -42,9 +42,12 @@ switch SETTINGS.PREPROC_DECONVOLUTIONS
         th1 = 1;
         th2 = 1;
     case 'n'
+        
         th1 = 1;
         th2 = 1;
+        
     otherwise 
+        
         error([mfilename ' : PREPROC_DECONVOLUTIONS must be y or n'])
 end
 
@@ -104,10 +107,10 @@ nPolys_arr_fxy = size(arr_fxy,1);
 % Get degree of each polynomial f_{i}(x,y)
 vDeg_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1 : 1 : nPolys_arr_fxy
-    vDeg_fxy(i) = GetDegree(arr_fxy{i});
+    vDeg_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
 end
 
-arr_DT1Q1 = cell(nPolys_arr_fxy,1);
+arr_DT1Q1 = cell(nPolys_arr_fxy, 1);
 
 % For each of the polynomials excluding the first f_{1},...,f_{d}
 for i = 2:1:nPolys_arr_fxy

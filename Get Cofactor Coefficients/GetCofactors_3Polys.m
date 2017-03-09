@@ -20,11 +20,11 @@ function [uxy, vxy, wxy] = GetCofactors_3Polys(fxy, gxy, hxy, m, n, o, t)
 % vxy : Coefficients of polynomial v(x,y)
 
 % Get the degree of f(x,y) (Note m1 = m2)
-[m1,~] = GetDegree(fxy);
+[m1,~] = GetDegree_Bivariate(fxy);
 m = m1;
 
 % Get the degree of g(x,y) (Note n1 = n2)
-[n1,~] = GetDegree(gxy);
+[n1,~] = GetDegree_Bivariate(gxy);
 n = n1;
 
 % % Solve the Ax = b problem 

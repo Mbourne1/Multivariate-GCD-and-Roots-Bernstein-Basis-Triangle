@@ -1118,11 +1118,10 @@ uxy = BuildPoly_NonSeparable(u_roots);
 vxy = BuildPoly_NonSeparable(v_roots);
 dxy = BuildPoly_NonSeparable(d_roots);
 
-[m1,m2] = GetDegree(fxy);
-
-[n1,n2] = GetDegree(gxy);
-
-[t1,t2] = GetDegree(dxy);
+% Get degree of f(x,y), g(x,y) and d(x,y)
+[m1, m2] = GetDegree_Bivariate(fxy);
+[n1, n2] = GetDegree_Bivariate(gxy);
+[t1, t2] = GetDegree_Bivariate(dxy);
 
 
 end

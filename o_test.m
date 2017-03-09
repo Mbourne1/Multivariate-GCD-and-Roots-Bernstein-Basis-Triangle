@@ -17,14 +17,14 @@ addpath (...
     
 % Get Random polynomials f(x,y) and g(x,y)
 ex_num = '1';
-[fxy,gxy,d,u,v] = Examples_GCD(ex_num)
+[fxy,gxy,d,u,v] = Examples_GCD(ex_num);
 
-m = GetDegree(fxy);
-n = GetDegree(gxy);
+m = GetDegree_Bivariate(fxy);
+n = GetDegree_Bivariate(gxy);
 
-for k = 1:1:min(m,n)
+for k = 1 : 1 : min(m,n)
 
-    S{k} = BuildDTQ(fxy,gxy,k);
+    S{k} = BuildDTQ_2Polys(fxy,gxy,k);
     
     if k >= 2
         S_calc{k} = BuildDTQ_from_prev(S{k-1},m,n,k);

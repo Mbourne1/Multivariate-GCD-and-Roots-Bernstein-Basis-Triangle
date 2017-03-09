@@ -1,4 +1,4 @@
-function [] = o_gcd_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
+function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
     low_rank_approx_method, apf_method, sylvester_matrix_type)
 % O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
 % and g(x,y) are given in the Bernstein form, and are taken from the
@@ -19,8 +19,8 @@ function [] = o_gcd_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, ..
 %
 % bool_alpha_theta : (Boolean) Determines whether optimal values of alpha
 % and theta are computed.
-%           *true : 
-%           *false
+%           * true :  
+%           * false :
 %
 % low_rank_approx_method : Options are
 %               * Standard STLN
@@ -40,9 +40,9 @@ function [] = o_gcd_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, ..
 %
 % % Examples
 %
-% >> o_gcd_2Polys('1',1e-10,1e-12,'None','n','None','None','DTQ')
-% >> o_gcd_2Polys('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','None','None','DTQ')
-% >> o_gcd_2Polys('1',1e-10,1e-12,'Geometric Mean Matlab Method','y','Standard STLN','None','DTQ')
+% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'None', false, 'None', 'None', 'DTQ')
+% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'None', 'None', 'DTQ')
+% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'None', 'DTQ')
 
 
 % % Ensure that minimum noise level is less than maximum noise level
@@ -62,22 +62,11 @@ SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method, bool_alpha_the
 % Add subfolders
 restoredefaultpath
 
-addpath (...
-    'Bernstein Functions',...
-    'Build Matrices',...
-    'Build Sylvester Matrix',...
-    'Formatting',...
-    'GCD Methods',...
-    'Get Cofactor Coefficients',...
-    'Get GCD Coefficients',...
-    'Plotting',...
-    'Preprocessing'...
-    );
+% Determine where your m-file's folder is.
+folder = fileparts(which(mfilename)); 
 
-addpath(genpath('APF'));
-addpath(genpath('Examples'));
-addpath(genpath('Get GCD Degree'));
-addpath(genpath('Low Rank Approximation'));
+% Add that folder plus all subfolders to the path.
+addpath(genpath(folder));
 
 % Print parameters to console
 fprintf('INPUTS. \n')
@@ -104,7 +93,8 @@ gxy = AddVariableNoiseToPoly(gxy, emin, emax);
 % %
 % Get GCD by my method
 limits_t = [0 min(m,n)];
-[fxy, gxy, dxy, uxy, vxy, t] = o_gcd_2Polys_mymethod(fxy, gxy, m, n, limits_t);
+
+[fxy, gxy, dxy, uxy, vxy, t] = o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t);
 
 
 % Get Error in u(x,y), v(x,y) and d(x,y)

@@ -8,29 +8,31 @@ function [fxy_lr, gxy_lr, hxy_lr,...
 %
 % % Inputs
 %
-% [fxy, gxy, hxy] :
+% [fxy, gxy, hxy] : (Matrix)(Matrix)(Matrix)
 %
-% [uxy, vxy, wxy] :
+% [uxy, vxy, wxy] : (Matrix)(Matrix)(Matrix)
 %
-% alpha :
+% alpha : (Float) Optimal value of alpha
 %
-% [th1, th2] :
+% [th1, th2] : (Float) (Float)
 %
-% [m, n, o] :
+% [m, n, o] : (Int)(Int)(Int) Total degree of polynomials f(x,y), g(x,y) 
+% and h(x,y)
 %
-% k :
+% k : (Int)
+%
 %
 % % Outputs
 %
-% [fxy_lr, gxy_lr, hxy_lr] :
+% [fxy_lr, gxy_lr, hxy_lr] : (Matrix)(Matrix)(Matrix)
 % 
-% [uxy_lr, vxy_lr, wxy_lr] :
+% [uxy_lr, vxy_lr, wxy_lr] : (Matrix)(Matrix)(Matrix)
 %
-% dxy_lr
+% dxy_lr : (Matrix)
 % 
-% alpha_lr
+% alpha_lr : (Float)
 %
-% [th1_lr, th2_lr]
+% [th1_lr, th2_lr] : (Float)(Float)
 
 global SETTINGS
 
@@ -75,7 +77,7 @@ switch SETTINGS.APF_METHOD
         th1_lr = th1;
         th2_lr = th2;
         
-        dxy_lr = GetWithoutThetas(dww,k,th1,th2);
+        dxy_lr = GetWithoutThetas(dww, k, th1, th2);
         
         SETTINGS.APF_REQ_ITE = 0;
         

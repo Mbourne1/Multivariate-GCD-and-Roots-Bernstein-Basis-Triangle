@@ -4,13 +4,13 @@ function [hxy] = Bernstein_Multiply(fxy, gxy, m, n)
 %
 % % Inputs.
 %
-% fxy : Coefficients of polynomial f(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
 %
-% gxy : Coefficients of polynomial g(x,y)
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
 %
-% m : Total degree of polynomial f(x,y)
+% m : (Int) Total degree of polynomial f(x,y)
 %
-% n : Total degree of polynomial g(x,y)
+% n : (Int) Total degree of polynomial g(x,y)
 
 % Build the matrix D^{-1}_{m+n-k}
 D = BuildD_2Polys(m,n);

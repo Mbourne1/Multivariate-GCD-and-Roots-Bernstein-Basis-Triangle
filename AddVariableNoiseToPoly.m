@@ -1,4 +1,4 @@
-function [f_noisy,noisevector] = AddVariableNoiseToPoly(f, el, eu)
+function [f_noisy, noise_matrix] = AddVariableNoiseToPoly(fxy, el, eu)
 % This function adds noise in the componentwise sense to the coefficients
 % of the Bernstein basis polynomial.
 % The upper threshold \epsilon is a random variable between two values
@@ -7,25 +7,25 @@ function [f_noisy,noisevector] = AddVariableNoiseToPoly(f, el, eu)
 % Inputs:
 %
 %
-% f : Coefficients of the polynomial exact polynomial f(x,y).
+% fxy : (Matrix) Coefficients of the polynomial exact polynomial f(x,y).
 %
-% el:- Lower threshold of the epsilon value (Noise/Signal)
+% el : (Float) Lower threshold of the epsilon value (Noise/Signal)
 %
-% eu:- Upper threshold of the epsilon value (Noise/Signal)
+% eu : (Float) Upper threshold of the epsilon value (Noise/Signal)
 %
 %
 % Outputs:
 %
 %
-% f_noisy :- the noisy coefficients of perturbed polynomial f.
+% f_noisy : (Matrix) Noisy coefficients of perturbed polynomial f.
 %
-% noisevector:- vector of the noise added to f_exact.
+% noise_matrix : (Matrix)  the noise added to f_exact.
 
 
 global SETTINGS
 
-% Get degree of input polynomial f.
-m = GetDegree(f);
+% Get degree of input polynomial f(x,y)
+[m,~] = GetDegree(fxy);
 
 % Set Seed for random number generator.
 rng(SETTINGS.SEED)
@@ -42,10 +42,10 @@ v = rand(m+1,m+1);
 eps = el + v.*(eu-el);
 
 % Calculate the noise vector = a_{i}r_{i}.*\epsilon_{i}
-noisevector = f .* r .* eps;
+noise_matrix = fxy .* r .* eps;
 
 % Calculate the perturbed coefficients = a_{i} + a_{i}r_{i}\epsilon_{i}
-f_noisy = f + noisevector;
+f_noisy = fxy + noise_matrix;
 
 
 

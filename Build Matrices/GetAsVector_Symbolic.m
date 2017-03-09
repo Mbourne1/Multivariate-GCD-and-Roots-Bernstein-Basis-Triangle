@@ -7,14 +7,14 @@ function f_vec = GetAsVector_Symbolic(fxy_matrix)
 %
 % % Inputs.
 %
-% fxy_matrix : Matrix of coefficients of polynomial f(x,y)
+% fxy_matrix : (Matrix) Matrix of coefficients of polynomial f(x,y)
 %
 % % Outputs.
 % 
-% f_vec : Vector of coefficients of polynomial f(x,y)
+% f_vec : (Vector0 of coefficients of polynomial f(x,y)
 
 % Get degree of polynomial f(x,y) with respect to x
-[m1,m2] = GetDegree(fxy_matrix);
+[m1, m2] = GetDegree_Bivariate(fxy_matrix);
 
 % Initialise a count
 count = 1;
@@ -23,11 +23,13 @@ count = 1;
 f_vec = sym(zeros((m1+1)*(m2+1),1));
 
 % Get the number of diagonals in the matrix of coefficients of f(x,y)
-nDiagonals = (m1+1)+(m2+1)-1;
+nDiagonals = (m1+1) + (m2+1) - 1;
 
 
-for tot = 0:1:nDiagonals
+for tot = 0 : 1 : nDiagonals
+    
     for i = tot:-1:0
+        
         j = tot - i;
         
         if(i > m1 || j > m2)

@@ -7,14 +7,14 @@ function f_vec = GetAsVector(fxy_matrix)
 %
 % % Inputs.
 %
-% fxy_matrix : Matrix of coefficients of polynomial f(x,y)
+% fxy_matrix : (Matrix) Coefficients of polynomial f(x,y)
 %
 % % Outputs.
 % 
-% f_vec : Vector of coefficients of polynomial f(x,y)
+% f_vec : (Vector) Coefficients of polynomial f(x,y)
 
 % Get degree of polynomial f(x,y) with respect to x
-[m1,m2] = GetDegree(fxy_matrix);
+[m1, m2] = GetDegree_Bivariate(fxy_matrix);
 
 % Initialise a count
 count = 1;
@@ -26,11 +26,11 @@ f_vec = zeros((m1+1)*(m2+1),1);
 nDiagonals = (m1+1)+(m2+1)-1;
 
 
-for tot = 0:1:nDiagonals
-    for i = tot:-1:0
+for tot = 0 : 1 : nDiagonals
+    for i = tot : -1 : 0
         j = tot - i;
         
-        if(i > m1 || j > m2)
+        if( i > m1 || j > m2)
         else
             f_vec(count) = fxy_matrix(i+1,j+1);
             count = count + 1;

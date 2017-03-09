@@ -38,7 +38,9 @@ vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 
 % For each polynomial f_{i} get its degree
 for i = 1:1:nPolys_arr_fxy
-   vDeg_arr_fxy(i)  = GetDegree(arr_fxy{i});
+    
+   vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
+   
 end
 
 % %
@@ -87,7 +89,7 @@ end
 vRHS_fww = BuildRHS_vec(arr_fww);
 
 % Build the matrix C(f1,...,fd)
-DT_fwwQ = BuildDTQ(arr_fww);
+DT_fwwQ = BuildDTQ_2Polys(arr_fww);
 
 % Get vector of coefficients of the polynomials h_{i}(x,y)
 v_hww = SolveAx_b(DT_fwwQ,vRHS_fww);
@@ -212,8 +214,8 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     DY_hQ = BuildDYQ(arr_hww,vDeg_arr_fxy);
     
     % Build D[C(f)+C(h)]Q
-    DC_fQ = BuildDTQ(arr_fww);
-    DC_zQ = BuildDTQ(arr_zww);
+    DC_fQ = BuildDTQ_2Polys(arr_fww);
+    DC_zQ = BuildDTQ_2Polys(arr_zww);
     
     % Build G
     G = [(DC_fQ + DC_zQ) (DY_hQ - P)];
@@ -244,7 +246,7 @@ end
 
 end
 
-function C_fxy = BuildDTQ(arr_fxy)
+function C_fxy = BuildDTQ_2Polys(arr_fxy)
 % Build the matrix C(f1,...,fd)
 %
 % Inputs.
@@ -260,8 +262,11 @@ nPolys_arr_fxy = size(arr_fxy,1);
 
 % Get degree of each polynomial f_{i}(x,y)
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
+
 for i = 1 : 1 : nPolys_arr_fxy
-    vDeg_arr_fxy(i) = GetDegree(arr_fxy{i});
+    
+    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
+    
 end
 
 % Get degree of polynomials h_{i}(x,y)
@@ -306,7 +311,7 @@ nPolys_arr_fxy = size(arr_fxy,1);
 % Get the degree of the polynomials f_{i}(x,y)
 vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-    vDeg_arr_fxy(i) = GetDegree(arr_fxy{i});
+    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
 end
 
 
@@ -343,7 +348,7 @@ nPolys_arr_fxy = size(arr_zxy,1);
 % Get the degree of the polynomials f_{i}(x,y)
 vDeg_arr_zxy = zeros(nPolys_arr_fxy,1);
 for i = 1:1:nPolys_arr_fxy
-    vDeg_arr_zxy(i) = GetDegree(arr_zxy{i});
+    vDeg_arr_zxy(i) = GetDegree_Bivariate(arr_zxy{i});
 end
 
 
@@ -436,7 +441,7 @@ nPolys_arr_hxy = size(arr_hxy,1);
 % Get degree of each polynomial f_{i}(x,y)
 vDeg_arr_hxy = zeros(nPolys_arr_hxy,1);
 for i = 1 : 1 : nPolys_arr_hxy
-    vDeg_arr_hxy(i) = GetDegree(arr_hxy{i});
+    vDeg_arr_hxy(i) = GetDegree_Bivariate(arr_hxy{i});
 end
 
 

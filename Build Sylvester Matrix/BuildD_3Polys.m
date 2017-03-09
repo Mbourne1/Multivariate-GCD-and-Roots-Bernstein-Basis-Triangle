@@ -6,13 +6,13 @@ function D = BuildD_3Polys(m,n,o,k)
 %
 % Inputs
 %
-% m : Degree of polynomial f(x,y)
+% m : (Int) Degree of polynomial f(x,y)
 %
-% n_t : Degree of polynomial v(x,y)
+% n_t : (Int) Degree of polynomial v(x,y)
 
-D1 = BuildD_2Polys(m,n-k);
-D2 = BuildD_2Polys(m,o-k);
+D1 = BuildD_2Polys(m, n-k);
+D2 = BuildD_2Polys(m, o-k);
 
-D = blkdiag(D1,D2);
+D = blkdiag(D1, D2);
 
 end
