@@ -14,10 +14,10 @@ function hxy = Deconvolve_Bivariate(fxy,gxy)
 
 
 % Get degree of f(x,y) (Note: m1 = m2)
-[m1,~] = GetDegree_Bivariate(fxy);
+[m1, ~] = GetDegree_Bivariate(fxy);
 
 % Get degree of g(x,y) (Note: n1 = n2)
-[n1,~] = GetDegree_Bivariate(gxy);
+[n1, ~] = GetDegree_Bivariate(gxy);
 
 % Get m, the total degree of f(x,y)
 m = m1;

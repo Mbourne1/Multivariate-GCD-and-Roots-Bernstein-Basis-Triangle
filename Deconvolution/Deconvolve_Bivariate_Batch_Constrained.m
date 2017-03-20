@@ -1,4 +1,4 @@
-function [arr_hxy] = Deconvolve_Bivariate_Batch_Constrained(arr_fxy,vDegt_fxy)
+function [arr_hxy] = Deconvolve_Bivariate_Batch_Constrained(arr_fxy, vDegt_fxy)
 %
 %
 % % Inputs
@@ -6,13 +6,26 @@ function [arr_hxy] = Deconvolve_Bivariate_Batch_Constrained(arr_fxy,vDegt_fxy)
 % arr_fxy : (Array of Matrices) Array of polynomials f_{i}(x,y) in Bernstein form.
 %
 % vDegt_fxy : (Vector) Vector of total degrees of the polynomials f_{i}(x,y).
+%
+% % Outputs
+%
+% arr_hxy : (Array of Matrices) Each cell of the array contains
+% coefficients of the polynomial h_{i,j}(x,y)
 
 
+global SETTINGS
+
+% Get the degree of the polynomials f_{i}(x,y)
 vDeg_arr_fxy = vDegt_fxy;
-vDeg_arr_hxy = diff(vDeg_arr_fxy);
-vDeg_arr_wxy = diff([vDeg_arr_hxy; 0]);
-vMult = find(vDeg_arr_wxy~=0);
 
+% Get the degree of the polynomials h_{i}(x,y)
+vDeg_arr_hxy = diff(vDeg_arr_fxy);
+
+% Get the degree of the polynomials w_{i}(x,y)
+vDeg_arr_wxy = diff([vDeg_arr_hxy; 0]);
+
+% Get the multiplicity structure of the polynomial f_{0}(x)
+vMult = find(vDeg_arr_wxy~=0);
 
 % Get the number of polynomials in arr_fxy of f_{i}(x,y)
 nPolys_arr_fxy = size(arr_fxy,1);
@@ -29,10 +42,8 @@ end
 
 
 
-% preproc
-global SETTINGS
+% preprocess polynomials f_{i}(x,y)
 if SETTINGS.PREPROC_DECONVOLUTIONS
-    
     
     [th1, th2] = GetOptimalTheta(arr_fxy);
     
@@ -44,15 +55,9 @@ else
     
 end
 
-% Get f(\omega_{1},\omega_{2}) from f(x,y)
-arr_fww = cell(nPolys_arr_fxy,1);
 
-for i = 1:1:nPolys_arr_fxy
-    
-    m = vDeg_arr_fxy(i);
-    arr_fww{i} = GetWithThetas(arr_fxy{i}, m, th1, th2);
-    
-end
+arr_fww = GetPolynomialArrayWithThetas(arr_fxy,th1,th2);
+
 
 
 % %
@@ -105,12 +110,8 @@ for i = 1:1:length(unique_vMult)
 end
 
 
-
-% Get number of polynomials in the array
-nPolys_arr_pxy = size(arr_pww,1);
-
 % Get array
-arr_hww = Get_hxy(arr_pww,unique_vMult);
+arr_hww = Get_hxy(arr_pww, unique_vMult);
 
 
 % Get degree of polynomials h(x,y)
@@ -123,16 +124,8 @@ end
 
 
 % % Get without thetas
+arr_hxy = GetPolynomialArrayWithoutThetas(arr_hww, th1, th2);
 
-arr_hxy = cell(nPolys_arr_hxy,1);
-for i = 1:1:nPolys_arr_hxy
-    
-    % Get degree of the polynomial
-    m = vDeg_arr_hxy(i);
-    
-    % Get h_{i}(x,y)
-    arr_hxy{i} = GetWithoutThetas(arr_hww{i},m,th1,th2);
-end
 
 end
 
@@ -203,59 +196,6 @@ end
 
 LHS_Matrix = blkdiag(arr_DTQ{:});
 
-end
-
-function rhs_fxy = BuildRHS_vec(arr_fxy)
-%
-% % Inputs
-%
-% arr_fxy : (Array of Matrices)
-%
-% % Outputs
-%
-% rhs_fxy : (Vector) Vector of coefficients of the set of polynomials
-% f_{i}(x,y)
-
-
-
-% Get number of polynomials in array of f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy, 1);
-
-% Get the degree of the polynomials f_{i}(x,y)
-vDeg_arr_fxy = zeros(nPolys_arr_fxy, 1);
-
-for i = 1:1:nPolys_arr_fxy
-    
-    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
-    
-end
-
-
-% Initialise cell array
-rhs_fxy = cell(nPolys_arr_fxy-1,1);
-
-% Get RHS vector of polynomials f_{0} ... f_{d-1}
-for i = 1 : 1 : (nPolys_arr_fxy - 1)
-    
-    % Get coefficients of f(x,y)
-    fxy = arr_fxy{i,1};
-    
-    % Get degree of f(x,y)
-    m = vDeg_arr_fxy(i);
-    
-    % Get number of coefficients in f(x,y)
-    nCoefficients_fxy = nchoosek(m+2,2);
-    
-    % Get the nonzero coefficients of f(x,y) from upper left triangle of
-    % the coefficient matrix.
-    v_fxy = GetAsVector(fxy);
-    
-    rhs_fxy{i,1} = v_fxy(1:nCoefficients_fxy);
-    
-end
-
-% Build the rhs vector
-rhs_fxy = cell2mat(rhs_fxy);
 end
 
 

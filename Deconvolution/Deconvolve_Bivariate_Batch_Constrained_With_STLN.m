@@ -12,6 +12,9 @@ function [arr_hxy] = Deconvolve_Bivariate_Batch_Constrained_With_STLN(arr_fxy, v
 %
 % arr_hxy : (Array of Matrices)
 
+
+global SETTINGS
+
 % Get vector of degrees of f_{i}(x,y)
 vDeg_arr_fxy = vDegt_fxy;
 
@@ -44,8 +47,6 @@ end
 vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 
 
-% Choose whether to preprocess
-global SETTINGS
 if( SETTINGS.PREPROC_DECONVOLUTIONS)
     
     [th1, th2] = GetOptimalTheta(arr_fxy);
@@ -55,13 +56,9 @@ else
     
 end
 
-% Get f(\omega_{1},\omega_{2}) from f(x,y)
-arr_fww = cell(nPolys_arr_fxy,1);
-for i = 1:1:nPolys_arr_fxy
-    
-    arr_fww{i} = GetWithThetas(arr_fxy{i}, vDeg_arr_fxy(i), th1, th2);
-    
-end
+% Preprocess the polynomials f_{i}(x,y)
+arr_fww = GetPolynomialArrayWithThetas(arr_fxy,th1,th2);
+
 
 % %
 % %
@@ -107,11 +104,10 @@ for i = 1:1:length(unique_vMult)
     
     arr_pww{i,1} = GetAsMatrix(vec_px,deg_px,deg_px);
     
-    
-    
 end
-nPolys_arr_pxy = size(arr_pww,1);
-vDeg_arr_pxy = zeros(nPolys_arr_pxy,1);
+
+nPolys_arr_pxy = size(arr_pww, 1);
+vDeg_arr_pxy = zeros(nPolys_arr_pxy, 1);
 
 for i = 1:1: nPolys_arr_pxy
     
@@ -128,6 +124,7 @@ arr_hww = Get_hxy(arr_pww,unique_vMult);
 % Build the array of polynomails z(\omega) which are the structured
 % perturbations of the array of polynomials f(x).
 arr_zww = cell(nPolys_arr_fxy,1);
+
 for i = 1:1:nPolys_arr_fxy
     
     % Get degree of polynomial f_{i}(x,y)
@@ -251,8 +248,8 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     yy = yy + y;
     
     % output y gives delta p and delta z
-    delta_pww = y(1:nCoefficients_pxy);
-    delta_zww = y(nCoefficients_pxy + 1:end);
+    delta_pww = y(1 : nCoefficients_pxy);
+    delta_zww = y(nCoefficients_pxy + 1 : end);
     
     % Add structured perturbations to vector p(\omega)
     v_pww = v_pww + delta_pww;
@@ -261,9 +258,9 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     v_zww = v_zww + delta_zww;
     
     % Get the updated array of polynomials p_{i}(\omega)
-    arr_pww = GetArray(v_pww, vDeg_arr_pxy);
+    arr_pww = GetPolynomialArrayFromVector(v_pww, vDeg_arr_pxy);
     
-    arr_zww = GetArray(v_zww, vDeg_arr_fxy);
+    arr_zww = GetPolynomialArrayFromVector(v_zww, vDeg_arr_fxy);
     
     arr_hww = Get_hxy(arr_pww,unique_vMult);
     
@@ -298,20 +295,17 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     condition(ite) = norm(res_vec)./norm(rhs_fww + RHS_vec_Pzww);
 end
 
-
-% Plot termination condiiton
-figure_name = sprintf([mfilename ' : STLN Iterations']);
-figure('name',figure_name)
-plot(log10(condition),'-s','DisplayName','Termination Condition')
-hold off
-
-
-% Get array of polynomials h_{i}(x) from h_{i}(\omega)
-arr_hxy = cell(nPolys_arr_hxy,1);
-for i = 1:1:nPolys_arr_hxy
-    m = vDeg_arr_hxy(i);
-    arr_hxy{i} = GetWithoutThetas(arr_hww{i},m,th1,th2);
+if(SETTINGS.PLOT_GRAPHS)
+    % Plot termination condiiton
+    figure_name = sprintf([mfilename ' : STLN Iterations']);
+    figure('name',figure_name)
+    plot(log10(condition),'-s','DisplayName','Termination Condition')
+    hold off
 end
+
+
+% Get array of polynomials h_{i}(x,y)
+arr_hxy = GetPolynomialArrayWithoutThetas(arr_hww,th1,th2);
 
 
 
@@ -387,56 +381,6 @@ LHS_Matrix = blkdiag(DTQ{:});
 end
 
 
-function rhs_vec = BuildRHS_vec(arr_fxy)
-%
-% % Inputs
-%
-% arr_fxy : (Array of Matrices)
-%
-%
-% % Outputs
-%
-% rhs_vec : (Vector)
-
-
-% Get number of polynomials in array of f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy, 1);
-
-% Get the degree of the polynomials
-vDeg_arr_fxy = zeros(nPolys_arr_fxy, 1);
-
-for i = 1:1:nPolys_arr_fxy
-    
-    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
-    
-end
-
-
-% Get RHS array
-rhs_array = cell(nPolys_arr_fxy-1,1);
-
-% Get RHS vector of polynomials f_{0} ... f_{d-1}
-for i = 1:1:nPolys_arr_fxy - 1
-    
-    % Get coefficients of f(x,y)
-    fxy = arr_fxy{i,1};
-    
-    % Get degree of f(x,y)
-    m = vDeg_arr_fxy(i);
-    
-    % Get number of coefficients in f(x,y)
-    nCoefficients_fxy = nchoosek(m+2,2);
-    
-    % Get the nonzero coefficients of f(x,y) from upper left triangle of
-    % the coefficient matrix.
-    v_fxy = GetAsVector(fxy);
-    rhs_array{i,1} = v_fxy(1:nCoefficients_fxy);
-    
-end
-
-% Build the rhs vector
-rhs_vec = cell2mat(rhs_array);
-end
 
 
 function v_zxy =  Get_v_zxy(arr_zxy)

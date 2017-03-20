@@ -1,4 +1,4 @@
-function [arr_hxy] = Deconvolve_Bivariate_Batch_With_STLN(arr_fxy,vDeg_fxy)
+function [arr_hxy] = Deconvolve_Bivariate_Batch_With_STLN(arr_fxy, vDeg_fxy)
 % Get the set of polynomials h_{i} given by the deconvolution of the
 % polynomials f_{i}, where h_{i} = f_{i-1}/f_{i}
 %
@@ -65,18 +65,10 @@ else
     
 end
 
-% %
-% %
-% %
 % Get preprocessed f(\omega_{1},\omega_{2}) from f(x,y)
 
-% Initialise array of f_{i}(\omega_{1},\omega_{2})
-arr_fww = cell(nPolys_arr_fxy,1);
+arr_fww = GetPolynomialArrayWithThetas(arr_fxy, th1, th2);
 
-% For each f_{i}(x,y) get f_{i}(w,w)
-for i = 1:1:nPolys_arr_fxy
-    arr_fww{i} = GetWithThetas(arr_fxy{i},vDeg_arr_fxy(i),th1,th2);
-end
 
 % %
 % %
@@ -94,11 +86,9 @@ DT_fwwQ = BuildDTQ_2Polys(arr_fww);
 v_hww = SolveAx_b(DT_fwwQ,vRHS_fww);
 
 % Get array of polynomials
-arr_hww = GetArray(v_hww,vDeg_arr_hxy);
+arr_hww = GetPolynomialArrayFromVector(v_hww,vDeg_arr_hxy);
 
 
-% %
-% %
 % Let z be vector of perturbations of polynomails f_{i} such that
 % z = [z0 z1 ... zd]
 arr_zww = cell(nPolys_arr_fxy,1);
@@ -175,7 +165,7 @@ start_point = ...
 
 yy = start_point;
 
-s = -(yy-start_point);
+s = -(yy - start_point);
 
 % Perform iteration to obtain perturbations
 
@@ -185,13 +175,13 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     % Use the QR decomposition to solve the LSE problem and then
     % update the solution.
     % min |Fy-s| subject to Gy=t
-    y = LSE(F,s,G,res_vec);
+    y = LSE(F, s, G, res_vec);
     
     yy = yy + y;
     
     % Output y gives delta h and delta z
-    delta_h = y(1:nCoefficients_hxy);
-    delta_z = y(nCoefficients_hxy+1:end);
+    delta_h = y(1 : nCoefficients_hxy);
+    delta_z = y(nCoefficients_hxy+1 : end);
     
     % Add structured perturbations to vector h.
     v_hww = v_hww + delta_h;
@@ -199,12 +189,9 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     % Add structured perturbations to vector z.
     v_zww = v_zww + delta_z;
     
-    arr_zww = GetArray(v_zww,vDeg_arr_fxy);
+    arr_zww = GetPolynomialArrayFromVector(v_zww, vDeg_arr_fxy);
+    arr_hww = GetPolynomialArrayFromVector(v_hww, vDeg_arr_hxy);
     
-    arr_hww = GetArray(v_hww, vDeg_arr_hxy);
-    
-    % Renew matrix Pz
-    Pz = P*v_zww;
     
     % Increment s in LSE Problem
     s = -(yy-start_point);
@@ -235,11 +222,9 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     
 end
 
-% Get without thetas
-arr_hxy = cell(nPolys_arr_hxy,1);
-for i = 1:1:nPolys_arr_hxy
-    arr_hxy{i} = GetWithoutThetas(arr_hww{i},vDeg_arr_hxy(i),th1,th2);
-end
+% Get array of polynomials h_{i}(x,y) from h_{i}(\omega1,\omega2)
+arr_hxy = GetPolynomialArrayWithoutThetas(arr_hww,th1,th2);
+
 
 
 
@@ -301,42 +286,7 @@ C_fxy = blkdiag(arr_DT1Q1{:});
 
 end
 
-function vRHS = BuildRHS_vec(arr_fxy)
 
-
-% Get number of polynomials in array f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy,1);
-
-% Get the degree of the polynomials f_{i}(x,y)
-vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
-for i = 1:1:nPolys_arr_fxy
-    vDeg_arr_fxy(i) = GetDegree_Bivariate(arr_fxy{i});
-end
-
-
-% Initialise an array
-arr_rhs = cell(nPolys_arr_fxy,1);
-
-% For each polynomial f_{1},...,f_{d} (Note exclude f_{0})
-for i = 1:1:nPolys_arr_fxy -1
-    
-    fxy = GetAsVector(arr_fxy{i});
-    
-    % Get degree of f(x,y)
-    m = vDeg_arr_fxy(i);
-    
-    % Get number of coefficients in f(x,y)
-    nCoefficients_fxy = nchoosek(m+2,2);
-    
-    % Strip zeros from f(x,y)
-    v_fxy = fxy(1:nCoefficients_fxy);
-    
-    arr_rhs{i} = v_fxy;
-    
-end
-
-vRHS = cell2mat(arr_rhs);
-end
 
 function vRHS = Get_vec_z(arr_zxy)
 
@@ -377,49 +327,6 @@ vRHS = cell2mat(arr_rhs);
 
 end
 
-function arr_hxy = GetArray(v_hxy,vDeg_arr_hxy)
-
-% Get number of polynomials in array v_{x,y}
-nPolys_arr_hxy = size(vDeg_arr_hxy,1);
-
-% Initialise a cell array to store h_{i}(x,y).
-arr_hxy = cell(nPolys_arr_hxy,1);
-
-
-for i = 1:1:nPolys_arr_hxy
-    
-    % the polynomial h_{i} has degree m_{i-1} - m_{i}
-    deg_hxy = vDeg_arr_hxy(i);
-    
-    % Number of coefficients in h_{i}(x,y)
-    nCoefficients_hxy = nchoosek(deg_hxy+2,2);
-    
-    % Vector of coefficients of h_{i}(x,y)
-    vec = v_hxy(1:nCoefficients_hxy);
-    
-    % append zeros to vector so we can form a matrix
-    try
-        nZeros_hxy = nchoosek(deg_hxy+1,2);
-    catch
-        nZeros_hxy = 0;
-    end
-    
-    
-    vec = ...
-        [
-        vec;
-        zeros(nZeros_hxy,1)
-        ];
-    
-    % Form matrix of coefficients of h_{i}(x,y)
-    arr_hxy{i} = GetAsMatrix(vec,deg_hxy,deg_hxy);
-    
-    % Remove coefficients from solution vector x_ls
-    v_hxy(1:nCoefficients_hxy) = [];
-end
-
-
-end
 
 
 
