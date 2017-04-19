@@ -1,21 +1,26 @@
-function [] = plotRowNorms(arr_RowNorms, limits_t)
+function [] = plotRowNorms(arr_RowNorms, limits_k, limits_t)
 %
 % % Inputs
 %
-% arr_RowNorms : 
+% arr_RowNorms : (Array)
 %
-% limits_t :
+% limits_k : (Int Int)
+%
+% limits_t : (Int Int)
 
 
-lowerLimit = limits_t(1);
-upperLimit = limits_t(2);
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
+
+lowerLimit_t = limits_t(1);
+upperLimit_t = limits_t(2);
 
 
 figure_name = 'Plotting Row Norms';
 figure('name',figure_name)
 hold on
 
-for i = lowerLimit:1:upperLimit
+for i = lowerLimit_k:1:upperLimit_k
     
     vec = arr_RowNorms{i};
     
@@ -24,6 +29,9 @@ for i = lowerLimit:1:upperLimit
     plot(vec_i, vec); 
     
 end
+
+vline(lowerLimit_t);
+vline(upperLimit_t);
 
 hold off
 

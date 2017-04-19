@@ -48,6 +48,8 @@ global SETTINGS
 % add path
 restoredefaultpath
 
+addpath(genpath(pwd));
+
 addpath(...
     'APF',...
     'Bernstein Functions',...
@@ -84,7 +86,7 @@ fprintf('EXAMPLE NUMBER %s \n',ex_num)
 fprintf('EMIN : %s \n',emin)
 fprintf('EMAX : %s \n',emax)
 fprintf('MEAN METHOD : %s \n', mean_method)
-fprintf('PREPROCESSING : %s \n',bool_alpha_theta)
+fprintf('PREPROCESSING : %s \n',num2str(bool_alpha_theta))
 fprintf('LOW RANK METHOD : %s \n',low_rank_approx_method)
 fprintf('APF METHOD : %s \n', apf_method)
 fprintf('SYLVESTER TYPE : %s \n', sylvester_type)
@@ -93,13 +95,32 @@ fprintf('SYLVESTER TYPE : %s \n', sylvester_type)
 [fxy_exact, gxy_exact, hxy_exact,...
     uxy_exact,vxy_exact, wxy_exact,...
     dxy_exact,...
-    m,~,~,n,~,~,o,~,~,...
-    ~, ~, ~] = Examples_GCD_3Polys(ex_num);
+    m, m1, m2, n, n1, n2, o, o1, o2,...
+    t_exact, t1_exact, t2_exact] = Examples_GCD_3Polys(ex_num);
 
 
+fprintf('\n')
+fprintf('----------------------------------------------------------------\n')
+fprintf('Input Polynomials Degrees:\n')
+fprintf('m  : %i \n',m)
+fprintf('m1 : %i \n',m1)
+fprintf('m2 : %i \n\n',m2)
 
+fprintf('n  : %i \n',n)
+fprintf('n1 : %i \n',n1)
+fprintf('n2 : %i \n\n',n2)
 
-DisplayDegreeStructure_3Polys();
+fprintf('o  : %i \n',o)
+fprintf('o1 : %i \n',o1)
+fprintf('o2 : %i \n\n',o2)
+
+fprintf('t  : %i \n',t_exact)
+fprintf('t1 : %i \n',t1_exact)
+fprintf('t2 : %i \n',t2_exact)
+fprintf('----------------------------------------------------------------\n')
+fprintf('\n')
+fprintf('----------------------------------------------------------------\n')
+
 
 % %
 % %
@@ -118,7 +139,7 @@ DisplayDegreeStructure_3Polys();
 % Get GCD d(x,y) and quotient polynomials u(x,y) and v(x,y)
 lowerLimit = 1;
 upperLimit = min([m,n,o]);
-t_limits = [lower_limit, upperLimit];
+t_limits = [lowerLimit, upperLimit];
 
 
 
@@ -144,7 +165,7 @@ end
 
 % Get the GCD by my method
 [fxy, gxy, hxy, dxy, uxy, vxy, wxy, t] = ...
-    o_gcd_mymethod_3Polys(fxy, gxy, hxy, m, n, o, t_limits);
+    o_gcd_mymethod_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, t_limits);
 
 
 
@@ -166,12 +187,13 @@ PrintToResultsFile(m, n, o, t, my_error)
 end
 
 function [dist] = GetDistance(fxy,gxy)
+% Get Distance between two matrices
 %
 % % Inputs
 %
-% fxy : (Matrix)
+% fxy : (Matrix) Coefficients of the polynomial f(x,y)
 %
-% gxy : (Matrix) 
+% gxy : (Matrix) Coefficients of the polynomial g(x,y)
 
 
 fxy = fxy./fxy(1,1);
@@ -189,19 +211,19 @@ function []= PrintToResultsFile(m,n,o,t,my_error)
 %
 % % Inputs
 %
-% m : (Int)
+% m : (Int) Degree of polynomial f(x,y)
 %
-% n : (Int) 
+% n : (Int) Degree of polynomial g(x,y)
 %
-% o : (Int)
+% o : (Int) Degree of polynomial h(x,y)
 %
-% t : (Int)
+% t : (Int) Degree of GCD d(x,y)
 %
-% my_error :
+% my_error : error.uxy, error.vxy, error.wxy and error.dxy
 
 global SETTINGS
 
-fullFileName = sprintf('Results/Results_o_gcd_3Polys%s.txt',datetime('today'));
+fullFileName = sprintf('Results/Results_o_gcd_3Polys_%s.txt',datetime('today'));
 
 % If file already exists append a line
 if exist(fullFileName, 'file')
@@ -234,7 +256,7 @@ end
             my_error.wxy,...
             my_error.dxy,...
             SETTINGS.MEAN_METHOD,...
-            SETTINGS.BOOL_ALPHA_THETA,...
+            num2str(SETTINGS.BOOL_ALPHA_THETA),...
             SETTINGS.LOW_RANK_APPROX_METHOD,...
             num2str(SETTINGS.LOW_RANK_APPROX_REQ_ITE),...
             SETTINGS.APF_METHOD,...

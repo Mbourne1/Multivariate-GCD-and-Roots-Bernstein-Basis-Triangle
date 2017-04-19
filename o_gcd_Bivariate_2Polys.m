@@ -47,9 +47,11 @@ function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha
 
 % % Ensure that minimum noise level is less than maximum noise level
 if emin > emax
+    
     temp = emin;
     emin = emax;
     emax = temp;
+    
 end
 
 problem_type = 'GCD';
@@ -74,7 +76,7 @@ fprintf('EXAMPLE NUMBER %s \n',ex_num)
 fprintf('EMIN : %s \n',emin)
 fprintf('EMAX : %s \n',emax)
 fprintf('MEAN METHOD : %s \n', mean_method)
-fprintf('PREPROCESSING : %s \n',bool_alpha_theta)
+fprintf('PREPROCESSING : %s \n',num2str(bool_alpha_theta))
 fprintf('LOW RANK METHOD : %s \n',low_rank_approx_method)
 fprintf('APF METHOD : %s \n', apf_method)
 
@@ -135,11 +137,11 @@ end
 
 end
 
-function []= PrintToResultsFile(m, n, t, my_error)
+function [] = PrintToResultsFile(m, n, t, my_error)
 
 global SETTINGS
 
-fullFileName = sprintf('Results/Results_o_gcd%s.txt',datetime('today'));
+fullFileName = sprintf('Results/Results_o_gcd_%s.txt',datetime('today'));
 
 % If file already exists append a line
 if exist(fullFileName, 'file')
@@ -160,15 +162,17 @@ end
     function WriteNewLine()
         
         % 15 FIELDS
-        fprintf(fileID,'%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n',...
+        fprintf(fileID,'%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n',...
             datetime('now'),...
             SETTINGS.EX_NUM,...
             int2str(m),...
             int2str(n),...
             int2str(t),...
+            my_error.uxy,...
+            my_error.vxy,...
             my_error.dxy,...
             SETTINGS.MEAN_METHOD,...
-            SETTINGS.BOOL_ALPHA_THETA,...
+            num2str(SETTINGS.BOOL_ALPHA_THETA),...
             SETTINGS.LOW_RANK_APPROX_METHOD,...
             num2str(SETTINGS.LOW_RANK_APPROX_REQ_ITE),...
             SETTINGS.APF_METHOD,...
@@ -181,7 +185,7 @@ end
     end
 
     function WriteHeader()
-        fprintf(fileID,'DATE,EX_NUM,m,n,t,ERROR_DXY,MEAN_METHOD,BOOL_ALPHA_THETA,LOW_RANK_APPROX_METHOD,LRA_ITE,APF_METHOD,APF_ITE,error_min,error_max,Sylvester_Matrix_Type \n');
+        fprintf(fileID,'DATE,EX_NUM,m,n,t,ERROR_UXY,ERROR_VXY,ERROR_DXY,MEAN_METHOD,BOOL_ALPHA_THETA,LOW_RANK_APPROX_METHOD,LRA_ITE,APF_METHOD,APF_ITE,error_min,error_max,Sylvester_Matrix_Type \n');
     end
 
 end

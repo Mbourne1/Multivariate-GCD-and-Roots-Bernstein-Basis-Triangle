@@ -1,10 +1,10 @@
-function [t] = GetGCDDegree_MultipleSubresultants(vMetric, limits_t)
+function [t] = GetGCDDegree_MultipleSubresultants(vMetric, limits_k)
 %
 % % Inputs
 %
-% vMetric
+% vMetric : (Vector) 
 %
-% limits_t
+% limits_k : (Int Int)
 
 global SETTINGS
 
@@ -16,8 +16,8 @@ calling_function = St(2).name;
 [maxDelta, index] = Analysis(vMetric);
 
 % Get upper and lower bounds
-lowerLimit = limits_t(1);
-upperLimit = limits_t(2);
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
 
 % check if the maximum change is significant
 fprintf([mfilename ' : ' sprintf('THRESHOLD :  %2.4f \n', SETTINGS.THRESHOLD)]);
@@ -46,13 +46,13 @@ if abs(maxDelta) < SETTINGS.THRESHOLD
         % All minimum singular values are above threshold so all
         % subresultants are full rank. deg(GCD) = min(m,n)
        fprintf([calling_function ' : ' mfilename ' : ' 'All Subresultants are rank deficient : GCD = g(x) \n' ])
-       t = upperLimit;
+       t = upperLimit_k;
     end
 
 else
     % change is significant
     fprintf([mfilename ' : ' 'Significant Change' ]);
-    t = lowerLimit + index - 1;
+    t = lowerLimit_k + index - 1;
     fprintf(': %i \n',t);
     
 end

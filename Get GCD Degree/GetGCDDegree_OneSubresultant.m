@@ -1,8 +1,12 @@
-function t = GetGCDDegree_OneSubresultant(vSingularValues)
+function t = GetGCDDegree_OneSubresultant(vMetric)
 % Given the vector of values from either minimum singular values or max:min
 % R diagonals.
 % Get the rank, where only one subresultant exists.
-
+%
+% % Inputs
+%
+% vMetric : (Vector) Vector containing Rank Revealing Metric of each
+% Sylvester subresultant matrix.
 
 global SETTINGS
 
@@ -20,12 +24,12 @@ if( SETTINGS.PLOT_GRAPHS)
         figure('name',figure_name)
         hold on
         title('Singular values of S_{1}')
-        plot(log10(vSingularValues))
+        plot(log10(vMetric))
         hold off
         
 end
 
-[deltaSingularValues,~] = Analysis(vSingularValues);
+[deltaSingularValues,~] = Analysis(vMetric);
 
 % If the change is smaller than the predefined threshold value, then plot
 % is considered 'flat'.

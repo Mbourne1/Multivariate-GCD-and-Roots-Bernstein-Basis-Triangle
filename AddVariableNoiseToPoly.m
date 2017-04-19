@@ -25,7 +25,7 @@ function [f_noisy, noise_matrix] = AddVariableNoiseToPoly(fxy, el, eu)
 global SETTINGS
 
 % Get degree of input polynomial f(x,y)
-[m,~] = GetDegree(fxy);
+[m,~] = GetDegree_Bivariate(fxy);
 
 % Set Seed for random number generator.
 rng(SETTINGS.SEED)

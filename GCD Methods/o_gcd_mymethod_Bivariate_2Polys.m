@@ -6,24 +6,29 @@ function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t] = o_gcd_mymethod_Bivariate_2Poly
 %
 % % Inputs.
 %
-% [fxy, gxy] : Coefficients of bivariate polynomial f(x,y) in the Bernstein form.
+% fxy : (Matrix) Coefficients of bivariate polynomial f(x,y) in the Bernstein form.
+%
+% gxy : (Matrix) Coefficients of bivariate polynomial g(x,y) in the Bernstein form.
 %  
-% m : Total degree of f(x,y)
+% m : (Int) Total degree of f(x,y)
 %
-% n : Total degree of g(x,y)
+% n : (Int) Total degree of g(x,y)
 %
-% limits_t :
+% limits_t : (Int Int)
 %
 % % Outputs
 %
-% [fxy, gxy] : Coefficients of bivariate polynomial f(x,y) and g(x,y)
+% fxy : (Matrix) Coefficients of the bivariate polynomial f(x,y) 
 %
-% dxy : Coefficients of the GCD of f(x,y) and g(x,y)
+% gxy : (Matrix) Coefficients of bivariate polynomial g(x,y)
 %
-% [uxy, vxy] : Cofactor polynomial u(x,y) where f(x,y)/d(x,y) = u(x,y)
-% and Cofactor polynomial v(x,y) where g(x,y)/d(x,y) = v(x,y)
+% dxy : (Matrix) Coefficients of the GCD of f(x,y) and g(x,y)
+%
+% uxy : (Matrix) Coefficients of the polynomial u(x,y) where f(x,y)/d(x,y) = u(x,y)
+%
+% vxy : (Matrix) Coefficients of the polynomial v(x,y) where g(x,y)/d(x,y) = v(x,y)
 % 
-% t : Total degree of the GCD d(x,y)
+% t : (Int) Total degree of the GCD d(x,y)
 
 % Note : fxy and gxy are square matrices where entries in the upper left 
 % triangle are the coefficients of f(x,y) and g(x,y) respectively. The 

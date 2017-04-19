@@ -102,7 +102,7 @@ gww = GetWithThetas(gxy, n, th1(ite), th2(ite));
 % Build the kth Sylvester Subresultant matrix S_{k}(f,g) = D*T(f,g)*Q
 
 % Build the diagonal matrix D^{-1}
-D = BuildD(m, n-k);
+D = BuildD_2Polys(m, n-k);
 
 % Build the matrix T_{n-k}(f)
 T1_fww = BuildT1(fww, m, n-k);
@@ -111,7 +111,7 @@ T1_fww = BuildT1(fww, m, n-k);
 T1_gww = BuildT1(gww, n, m-k);
 
 % Build the matrix Q_{k}
-Q = BuildQ(m, n, k);
+Q = BuildQ_2Polys(m, n, k);
 
 % Build the kth Sylvester subresultant matrix.
 DTQ_fg = D*[T1_fww alpha.*T1_gww] * Q;

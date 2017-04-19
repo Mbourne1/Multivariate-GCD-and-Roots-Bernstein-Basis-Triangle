@@ -7,39 +7,39 @@ function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
 %
 % % Inputs.
 %
-% fxy : Coefficients of polynomial f(x,y).
+% fxy : (Matrix) Coefficients of polynomial f(x,y).
 %
-% gxy : Coefficients of polynomial g(x,y).
+% gxy : (Matrix) Coefficients of polynomial g(x,y).
 %
-% alpha : \alpha
+% alpha : (Float) \alpha
 %
-% th1 : \theta_{1}
+% th1 : (Float) \theta_{1}
 %
-% th2 : \theta_{2}
+% th2 : (Float) \theta_{2}
 %
-% m : Total degree of f(x,y).
+% m : (Int) Total degree of f(x,y).
 %
-% n : Total degree of g(x,y).
+% n : (Int) Total degree of g(x,y).
 %
-% k : Total degree of d(x,y).
+% k : (Int) Total degree of d(x,y).
 %
 % % Outputs
 %
-% fxy_lr : Coefficients of polynomial f_lr(x,y) which is used in the low
+% fxy_lr : (Matrix) Coefficients of polynomial f_lr(x,y) which is used in the low
 % rank approximation of S_{t}(f,g).
 %
-% gxy_lr : Coefficients of polynomial g_lr(x,y) which is used in the low
+% gxy_lr : (Matrix) Coefficients of polynomial g_lr(x,y) which is used in the low
 % rank approximation of S_{t}(f,g).
 %
-% uxy_lr :
+% uxy_lr : (Matrix)
 %
-% vxy_lr :
+% vxy_lr : (Matrix) 
 %
-% alpha : \alpha
+% alpha : \alpha (Float)
 %
-% th1 : \theta_{1}
+% th1 : \theta_{1} (Float)
 %
-% th2 : \theta_{2}
+% th2 : \theta_{2} (Float)
 
 global SETTINGS
 

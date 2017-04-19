@@ -1,35 +1,35 @@
-function P1 = BuildP1(m,n,k,idx_col)
+function P1 = BuildP1(m, n, k, idx_col)
 % Build the matrix G1, which forms a partition of the matrix P, and is used
 % in the BuildP() function. This function forms part of the STLN package.
 %
 % % Input
 %
-% m : Degree of polynomail f(x,y)
+% m : (Int) Degree of polynomail f(x,y)
 % 
-% n : Degree of polynomial g(x,y)
+% n : (Int) Degree of polynomial g(x,y)
 %
-% k : Degree of polynomial d(x,y) and index of Sylvester subresultant
+% k : (Int) Degree of polynomial d(x,y) and index of Sylvester subresultant
 % S_{k}(f,g)
 %
-% idx_col : index of column removed from S_{k}(f,g)
+% idx_col : (Int) index of column removed from S_{k}(f,g)
 %
 % % Outputs
 %
-% P1 : Matrix P1
+% P1 : (Matrix) P1
 
 
 % Get the number of columns in the first partition of the Sylvester matrix
-nCoeffs_vxy = nchoosek(n-k+2,2);
-nCols_Tf = nCoeffs_vxy;
+nCoefficients_vxy = nchoosek(n-k+2,2);
+nColumns_Tf = nCoefficients_vxy;
 
 % Get the number of zeros in v(x,y)
 nZeros_vxy = nchoosek(n-k+1,2);
 
 
-vec = (1:1:nCols_Tf)';
+vec = (1:1:nColumns_Tf)';
 vec = [vec ; zeros(nZeros_vxy,1)];
 
-mat = GetAsMatrix(vec,n-k,n-k);
+mat = GetAsMatrix(vec, n-k, n-k);
 
 [row,col] = find(mat==idx_col);
 
@@ -39,7 +39,7 @@ col_index = col - 1;
 j1 = row_index;
 j2 = col_index;
 
-trinom = Trinomial(n-k,j1,j2);
+trinom = Trinomial(n-k, j1, j2);
 
 % Build a matrix of ones corresponding to f(x,y)
 nCoefficients_fxy = nchoosek(m+2,2);

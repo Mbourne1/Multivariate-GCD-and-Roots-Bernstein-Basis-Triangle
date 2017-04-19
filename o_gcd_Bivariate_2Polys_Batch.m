@@ -10,7 +10,6 @@ arr_el = {1e-12,1e-10,1e-8,1e-6};
 arr_mean_method = ...
     {...
     'Geometric Mean Matlab Method',...
-    'Geometric Mean My Method',...
     'None'...
     };
 
@@ -18,30 +17,46 @@ arr_bool_alpha_theta = {true,false};
 
 arr_low_rank_approx_method = {'None','Standard STLN'};
 
-parpool(length(2));
+%parpool(length(2));
+
+apf_method = 'None';
+sylvester_build_method = 'DTQ';
 
 
-
-parfor i1 = 1:1:length(arr_ex_num)
+for i1 = 1:1:length(arr_ex_num)
     for i2 = 1:1:length(arr_el)
         for i3 = 1:1:length(arr_mean_method)
             for i4 = 1:1:length(arr_bool_alpha_theta)
                 for i5 = 1:1:length(arr_low_rank_approx_method)
 
                     ex_num = arr_ex_num{i1};
-                    el = arr_el{i2};
+                    emin = arr_el{i2};
+                    emax = 1e-10;
                     mean_method = arr_mean_method{i3};
                     bool_alpha_theta = arr_bool_alpha_theta{i4};
                     low_rank_approx_method = arr_low_rank_approx_method{i5};
                     
          
+                     
+                    
                     try
 
-                        o_gcd_Bivariate_2Polys(ex_num, el, mean_method, bool_alpha_theta, low_rank_approx_method);
+                        
+                        close all;
+                        clc;
+                        o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method);
+                        myFileName = 'log_GCD_Bivariate_2Polys.txt';
+                        fileId = fopen(myFileName,'a');
+                        fprintf(fileId,'%s %s \n',datetime('now'), 'success \n');
+                        fclose(fileId);
 
-                    catch error
-                        error.message
-                        WriteToErrorFile(ex_num,el,mean_method,bool_alpha_theta)
+                    catch err
+                    
+                        myFileName = 'log_GCD_Bivariate_2Polys.txt';
+                        fileId = fopen(myFileName,'a');
+                        fprintf(fileId,'%s %s \n\n\n', datetime('now'), getReport(err));
+                        fclose(fileId);
+                        
                     end
                 end
             end
@@ -52,28 +67,4 @@ end
 
 
 
-end
-
-function []= WriteToErrorFile(ex_num,noise,mean_method,bool_alpha_theta)
-
-
-
-fullFileName = 'Results_GCD_errors.txt';
-
-
-if exist(fullFileName, 'file')
-    fileID = fopen(fullFileName,'a');
-    fprintf(fileID,'%s, \t %s, \t %s, \t %s, \t %s \n',...
-        datetime('now'),...
-        ex_num,...
-        num2str(noise),...
-        mean_method,...
-        bool_alpha_theta...
-        );
-    fclose(fileID);
-else
-    % File does not exist.
-    warningMessage = sprintf('Warning: file does not exist:\n%s', fullFileName);
-    uiwait(msgbox(warningMessage));
-end
 end

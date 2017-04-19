@@ -1,20 +1,20 @@
- function [] = plotSingularValues(arr_SingularValues, myLimits, limits_t)
+ function [] = plotSingularValues(arr_SingularValues, limits_k, limits_t)
 %
 % % Inputs
 %
-% arr_SingularValues :
+% arr_SingularValues : (Array)
 %
 % myLimits :
 %
 % limits_t :
 
-lowerLimit = myLimits(1);
-upperLimit = myLimits(2);
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
 
 lowerLimit_t = limits_t(1);
 upperLimit_t = limits_t(2);
 
-nSubresultants = upperLimit - lowerLimit + 1;
+nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 figure_name = 'Singular Values';
 figure('name',figure_name)
@@ -24,7 +24,7 @@ figure('name',figure_name)
 hold on
 for i = 1:1:nSubresultants
    
-    k = lowerLimit + (i-1);
+    k = lowerLimit_k + (i-1);
     
     temp_vec = arr_SingularValues{i};
     

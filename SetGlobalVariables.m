@@ -6,15 +6,21 @@ global SETTINGS
 %----------------------
 
 % Plot Graphs
-% 'y'
-% 'n'
+%   * true
+%   * false
 %
 SETTINGS.PLOT_GRAPHS = true;
+
 SETTINGS.PROBLEM_TYPE = problem_type;
+
 SETTINGS.SEED = 1024;
 
-% T, DTQ, DT, TQ
-SETTINGS.SYLVESTER_MATRIX_TYPE = sylvester_type;
+% SYLVESTER BUILD METHOD
+%   T
+%   DTQ
+%   DT
+%   TQ
+SETTINGS.SYLVESTER_BUILD_METHOD = sylvester_type;
 
 % Set Noise
 SETTINGS.EMIN = emin;
@@ -38,8 +44,8 @@ SETTINGS.EX_NUM = ex_num;
 SETTINGS.MEAN_METHOD = mean_method;
 
 %
-% 'y'
-% 'n'
+%   * true
+%   * false
 %
 SETTINGS.BOOL_ALPHA_THETA = bool_alpha_theta;
 

@@ -4,16 +4,19 @@ function P1 = BuildP1_STLN(m,n,k,idx_col)
 %
 % % Inputs
 %
-% m : Total degree of polynomial f(x,y)
+% m : (Int) Total degree of polynomial f(x,y)
 %
-% n : Total degree of polynomial g(x,y)
+% n : (Int) Total degree of polynomial g(x,y)
 %
-% k : Total degree of polynomial d(x,y) and index of Sylvester subresultant
+% k : (Int) Total degree of polynomial d(x,y) and index of Sylvester subresultant
 %       S_{k}(f,g) whose low rank approximation is computed by STLN.
-
+%
+% % Outputs
+%
+% P1
 
 % Get the number of columns in the first partition of the Sylvester matrix
-nCols_Tf = nchoosek(n-k+2,2);
+nColumns_Tf = nchoosek(n-k+2,2);
 
 % Get the number of zeros
 try
@@ -22,10 +25,10 @@ catch
     nZeros = 0;
 end
 
-vec = (1:1:nCols_Tf)';
+vec = (1 : 1 : nColumns_Tf)';
 vec = [vec ; zeros(nZeros,1)];
 
-mat = GetAsMatrix(vec,n-k,n-k);
+mat = GetAsMatrix(vec, n-k, n-k);
 
 [row,col] = find(mat==idx_col);
 

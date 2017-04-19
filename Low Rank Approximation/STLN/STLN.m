@@ -27,25 +27,25 @@ function [fxy_lr, gxy_lr, uxy_lr, vxy_lr] = STLN(fxy, gxy, k)
 [n,~] = GetDegree_Bivariate(gxy);
 
 % Get number of coefficients in f(x,y)
-nCoeffs_fxy = nchoosek(m+2,2);
+nCoefficients_fxy = nchoosek(m+2,2);
 
 % Get the number of zeros in the matrix containing f(x,y)
 nZeros_fxy = nchoosek(m+1,2);
 
 % Get number of coefficients in g(x,y)
-nCoeffs_gxy = nchoosek(n+2,2);
+nCoefficients_gxy = nchoosek(n+2,2);
 
 % Get the number of zeros in the matrix containing g(x,y)
 nZeros_gxy = nchoosek(n+1,2);
 
 % Get number of coefficients in u(x,y)
-nCoeffs_uxy = nchoosek(m-k+2,2);
+nCoefficients_uxy = nchoosek(m-k+2,2);
 
 % Get the number of zeros in the matrix of u(x,y)
 nZeros_uxy = nchoosek(m-k+1,2);
 
 % Get number of coefficients in v(x,y)
-nCoeffs_vxy = nchoosek(n-k+2,2);
+nCoefficients_vxy = nchoosek(n-k+2,2);
 
 % Get number of zeros in the matrix of v(x,y)
 nZeros_vxy = nchoosek(n-k+1,2);
@@ -99,11 +99,11 @@ DPQ = BuildDPQ_STLN(m, n, k, idx_col);
 
 % Get coefficients of polynomial f(x,y)
 f = GetAsVector(fxy);
-f = f(1:nCoeffs_fxy);
+f = f(1:nCoefficients_fxy);
 
 % Get coefficients of polynomial g(x,y)
 g = GetAsVector(gxy);
-g = g(1:nCoeffs_gxy);
+g = g(1:nCoefficients_gxy);
 
 test1a = DPQ * [f;g];
 test1b = ck;
@@ -124,12 +124,12 @@ display(test2);
 
 
 % Get matrix of coefficients of polynomial z_{f}(x,y)
-zf = zeros(nCoeffs_fxy,1);
+zf = zeros(nCoefficients_fxy,1);
 vec_zf = [zf ; zeros(nZeros_fxy,1)];
 zf_xy = GetAsMatrix(vec_zf,m,m);
 
 % Get matrix of coefficients of polynomial z_{g}(x,y)
-zg = zeros(nCoeffs_gxy,1);
+zg = zeros(nCoefficients_gxy,1);
 vec_zg = [zg ; zeros(nZeros_gxy,1)];
 zg_xy = GetAsMatrix(vec_zg,n,n);
 
@@ -137,10 +137,10 @@ zg_xy = GetAsMatrix(vec_zg,n,n);
 vec_z = [zf ; zg];
 
 % Build the matrix T_{n-k}(z_{f})
-T1_zf = BuildT1(zf_xy,m,n-k);
+T1_zf = BuildT1(zf_xy, m, n-k);
 
 % Build the matrix T_{m-k}(z_{g})
-T1_zg = BuildT1(zg_xy,n,m-k);
+T1_zg = BuildT1(zg_xy, n, m-k);
 
 % Build the matrix S_{k}(z_{f},z_{g})
 Sk_zfzg = D*[T1_zf T1_zg] * Q;
@@ -189,7 +189,7 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     ite = ite + 1;
     
     % Get small petrubations by LSE
-    y_lse = LSE(E,f,C,res_vec);
+    y_lse = LSE(E, f, C, res_vec);
     
     % Increment cummulative peturbations
     yy = yy + y_lse;
@@ -199,8 +199,8 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     delta_xk = y_lse(nEntries_z + 1:end);
     
     % Get z1 and z2
-    delta_zf = delta_z(1:nCoeffs_fxy);
-    delta_zg = delta_z(nCoeffs_fxy+1:nCoeffs_fxy+nCoeffs_gxy);
+    delta_zf = delta_z(1:nCoefficients_fxy);
+    delta_zg = delta_z(nCoefficients_fxy+1:nCoefficients_fxy+nCoefficients_gxy);
     
     % Update vectors z, z_{f} and z_{g}
     vec_z = vec_z + delta_z;
@@ -214,8 +214,8 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     vec_zg = [zg ; zeros(nZeros_gxy,1)];
     zg_xy = GetAsMatrix(vec_zg,n,n);
     
-    T1_zf = BuildT1(zf_xy,m,n-k);
-    T1_zg = BuildT1(zg_xy,n,m-k);
+    T1_zf = BuildT1(zf_xy, m, n-k);
+    T1_zg = BuildT1(zg_xy, n, m-k);
     
     % Build Sylvester matrix S_{t}(zf,zg)
     Sk_zfzg = D*[T1_zf T1_zg] * Q;
@@ -237,7 +237,7 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     x = [xk(1:idx_col-1) ; 0 ; xk(idx_col:end)];
     
     % Build the matrix Y_{k}
-    DYQ = BuildDYQ_STLN(x,m,n,k);
+    DYQ = BuildDYQ_STLN(x, m, n, k);
     
     % % % Build the matrix C in the LSE Problem.
     
@@ -273,15 +273,15 @@ SETTINGS.LOW_RANK_APPROX_REQ_ITE = ite;
 vec_z = yy(1:nEntries_z);
 
 % Get z1 and z2
-zf = vec_z(1:nCoeffs_fxy);
-zg = vec_z(nCoeffs_fxy+1:end);
+zf = vec_z(1:nCoefficients_fxy);
+zg = vec_z(nCoefficients_fxy+1:end);
 
 % Get Coefficients of polynomials f(x,y) and g(x,y)
 vec_zf = [zf ; zeros(nZeros_fxy,1)];
 vec_zg = [zg ; zeros(nZeros_gxy,1)];
 
-zf_xy = GetAsMatrix(vec_zf,m,m);
-zg_xy = GetAsMatrix(vec_zg,n,n);
+zf_xy = GetAsMatrix(vec_zf, m, m);
+zg_xy = GetAsMatrix(vec_zg, n, n);
 
 
 fxy_lr = fxy + zf_xy;
@@ -293,13 +293,13 @@ gxy_lr = gxy + zg_xy;
 
 % split the vector x into \hat{x}_{1} and \hat{x}_{2}
 % Get number of coefficients in x1
-nCoeffs_vxy = nchoosek(n-k+2,2);
-nCoeffs_uxy = nchoosek(m-k+2,2);
+nCoefficients_vxy = nchoosek(n-k+2,2);
+nCoefficients_uxy = nchoosek(m-k+2,2);
 
 vec_xvxu = [xk(1:idx_col-1) ; -1 ; xk(idx_col:end)];
 
-xv = vec_xvxu(1:nCoeffs_vxy);
-xu = -1.* vec_xvxu(nCoeffs_vxy + 1 : nCoeffs_vxy + nCoeffs_uxy);
+xv = vec_xvxu(1:nCoefficients_vxy);
+xu = -1.* vec_xvxu(nCoefficients_vxy + 1 : nCoefficients_vxy + nCoefficients_uxy);
 
 % Get x1 as a matrix of coefficients for input into BuildT1() function
 nZeros_xv = nchoosek(n-k+1,2);

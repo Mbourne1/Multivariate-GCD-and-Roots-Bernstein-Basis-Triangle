@@ -1,5 +1,0 @@
-DATE,EX_NUM,m,n,t,ERROR_DXY,MEAN_METHOD,BOOL_ALPHA_THETA,LOW_RANK_APPROX_METHOD,LRA_ITE,APF_METHOD,APF_ITE,error_min,error_max,Sylvester_Matrix_Type 
-04-Jan-2017 15:26:03,1,7,7,4,8.597372e-01,Geometric Mean Matlab Method,y,None,0,None,0,1.000000e-12,1.000000e-10,DTQ 
-04-Jan-2017 15:27:38,2,13,11,8,1.038379e+01,Geometric Mean Matlab Method,y,None,0,None,0,1.000000e-12,1.000000e-10,DTQ 
-04-Jan-2017 15:28:37,3,16,17,14,1.224943e+00,Geometric Mean Matlab Method,y,None,0,None,0,1.000000e-12,1.000000e-10,DTQ 
-04-Jan-2017 15:29:45,3,16,17,14,5.429338e-10,Geometric Mean Matlab Method,y,None,0,None,0,1.000000e-12,1.000000e-10,DTQ 

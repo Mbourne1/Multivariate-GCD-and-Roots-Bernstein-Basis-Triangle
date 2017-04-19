@@ -4,31 +4,40 @@ function [t, GM_fx, GM_gx, alpha, th1, th2] = GetGCDDegree_Bivariate_2Polys(fxy,
 % Inputs.
 %
 % fxy : (Matrix) Coefficients of the polynomial f(x,y)
+%
 % gxy : (Matrix) Coefficients of the polynomial g(x,y)
+%
 % m : (Int) Total degree of f(x,y)
+%
 % n : (Int) Total degree of g(x,y)
 %
-% limits_t = []
+% limits_t : (Int Int) 
 %
 % % Outputs
 %
-% t : (Int)
-% GM_fx : (Float)
-% GM_gx : (Float)
-% alpha : (Float)
-% th1 : (Float)
-% th2 : (Float)
+% t : (Int) Degree of GCD d(x,y)
+%
+% GM_fx : (Float) Geometric Mean of f(x,y)
+%
+% GM_gx : (Float) Geometric Mean of g(x,y)
+%
+% alpha : (Float) Optimal value of \alpha
+%
+% th1 : (Float) Optimal value of \theta_{1}
+%
+% th2 : (Float) Optimal value of \theta_{2}
 
 global SETTINGS
 
-myLimits = [0 min(m,n)];
+% Set limits for k
+limits_k = [1 min(m,n)];
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
 
-myLowerLimit = myLimits(1);
-myUpperLimit = myLimits(2);
+% Get number of Sylvester subresultants
+nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
-nSubresultants = myUpperLimit - myLowerLimit + 1;
-
-
+% Initialise some arrays
 arr_SingularValues = cell(nSubresultants,1);
 arr_R1 = cell(nSubresultants,1);
 
@@ -41,15 +50,13 @@ vTh2 = zeros(nSubresultants,1);
 
 for i = 1:1:nSubresultants
     
-    k = myLowerLimit + (i-1);
+    k = lowerLimit_k + (i-1);
     
     % %
     % Geometric Mean
     
-    % Get Geometric mean of f(x,y) in C_{n-k}(f)
+    % Get Geometric mean of f(x,y) in C_{n-k}(f) and g(x,y) in C_{m-k}(g)
     vGM_fx(i) = GetGeometricMean(fxy, m, n-k);
-    
-    % Get Geometric mean of g(x,y) in C_{m-k}(g)
     vGM_gx(i) = GetGeometricMean(gxy, n, m-k);
     
     % Divide entries of f(x,y) and g(x,y) by geometric mean
@@ -101,9 +108,12 @@ switch SETTINGS.RANK_REVEALING_METRIC
         end
         
         if(SETTINGS.PLOT_GRAPHS)
-            plotRowNorms(arr_R1RowNorms, myLimits, limits_t)
-            plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, myLimits, limits_t)
+            
+            plotRowNorms(arr_R1RowNorms, limits_k, limits_t)
+            plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t)
+            
         end
+        
         metric = vMinRowNormR1 ./ vMaxRowNormR1;
         
     case 'R1 Row Diagonals'
@@ -124,8 +134,8 @@ switch SETTINGS.RANK_REVEALING_METRIC
         vRatio_MaxMin_DiagonalEntry = vMinDiagonalEntry ./ vMaxDiagonalEntry;
         
         if(SETTINGS.PLOT_GRAPHS)
-            %plotDiagonalsR1(arr_R1, my_limits, limits_t)
-            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, myLimits, limits_t);
+            %plotDiagonalsR1(arr_R1, limits_k, limits_t)
+            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t);
         end
         
         metric = vRatio_MaxMin_DiagonalEntry;
@@ -142,8 +152,10 @@ switch SETTINGS.RANK_REVEALING_METRIC
         end
         
         if(SETTINGS.PLOT_GRAPHS)
-            plotSingularValues(arr_SingularValues, myLimits, limits_t);
-            plotMinimumSingularValues(vMinimumSingularValues, myLimits, limits_t);
+            
+            plotSingularValues(arr_SingularValues, limits_k, limits_t);
+            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t);
+            
         end
         
         metric = vMinimumSingularValues;
@@ -156,19 +168,19 @@ switch SETTINGS.RANK_REVEALING_METRIC
         error('err')
 end
 
-if (myLowerLimit == myUpperLimit)
+if (lowerLimit_k == upperLimit_k)
     
     t = GetGCDDegree_OneSubresultant(metric);
     
 else
     
-    t = GetGCDDegree_MultipleSubresultants(metric,[myLowerLimit, myUpperLimit]);
+    t = GetGCDDegree_MultipleSubresultants(metric,[lowerLimit_k, upperLimit_k]);
     
-    GM_fx = vGM_fx(t-myLowerLimit + 1);
-    GM_gx = vGM_gx(t-myLowerLimit + 1);
-    alpha = vAlpha(t-myLowerLimit + 1);
-    th1 = vTh1(t-myLowerLimit + 1);
-    th2 = vTh2(t-myLowerLimit + 1);
+    GM_fx = vGM_fx(t-lowerLimit_k + 1);
+    GM_gx = vGM_gx(t-lowerLimit_k + 1);
+    alpha = vAlpha(t-lowerLimit_k + 1);
+    th1 = vTh1(t-lowerLimit_k + 1);
+    th2 = vTh2(t-lowerLimit_k + 1);
     
 end
 

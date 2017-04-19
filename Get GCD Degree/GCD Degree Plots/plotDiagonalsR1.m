@@ -1,25 +1,25 @@
-function [] = plotDiagonalsR1(arr_R1, myLimits, limits_t)
+function [] = plotDiagonalsR1(arr_R1, limits_k, limits_t)
 %
 % % Inputs
 %
-% arr_R1 : 
+% arr_R1 : (Array)
 %
-% myLimits :
+% limits_k : (Int Int)
 %
-% limits_t : [lower upper] :
+% limits_t : (Int Int)
 %
 % 
 
 % Get my limits
-myLowerLimit = myLimits(1);
-myUpperLimit = myLimits(2);
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
 
 % Get actual limits
-lowerLimit = limits_t(1);
-upperLimit = limits_t(2);
+lowerLimit_t = limits_t(1);
+upperLimit_t = limits_t(2);
 
 % Get number of subresultants constructed
-nSubresultants = myUpperLimit - myLowerLimit + 1;
+nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 global SETTINGS
 
@@ -29,7 +29,7 @@ hold on
 
 for i = 1 : 1 : nSubresultants
    
-    k = myLowerLimit + (i-1);
+    k = lowerLimit_k + (i-1);
     
     % Get diagonal entries of R1
     temp_vec = diag(arr_R1{i});
@@ -44,8 +44,8 @@ for i = 1 : 1 : nSubresultants
 end
 
 % Add vertical lines to show limits
-vline(lowerLimit);
-vline(upperLimit);
+vline(lowerLimit_t);
+vline(upperLimit_t);
 hold off
 
 end

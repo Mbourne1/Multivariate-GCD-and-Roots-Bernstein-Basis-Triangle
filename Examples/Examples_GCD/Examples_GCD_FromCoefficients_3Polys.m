@@ -7,33 +7,33 @@ function [fxy, gxy, hxy, uxy, vxy, wxy, dxy,...
 %
 % % Inputs
 %
-% ex_num : Example number
+% ex_num : (String) Example number
 %
 %
 % % Outputs
 %
-% fxy : Coefficients of polynomial f(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
 %
-% gxy : Coefficients of polynomial g(x,y)
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
 %
-% hxy : Coefficients of polynomial h(x,y)
+% hxy : (Matrix) Coefficients of polynomial h(x,y)
 %
-% dxy : Coefficients of polynomial d(x,y)
+% dxy : (Matrix)Coefficients of polynomial d(x,y)
 %
-% m : Total degree of f(x,y)
+% m : (Int) Total degree of f(x,y)
 %
-% n : Total degree of g(x,y)
+% n : (Int) Total degree of g(x,y)
 %
-% o : Total degree of h(x,y)
+% o : (Int) Total degree of h(x,y)
 %
-% t : Total degree of d(x,y)
+% t : (Int) Total degree of d(x,y)
 
 syms x y;
 
-addpath('../Examples')
+addpath(genpath('../Examples'));
 
 [f_root_mult_arr, g_root_mult_arr, h_root_mult_arr, d_root_mult_arr,...
-    u_root_mult_arr, v_root_mult_arr, w_root_mult_arr] = Bivariate_GCD_Examples_3Polys(ex_num);
+    u_root_mult_arr, v_root_mult_arr, w_root_mult_arr] = GCD_Examples_Bivariate_3Polys(ex_num);
 
 [fxy] = GetCoefficientsFromSymbolicRoots(f_root_mult_arr);
 [gxy] = GetCoefficientsFromSymbolicRoots(g_root_mult_arr);
@@ -82,15 +82,15 @@ function [m,m1,m2] = GetDegreeStructure(symbolic_poly)
 %
 % % Inputs
 %
-% symbolic_poly :
+% symbolic_poly : (Symbolic)
 %
 % % Outputs
 %
-% m : 
+% m : (Int) Degree of polynomial 
 %
-% m1 : 
+% m1 : (Int) Degree of symbolic polynomial with respect to x
 %
-% m2 :
+% m2 : (Int) Degree of symbolic polynomial with respect to y
 %
 
 syms x y

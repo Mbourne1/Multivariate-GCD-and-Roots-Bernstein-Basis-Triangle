@@ -1,21 +1,21 @@
-function [] = plotMinimumSingularValues(vMinimumSingularValues,myLimits, limits_t)
+function [] = plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t)
 %
 % % Inputs
 %
 % vMinimumSingularValues :
 %
-% myLimits :
+% limits_k : (Int Int)
 %
-% limits_t :
+% limits_t : (Int Int)
 
 
-lowerLimit = myLimits(1);
-upperLimit = myLimits(2);
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
 
 lowerLimit_t = limits_t(1);
 upperLimit_t = limits_t(2);
 
-vec_x = lowerLimit : 1 : upperLimit;
+vec_x = lowerLimit_k : 1 : upperLimit_k;
 
 figure_name = sprintf('');
 figure('name',figure_name)

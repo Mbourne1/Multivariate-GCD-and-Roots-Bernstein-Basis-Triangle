@@ -1,31 +1,31 @@
-function [] = plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, myLimits, limits_t)
+function [] = plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t)
 %
 % % Inputs
 %
-% vRatio_MaxMin_DiagonalEntry
+% vRatio_MaxMin_DiagonalEntry : (Vector)
 %
-% myLimits
+% limits_k : (Int Int)
 %
-% limits_t
+% limits_t : (Int Int)
 
 
 global SETTINGS
 
 % Get my working limits
-lowerLimit = myLimits(1);
-upperLimit = myLimits(2);
+lowerLimit_k = limits_k(1);
+upperLimit_k = limits_k(2);
 
-lower_limit_t = limits_t(1);
-upper_limit_t = limits_t(2);
+lowerLimit_t = limits_t(1);
+upperLimit_t = limits_t(2);
 
 figure_name = [mfilename ' : ' sprintf('Max;min Diagonals of R1 from QR Decomposition of %s', SETTINGS.SYLVESTER_BUILD_METHOD)];
     
-figure('name',figure_name)
+figure('name', figure_name)
 hold on
-x_vec = lowerLimit : 1 : upperLimit;
-plot(x_vec,log10(vRatio_MaxMin_DiagonalEntry),'-s')
-vline(lower_limit_t);
-vline(upper_limit_t);
+x_vec = lowerLimit_k : 1 : upperLimit_k;
+plot(x_vec, log10(vRatio_MaxMin_DiagonalEntry),'-s')
+vline(lowerLimit_t);
+vline(upperLimit_t);
 
 hold off
 
