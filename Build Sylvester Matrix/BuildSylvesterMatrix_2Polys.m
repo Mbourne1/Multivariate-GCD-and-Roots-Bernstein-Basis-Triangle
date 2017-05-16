@@ -6,29 +6,33 @@ function Sk = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, k)
 %
 % Inputs
 %
-% fxy : Coefficients of the polynomial f(x,y)
+% fxy : (Matrix) Coefficients of the polynomial f(x,y)
 %
-% gxy : Coefficients of the polynomial g(x,y)
+% gxy : (Matrix) Coefficients of the polynomial g(x,y)
 %
-% m : Total degree of polynomial f(x,y)
+% m : (Int) Total degree of polynomial f(x,y)
 %
-% n : Total degree of polynomial g(x,y)
+% n : (Int) Total degree of polynomial g(x,y)
 %
-% k : Index of the Sylvester subresultant matrix S_{k} to be constructed.
+% k : (Int) Index of the Sylvester subresultant matrix S_{k} to be constructed.
+%
+% % Outputs
+%
+% Sk : (Matrix) kth Sylvester subresultant matrix S_{k}(f,g)
 
 % Build the diagonal matrix D^{-1}
 D = BuildD_2Polys(m, n-k);
 
-% Build the matrix T_{n-k}(f)
+% Build the matrix T_{n-k}(f(x,y))
 T1_fx = BuildT1(fxy, m, n-k);
 
-% Build the matrix T_{m-k}(g)
+% Build the matrix T_{m-k}(g(x,y))
 T1_gx = BuildT1(gxy, n, m-k);
 
 Q = BuildQ_2Polys(m,n,k);
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_TYPE
+switch SETTINGS.SYLVESTER_BUILD_METHOD
     case 'T'
         
         Sk = [T1_fx T1_gx] ;

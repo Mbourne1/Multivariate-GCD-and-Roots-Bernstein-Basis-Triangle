@@ -1,12 +1,17 @@
-function [lambda] = GeometricMean_MyMethod(fxy,m,n_k)
+function [lambda] = GeometricMean_MyMethod(fxy, m, n_k)
 %
 % % Inputs
 %
-% fxy : Coefficients of polynomial f(x,y) in scaled Bernstein form
+% fxy : (Matrix) Coefficients of polynomial f(x,y) in scaled Bernstein form
 %
-% m : Total degree of f(x,y)
+% m : (Int) Total degree of f(x,y)
 %
-% n_k : Total degree of polynomial v(x,y)
+% n_k : (Int) Total degree of polynomial v(x,y)
+%
+% % Outputs
+%
+% lambda : (Float) Geometric mean of entries of the matrix C_{n-k}(f)
+
 
 myprod = 1;
 count = 0;

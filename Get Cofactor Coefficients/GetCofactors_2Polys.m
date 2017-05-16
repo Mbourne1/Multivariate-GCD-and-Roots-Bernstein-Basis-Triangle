@@ -6,18 +6,18 @@ function [uxy, vxy] = GetCofactors_2Polys(fxy, gxy, t)
 %
 % % Inputs.
 %
-% fxy : Coefficients of polynomial f(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
 %
-% gxy : Coefficients of polynomial g(x,y)
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
 %
-% t : Degree of polynomial d(x,y)
+% t : (Int) Degree of polynomial d(x,y)
 %
 %
 % % Outputs.
 %
-% uxy : Coefficients of polynomial u(x,y)
+% uxy : (Matrix) Coefficients of polynomial u(x,y)
 % 
-% vxy : Coefficients of polynomial v(x,y)
+% vxy : (Matrix) Coefficients of polynomial v(x,y)
 
 % Get the degree of f(x,y) (Note m1 = m2)
 [m1,~] = GetDegree_Bivariate(fxy);
@@ -68,17 +68,21 @@ x = ...
 % are given by the vector x, otherwise, the vector gives coefficients in 
 % scaled Bernstein form and must remove trinomial coefficients.
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_TYPE
+switch SETTINGS.SYLVESTER_BUILD_METHOD
+    
     case 'T'
         Q = BuildQ(m, n, t);
         x = Q\x;
+    
     case 'DT'
         % Matrix Q is included in the solution vector so divide by this to
         % get coefficients u(x,y) and v(x,y)
         Q = BuildQ(m, n, t);
         x = Q\x;
+    
     case 'DTQ'
         % Q is included in S_{k} so u(x,y) and v(x,y) are 
+    
     case 'TQ'
   
     otherwise 

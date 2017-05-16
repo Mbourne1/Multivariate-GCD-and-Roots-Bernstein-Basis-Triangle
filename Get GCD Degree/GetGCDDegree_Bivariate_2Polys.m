@@ -56,8 +56,8 @@ for i = 1:1:nSubresultants
     % Geometric Mean
     
     % Get Geometric mean of f(x,y) in C_{n-k}(f) and g(x,y) in C_{m-k}(g)
-    vGM_fx(i) = GetGeometricMean(fxy, m, n-k);
-    vGM_gx(i) = GetGeometricMean(gxy, n, m-k);
+    vGM_fx(i) = GetMean(fxy, m, n-k);
+    vGM_gx(i) = GetMean(gxy, n, m-k);
     
     % Divide entries of f(x,y) and g(x,y) by geometric mean
     fxy_n = fxy ./ vGM_fx(i);
