@@ -5,25 +5,31 @@ function [] = o_roots_Bivariate(ex_num, emin, emax, mean_method, bool_alpha_thet
 % Given an example number and set of parameters, obtain the roots of the
 % example polynomial, where the polynomial is in the power basis
 %
-% %                             Inputs
+% % Inputs
 %
-% ex_num - Example Number
+% ex_num : (String) Example Number
 %
-% emin : Lower noise level
+% emin : (Float) Lower noise level
 %
-% emax : Upper noise level
+% emax : (Float) Upper noise level
 %
-% mean_method :
+% mean_method : (String)
 %       'Geometric Mean Matlab Method'
 %       'None'
 %
-% bool_alpha_theta ('y'/'n')
+% bool_alpha_theta : (Boolean)
 %       'y' - Include Preprocessing
 %       'n' - Exclude Preprocessing
 %
-% low_rank_approx_method ('y'/'n')
+% low_rank_approx_method : (String)
 %       'Standard SNTLN' : Include SNTLN
 %       'None'           : Exclude SNTLN
+%
+% sylvester_build_method : (String)
+%       'DTQ'
+%       'DT'
+%
+%   
 %
 % % Examples
 % >> o_roots_Bivariate('1', 1e-12, 1e-10, 'None', false, 'None', 'None','DTQ')
@@ -33,24 +39,15 @@ function [] = o_roots_Bivariate(ex_num, emin, emax, mean_method, bool_alpha_thet
 global SETTINGS
 
 
-% Add subfolders
+% Restore defaults and add subfolders
 restoredefaultpath
-
-% Determine where your m-file's folder is.
-folder = fileparts(which(mfilename)); 
-
-% Add that folder plus all subfolders to the path.
-addpath(genpath(folder));
-
-
-% Set the problem type, used in logging to the outputs file.
-problem_type = 'Roots Bivariate Bernstein Triangle';
+addpath(genpath(pwd));
 
 % Set the deconvolution method for the batch of deconvolutions in the
 % factorisation algorithm
 SETTINGS.DECONVOLUTION_METHOD = 'Batch';
 
-SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method, ...
+SetGlobalVariables(ex_num, emin, emax, mean_method, ...
     bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_matrix_type);
 
 
@@ -63,7 +60,7 @@ SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method, ...
 [fxy_exact,m] = Examples_Roots(ex_num);
 
 % Add noise to the coefficients of polynomial f(x,y)
-[fxy,~] = AddNoiseToPoly(fxy_exact,emin);
+[fxy,~] = AddNoiseToPoly(fxy_exact, emin);
 
 
 % %
@@ -73,11 +70,11 @@ root_finding_method = '3 Poly GCD';
 switch root_finding_method
     case '2 Poly GCD'
         
-        o_roots_mymethod(fxy,m);
+        o_roots_mymethod(fxy, m);
         
     case '3 Poly GCD'
         
-        o_roots_mymethod_newmethod(fxy,m);
+        o_roots_mymethod_newmethod(fxy, m);
         
     otherwise
         error([mfilename ': Error']);

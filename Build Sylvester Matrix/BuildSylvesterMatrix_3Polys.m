@@ -25,7 +25,7 @@ T1_gx = BuildT1(gxy,n,m-k);
 Q = BuildQ_3Polys(m,n,o,k);
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_TYPE
+switch SETTINGS.SYLVESTER_BUILD_METHOD
     case 'T'
         
         
@@ -36,8 +36,8 @@ switch SETTINGS.SYLVESTER_MATRIX_TYPE
         
         % Build the matrix D
         D = BuildD_3Polys(m,n,o,k);
-        D1 = BuildD_2Polys(m,n-k);
-        D2 = BuildD_2Polys(m,o-k);
+        %D1 = BuildD_2Polys(m,n-k);
+        %D2 = BuildD_2Polys(m,o-k);
         
         % Build the matrix T
         T1_f = BuildT1(fxy,m,n-k);

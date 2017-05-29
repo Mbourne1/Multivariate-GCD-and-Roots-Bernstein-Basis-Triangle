@@ -1,4 +1,5 @@
-function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t] = o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t)
+function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t, rank_range] = ...
+    o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range)
 % Compute the gcd of two input polynomials f(x,y) and g(x,y), where f(x,y)
 % and g(x,y) are bivariate polynomials in Bernstein form, with total degree
 % m and n respectively.
@@ -15,6 +16,8 @@ function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t] = o_gcd_mymethod_Bivariate_2Poly
 % n : (Int) Total degree of g(x,y)
 %
 % limits_t : (Int Int)
+%
+% rank_range : [Float Float]
 %
 % % Outputs
 %
@@ -35,7 +38,7 @@ function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t] = o_gcd_mymethod_Bivariate_2Poly
 % lower right triangle entries are all zeros.
 
 % Compute the degree of the GCD
-[t, GM_fx, GM_gx, alpha, th1, th2] = GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t);
+[t, GM_fx, GM_gx, alpha, th1, th2, rank_range] = GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
 
 % % 
 % Normalize fxy and gxy to obtain fxy_n and gxy_n

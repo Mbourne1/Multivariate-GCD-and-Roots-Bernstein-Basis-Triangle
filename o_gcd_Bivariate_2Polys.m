@@ -57,7 +57,7 @@ end
 problem_type = 'GCD';
 
 % % Set global variables
-SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method, bool_alpha_theta,...
+SetGlobalVariables(ex_num, emin, emax, mean_method, bool_alpha_theta,...
     low_rank_approx_method, apf_method, sylvester_matrix_type);
 
 
@@ -95,8 +95,9 @@ gxy = AddVariableNoiseToPoly(gxy, emin, emax);
 % %
 % Get GCD by my method
 limits_t = [0 min(m,n)];
+rank_range = [-16 0];
 
-[fxy, gxy, dxy, uxy, vxy, t] = o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t);
+[fxy, gxy, dxy, uxy, vxy, t, rank_range] = o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
 
 
 % Get Error in u(x,y), v(x,y) and d(x,y)

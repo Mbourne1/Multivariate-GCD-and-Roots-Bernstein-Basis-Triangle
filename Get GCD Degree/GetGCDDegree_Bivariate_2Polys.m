@@ -1,5 +1,5 @@
-function [t, GM_fx, GM_gx, alpha, th1, th2] = GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t)
-% GetGCDDegree(fxy,gxy,m,n)
+function [t, GM_fx, GM_gx, alpha, th1, th2, rank_range] = GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range)
+% GetGCDDegree(fxy, gxy, m, n)
 %
 % Inputs.
 %
@@ -12,6 +12,8 @@ function [t, GM_fx, GM_gx, alpha, th1, th2] = GetGCDDegree_Bivariate_2Polys(fxy,
 % n : (Int) Total degree of g(x,y)
 %
 % limits_t : (Int Int) 
+%
+% rank_range : [Float Float] 
 %
 % % Outputs
 %
@@ -107,14 +109,14 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if (SETTINGS.PLOT_GRAPHS)
             
             plotRowNorms(arr_R1RowNorms, limits_k, limits_t)
-            plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t)
+            plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t, rank_range)
             
         end
         
-        metric = vMinRowNormR1 ./ vMaxRowNormR1;
+        vMetric = log10(vMinRowNormR1 ./ vMaxRowNormR1);
         
     case 'R1 Row Diagonals'
         
@@ -135,10 +137,10 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         if(SETTINGS.PLOT_GRAPHS)
             %plotDiagonalsR1(arr_R1, limits_k, limits_t)
-            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t);
+            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t, rank_range);
         end
         
-        metric = vRatio_MaxMin_DiagonalEntry;
+        vMetric = log10(vRatio_MaxMin_DiagonalEntry);
         
     case 'Singular Values'
         
@@ -154,11 +156,11 @@ switch SETTINGS.RANK_REVEALING_METRIC
         if(SETTINGS.PLOT_GRAPHS)
             
             plotSingularValues(arr_SingularValues, limits_k, limits_t);
-            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t);
+            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
             
         end
         
-        metric = vMinimumSingularValues;
+        vMetric = log10(vMinimumSingularValues);
         
 
     case 'Residuals'
@@ -170,11 +172,20 @@ end
 
 if (lowerLimit_k == upperLimit_k)
     
-    t = GetGCDDegree_OneSubresultant(metric);
+    t = GetGCDDegree_OneSubresultant(vMetric);
     
 else
     
-    t = GetGCDDegree_MultipleSubresultants(metric,[lowerLimit_k, upperLimit_k]);
+    t = GetGCDDegree_MultipleSubresultants(vMetric,[lowerLimit_k, upperLimit_k]);
+    
+    rank_range_low = vMetric(t - lowerLimit_k) + 1;
+    rank_range_high = vMetric(t - lowerLimit_k) + 1;
+    rank_range = [rank_range_low rank_range_high];
+    
+    
+    
+    LineBreakMedium()
+    LineBreakMedium()
     
     GM_fx = vGM_fx(t-lowerLimit_k + 1);
     GM_gx = vGM_gx(t-lowerLimit_k + 1);

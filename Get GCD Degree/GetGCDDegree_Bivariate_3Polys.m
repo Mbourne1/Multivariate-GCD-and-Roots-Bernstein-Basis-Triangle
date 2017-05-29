@@ -1,5 +1,5 @@
-function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2] = ...
-    GetGCDDegree_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t)
+function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2, rank_range] = ...
+    GetGCDDegree_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t, rank_range)
 % GetGCDDegree_Bivariate_3Polys(fxy, gxy, hxy, m, n, o)
 %
 % % Inputs.
@@ -16,29 +16,37 @@ function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2] = ...
 %
 % o : (Int) Degree of polynomial h(x,y)
 %
+% limits_t : [(Int) (Int)] 
+%
+% rank_range : [(Float) (Float) ]
+%
 % % Outputs
 %
 % t : (Int) Degree of GCD d(x,y)
 %
-% GM_fx : (Float)
+% GM_fx : (Float) Geometric mean of coefficients of f(x)
 %
-% GM_gx : (Float)
+% GM_gx : (Float) Geometric mean of coefficients of g(x)
 %
-% GM_hx : (Float)
+% GM_hx : (Float) Geometric mean of coefficients of h(x)
 %
-% alpha : (Float)
+% alpha : (Float) Optimal value of \alpha
 %
-% th1 : (Float)
+% th1 : (Float) Optimal value of \theta_{1}
 %
-% th2 : (Float)
+% th2 : (Float) Optimal value of \theta_{2}
 
 global SETTINGS
 
+% Get range of Sylvester subresultant matrices to be constructed
 lowerLimit_k = 0;
 upperLimit_k = min([m,n,o]);
 limits_k = [lowerLimit_k upperLimit_k];
 
+rank_range_low = rank_range(1);
+rank_range_high = rank_range(2);
 
+% Get number of Sylvester Subresultants
 nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 arr_SingularValues = cell(nSubresultants, 1);
@@ -59,16 +67,10 @@ for i = 1:1:nSubresultants
     % %
     % Geometric Mean
     
-    % Get Geometric mean of f(x,y) in C_{n-k}(f)
-    vGM_fx(i) = GetGeometricMean(fxy, m, n-k);
-    %GM_fx = 1;
-    
-    % Get Geometric mean of g(x,y) in C_{m-k}(g)
-    vGM_gx(i) = GetGeometricMean(gxy, n, m-k);
-    %GM_gx = 1;
-    
-    vGM_hx(i) = GetGeometricMean(hxy, o, n-k);
-    
+    % Get Geometric mean of f(x,y) in C_{n-k}(f), g(x,y) and h(x,y)
+    vGM_fx(i) = GetMean(fxy, m, n-k);
+    vGM_gx(i) = GetMean(gxy, n, m-k);
+    vGM_hx(i) = GetMean(hxy, o, n-k);
     
     % Divide entries of f(x,y) and g(x,y) by geometric mean
     fxy_n = fxy ./ vGM_fx(i);
@@ -129,11 +131,11 @@ switch SETTINGS.RANK_REVEALING_METRIC
         if(SETTINGS.PLOT_GRAPHS)
             
             plotRowNorms(arr_R1RowNorms, limits_k, limits_t)
-            plotMaxMinRowNorms(vMaxRowNormR1,vMinRowNormR1, limits_k, limits_t)
+            plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t, rank_range)
             
         end
         
-        vMetric = vMinRowNormR1 ./ vMaxRowNormR1;
+        vMetric = log10(vMinRowNormR1 ./ vMaxRowNormR1);
         
     case 'R1 Row Diagonals'
         
@@ -155,11 +157,11 @@ switch SETTINGS.RANK_REVEALING_METRIC
         if(SETTINGS.PLOT_GRAPHS)
             
             %plotDiagonalsR1(arr_R1, myLimits, limits_t)
-            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t);
+            plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t, rank_range);
             
         end
         
-        vMetric = vRatio_MaxMin_DiagonalEntry;
+        vMetric = log10(vRatio_MaxMin_DiagonalEntry);
         
     case 'Singular Values'
         
@@ -175,14 +177,16 @@ switch SETTINGS.RANK_REVEALING_METRIC
         if(SETTINGS.PLOT_GRAPHS)
             
             plotSingularValues(arr_SingularValues, limits_k, limits_t);
-            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t);
+            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
             
         end
         
-        vMetric = vMinimumSingularValues;
+        vMetric = log10(vMinimumSingularValues);
         
     case 'Residuals'
+        
         error('err')
+        
     otherwise
         error('err')
 end
@@ -190,11 +194,22 @@ end
 
 if (lowerLimit_k == upperLimit_k)
     
+    % Get the degree of the GCD
     t = GetGCDDegree_OneSubresultant(vMetric);
     
 else
     
-    t = GetGCDDegree_MultipleSubresultants(vMetric, limits_k);
+    % Get the degree of the GCD
+    t = GetGCDDegree_MultipleSubresultants(vMetric, limits_k, rank_range);
+    
+    rank_range_low = vMetric(t - (lowerLimit_k - 1) );
+    if (t < upperLimit_k)
+        rank_range_high = vMetric(t - (lowerLimit_k - 1) + 1);
+    end
+    
+    % update rank range
+    rank_range = [rank_range_low rank_range_high];
+   
     
     GM_fx = vGM_fx(t - lowerLimit_k + 1);
     GM_gx = vGM_gx(t - lowerLimit_k + 1);

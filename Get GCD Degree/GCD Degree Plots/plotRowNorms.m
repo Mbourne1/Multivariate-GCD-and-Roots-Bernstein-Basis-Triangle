@@ -8,10 +8,11 @@ function [] = plotRowNorms(arr_RowNorms, limits_k, limits_t)
 %
 % limits_t : (Int Int)
 
-
+% Get limits
 lowerLimit_k = limits_k(1);
 upperLimit_k = limits_k(2);
 
+%
 lowerLimit_t = limits_t(1);
 upperLimit_t = limits_t(2);
 
@@ -22,14 +23,15 @@ hold on
 
 for i = lowerLimit_k:1:upperLimit_k
     
-    vec = arr_RowNorms{i};
+    vRowNorms = arr_RowNorms{i};
     
-    vec_i = i.*ones(length(vec),1);
+    vec_i = i.*ones(length(vRowNorms),1);
    
-    plot(vec_i, vec); 
+    plot(vec_i, vRowNorms); 
     
 end
 
+% Plot vertical lines
 vline(lowerLimit_t);
 vline(upperLimit_t);
 

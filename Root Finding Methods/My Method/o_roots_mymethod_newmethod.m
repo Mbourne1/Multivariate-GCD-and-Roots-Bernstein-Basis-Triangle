@@ -31,6 +31,8 @@ vDeg_t_arr_fxy(ite,1) = M(ite);
 vDeg_x_arr_fxy(ite,1) = m1;
 vDeg_y_arr_fxy(ite,1) = m2;
 
+rank_range = [-5 0];
+
 % Whilst the most recently calculated GCD has a degree greater than
 % zero. ie is not a constant, perform a gcd calculation on it and its
 % derivative.
@@ -81,24 +83,26 @@ while vDeg_x_arr_fxy(ite,1) > 0
     
     % Get the upper and lower limit of the degree of the GCD(f, f')
     if ite > 1
-        lower_lim = vDeg_t_arr_fxy(ite) - vNumDistinctRoots(ite-1);
-        upper_lim = m - 1;
+        lowerLimit_t = vDeg_t_arr_fxy(ite) - vNumberDistinctRoots(ite-1);
+        upperLimit_t = m - 1;
     else
-        lower_lim = 1;
-        upper_lim = m - 1;
+        lowerLimit_t = 1;
+        upperLimit_t = m - 1;
     end
     
-    fprintf([mfilename ' : ' sprintf('Minimum degree of f_{%i}: %i \n', ite, lower_lim)]);
-    fprintf([mfilename ' : ' sprintf('Maximum degree of f_{%i}: %i \n', ite, upper_lim)]);
+    LineBreakLarge();
+    fprintf([mfilename ' : ' sprintf('Minimum degree of f_{%i}: %i \n', ite, lowerLimit_t)]);
+    fprintf([mfilename ' : ' sprintf('Maximum degree of f_{%i}: %i \n', ite, upperLimit_t)]);
     LineBreakLarge();
     
     % GCD is only a scalar with respect to x so set equal to g(x,y).
 
-    limits_t = [lower_lim, upper_lim];
+    limits_t = [lowerLimit_t, upperLimit_t];
     
     
-    [fxy_o, gxy_o, hxy_o, dxy_o, uxy_o, vxy_o, wxy_o, t] = ...
-        o_gcd_mymethod_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t);
+    
+    [fxy_o, gxy_o, hxy_o, dxy_o, uxy_o, vxy_o, wxy_o, t, rank_range] = ...
+        o_gcd_mymethod_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t, rank_range);
     
     %[arr_fxy{ite,1},~,arr_fxy{ite+1,1},arr_uxy{ite,1},arr_vxy{ite,1},t,t1,t2] = o_gcd_mymethod(arr_fxy{ite},gxy,m,n,);
     arr_fxy{ite,1} = fxy_o;
@@ -113,12 +117,12 @@ while vDeg_x_arr_fxy(ite,1) > 0
     vDeg_t_arr_fxy(ite+1,1) = t;
     
     % Get number of distinct roots of f(ite)
-    vNumDistinctRoots(ite,1) = vDeg_t_arr_fxy(ite) - vDeg_t_arr_fxy(ite+1);
+    vNumberDistinctRoots(ite,1) = vDeg_t_arr_fxy(ite) - vDeg_t_arr_fxy(ite+1);
     
+    LineBreakLarge()
     fprintf([mfilename ' : ' sprintf('The computed deg(GCD(f_{%i},f_{%i}) is : %i \n',ite,ite,vDeg_t_arr_fxy(ite+1))]);
-    fprintf([mfilename ' : ' sprintf('Number of distinct roots in f_{%i} : %i \n',ite,vNumDistinctRoots(ite))]);
+    fprintf([mfilename ' : ' sprintf('Number of distinct roots in f_{%i} : %i \n', ite, vNumberDistinctRoots(ite))]);
     fprintf([mfilename ' : ' sprintf('Degree of f_{%i} : %i \n',ite + 1, vDeg_t_arr_fxy(ite+1))])
-    
     LineBreakLarge()
     
     % Increment the iteration number

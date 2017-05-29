@@ -68,7 +68,7 @@ x = ...
 % are given by the vector x, otherwise, the vector gives coefficients in 
 % scaled Bernstein form and must remove trinomial coefficients.
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_TYPE
+switch SETTINGS.SYLVESTER_BUILD_METHOD
     case 'T'
         
         Q = BuildQ_2Polys(m, n, o, t);
@@ -79,8 +79,10 @@ switch SETTINGS.SYLVESTER_MATRIX_TYPE
         % get coefficients u(x,y) and v(x,y)
         Q = BuildQ_3Polys(m, n, o, t);
         x = Q\x;
+        
     case 'DTQ'
         % Q is included in S_{k} so u(x,y) and v(x,y) are 
+        
     case 'TQ'
   
     otherwise 
@@ -94,7 +96,7 @@ nCoefficients_wxy = nchoosek(o-t+2, 2);
 
 
 % Get vectors of coefficients of u(x,y) w(x,y) and v(x,y)
-v_vxy = x(1:nCoefficients_vxy);
+v_vxy = x(1 : nCoefficients_vxy);
 v_wxy = x(nCoefficients_vxy + 1 : nCoefficients_vxy + nCoefficients_wxy);
 v_uxy = -1 .* x(nCoefficients_vxy + nCoefficients_wxy + 1:end);
 

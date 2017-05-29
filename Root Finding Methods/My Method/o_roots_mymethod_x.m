@@ -53,7 +53,7 @@ while vDegt_arr_fxy(ite) > 0
     % Get the upper and lower limit of the degree of the GCD(f, f')
     if ite > 1
         
-        lower_lim = vDegt_arr_fxy(ite,1)- vNumDistinctRoots_fxy(ite-1,1);
+        lower_lim = vDegt_arr_fxy(ite,1) - vNumDistinctRoots_fxy(ite-1,1);
         upper_lim = m-1;
     else
         lower_lim = 1;
@@ -64,7 +64,8 @@ while vDegt_arr_fxy(ite) > 0
     fprintf([mfilename ' : ' sprintf('Maximum degree of f_{%i}: %i \n', ite+1, upper_lim)]);
     
     % GCD is only a scalar with respect to x so set equal to g(x,y).
-    [arr_fxy{ite,1},~,arr_fxy{ite+1,1},arr_uxy{ite,1},vxy{ite,1},t] = o_gcd_mymethod(arr_fxy{ite,1},gxy,m,n,[lower_lim, upper_lim]);
+    [arr_fxy{ite,1},~,arr_fxy{ite+1,1},arr_uxy{ite,1},vxy{ite,1},t] = ...
+        o_gcd_mymethod(arr_fxy{ite,1}, gxy, m, n, [lower_lim, upper_lim]);
     
     % Get total degree of d(x,y) and degree with respect to x and y
     vDegt_arr_fxy(ite+1,1) = t;

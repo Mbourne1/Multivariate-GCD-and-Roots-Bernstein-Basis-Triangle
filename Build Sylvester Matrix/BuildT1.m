@@ -11,20 +11,20 @@ function T1 = BuildT1(fxy, m, n_k)
 % Also used in the Sylvester subresultant matrix S_{k}(f,g) =
 % D^{-1}[T_{n-k}(f) T_{m-k}(g)] blkdiag(Q_{n-k} Q_{m-k})
 %
-% Inputs.
+% % Inputs.
 %
-% fxy : Coefficients of bivariate polynomial f(x,y) in Bernstein form.
+% fxy : (Matrix) Coefficients of bivariate polynomial f(x,y) in Bernstein form.
 %
-% m : Total degree of f(x,y)
+% m : (Int) Total degree of f(x,y)
 %
-% n_k : Total degree of v(x,y)
+% n_k : (Int) Total degree of v(x,y)
 %
-% Outputs.
+% % Outputs.
 %
-% T1 : The partition T_{n-k}(f) of the Sylvester matrix S_{k}(f,g)
+% T1 : (Matrix) The partition T_{n-k}(f) of the Sylvester matrix S_{k}(f,g)
 
 % Get number of coefficients of v(x,y)
-nCoefficients_vxy = nchoosek(n_k+2,2);
+nCoefficients_vxy = nchoosek(n_k + 2,2);
 
 % Get number of coefficients in the product fg = h(x,y)
 nCoefficients_hxy = nchoosek(m+n_k+2,2);

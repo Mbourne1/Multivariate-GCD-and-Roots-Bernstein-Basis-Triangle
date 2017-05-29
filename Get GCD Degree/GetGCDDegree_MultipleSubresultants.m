@@ -1,10 +1,12 @@
-function [t] = GetGCDDegree_MultipleSubresultants(vMetric, limits_k)
+function [t] = GetGCDDegree_MultipleSubresultants(vMetric, limits_k, rank_range)
 %
 % % Inputs
 %
 % vMetric : (Vector) 
 %
 % limits_k : (Int Int)
+%
+% rank_range : [Float Float]
 
 global SETTINGS
 
@@ -20,11 +22,12 @@ lowerLimit_k = limits_k(1);
 upperLimit_k = limits_k(2);
 
 % check if the maximum change is significant
-fprintf([mfilename ' : ' sprintf('THRESHOLD :  %2.4f \n', SETTINGS.THRESHOLD)]);
 fprintf([mfilename ' : ' sprintf('Max change : %2.4f \n', maxDelta)]);
+fprintf([mfilename ' : ' sprintf('Previous Max Change : %2.4f \n', abs(diff(rank_range)))]);
 
 
-if abs(maxDelta) < SETTINGS.THRESHOLD
+
+if abs(maxDelta) < (0.55 * abs(diff(rank_range)))
     fprintf([calling_function ' : ' mfilename ' : ' 'Polynomials either coprime or GCD = g(x) \n' ])
     
     
@@ -37,23 +40,24 @@ if abs(maxDelta) < SETTINGS.THRESHOLD
     fprintf([mfilename ' : ' sprintf('THRESHOLD RANK :  %2.4e \n', SETTINGS.THRESHOLD_RANK)]);
     fprintf([calling_function ' : ' mfilename ' : ' sprintf('Average Singular Value : %e \n',avg) ])
     
-    if avg > SETTINGS.THRESHOLD_RANK
+    if avg > mean(rank_range)
        % All Minimum singular values are below threshold so, all 
        % subresultants are rank deficient. deg(GCD) = 0
        fprintf([calling_function ' : ' mfilename ' : ' 'Polynomails are coprime\n' ])
        t = 0;
+       
     else 
         % All minimum singular values are above threshold so all
         % subresultants are full rank. deg(GCD) = min(m,n)
        fprintf([calling_function ' : ' mfilename ' : ' 'All Subresultants are rank deficient : GCD = g(x) \n' ])
        t = upperLimit_k;
+       
     end
 
 else
     % change is significant
-    fprintf([mfilename ' : ' 'Significant Change' ]);
     t = lowerLimit_k + index - 1;
-    fprintf(': %i \n',t);
+
     
 end
 

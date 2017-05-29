@@ -1,5 +1,23 @@
-function [] = SetGlobalVariables(problem_type, ex_num, emin, emax,...
-    mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type)
+function [] = SetGlobalVariables( ex_num, emin, emax,...
+    mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method)
+%
+% % Inputs
+%
+% ex_num : (String) Example Number
+%
+% emin : (Float)
+%
+% emax : (Float)
+%
+% mean_method : (String)
+%
+% bool_alpha_theta : (Boolean)
+%
+% low_rank_approx_method : (String)
+%
+% apf_method : (String)
+%
+% sylvester_build_method : (String)
 
 global SETTINGS
 
@@ -11,7 +29,7 @@ global SETTINGS
 %
 SETTINGS.PLOT_GRAPHS = true;
 
-SETTINGS.PROBLEM_TYPE = problem_type;
+
 
 SETTINGS.SEED = 1024;
 
@@ -20,7 +38,7 @@ SETTINGS.SEED = 1024;
 %   DTQ
 %   DT
 %   TQ
-SETTINGS.SYLVESTER_BUILD_METHOD = sylvester_type;
+SETTINGS.SYLVESTER_BUILD_METHOD = sylvester_build_method;
 
 % Set Noise
 SETTINGS.EMIN = emin;
@@ -64,7 +82,7 @@ SETTINGS.THRESHOLD_RANK = 1e-3;
 % R1 Row Diagonals
 % Singular Values
 % Residuals
-SETTINGS.RANK_REVEALING_METRIC = 'R1 Row Diagonals';
+SETTINGS.RANK_REVEALING_METRIC = 'Singular Values';
 
 % ------------------------------------------------------------------------
 %
