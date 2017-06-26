@@ -71,13 +71,13 @@ global SETTINGS
 switch SETTINGS.SYLVESTER_BUILD_METHOD
     
     case 'T'
-        Q = BuildQ(m, n, t);
+        Q = BuildQ_2Polys(m, n, t);
         x = Q\x;
     
     case 'DT'
         % Matrix Q is included in the solution vector so divide by this to
         % get coefficients u(x,y) and v(x,y)
-        Q = BuildQ(m, n, t);
+        Q = BuildQ_2Polys(m, n, t);
         x = Q\x;
     
     case 'DTQ'
@@ -85,6 +85,10 @@ switch SETTINGS.SYLVESTER_BUILD_METHOD
     
     case 'TQ'
   
+        
+    case 'DTQ Denominator Removed'
+        
+        
     otherwise 
         error('err')
 end
@@ -96,7 +100,7 @@ nCoefficients_vxy = nchoosek(n-t+2, 2);
 
 
 % Get vectors of coefficients of u(x,y) and v(x,y)
-v_vxy = x(1:nCoefficients_vxy);
+v_vxy = x(1 : nCoefficients_vxy);
 v_uxy = -1 .* x(nCoefficients_vxy+1:end);
 
 
@@ -107,8 +111,8 @@ nZeros_uxy = nchoosek(m-t+1,2);
 nZeros_vxy = nchoosek(n-t+1,2);
 
 % Get matrices of coefficients of u(x,y) and v(x,y)
-uxy = GetAsMatrix([v_uxy ; zeros(nZeros_uxy,1)],m-t,m-t);
-vxy = GetAsMatrix([v_vxy ; zeros(nZeros_vxy,1)],n-t,n-t);
+uxy = GetAsMatrix([v_uxy ; zeros(nZeros_uxy, 1)], m - t, m - t);
+vxy = GetAsMatrix([v_vxy ; zeros(nZeros_vxy, 1)], n - t, n - t);
     
 
 

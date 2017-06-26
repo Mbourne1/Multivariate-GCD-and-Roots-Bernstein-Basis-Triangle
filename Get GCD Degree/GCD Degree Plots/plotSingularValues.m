@@ -2,17 +2,14 @@
 %
 % % Inputs
 %
-% arr_SingularValues : (Array)
+% arr_SingularValues : (Array of Vectors)
 %
-% myLimits :
+% limits_k : [Int Int]
 %
-% limits_t :
+% limits_t : [Int Int]
 
 lowerLimit_k = limits_k(1);
 upperLimit_k = limits_k(2);
-
-lowerLimit_t = limits_t(1);
-upperLimit_t = limits_t(2);
 
 nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
@@ -34,8 +31,8 @@ for i = 1:1:nSubresultants
     
 end
 
-vline(lowerLimit_t);
-vline(upperLimit_t);
+vline(limits_t,{'r','r'});
+
 
 hold off
 

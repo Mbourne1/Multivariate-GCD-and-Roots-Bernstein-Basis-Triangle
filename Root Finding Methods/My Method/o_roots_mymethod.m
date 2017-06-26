@@ -1,4 +1,4 @@
-function [] = o_roots_mymethod(fxy_matrix,M)
+function [] = o_roots_mymethod(fxy_matrix, M)
 % Get the factorization of a bivariate polynomial f(x,y)
 %
 % Inputs.

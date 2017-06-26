@@ -7,17 +7,17 @@ function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients_2Polys(ex_n
 %
 % % Outputs
 %
-% fxy : Coefficients of polynomial f(x,y)
+% fxy : (Vector) Coefficients of polynomial f(x,y)
 %
-% gxy : Coefficients of polynomial g(x,y)
+% gxy : (Vector) Coefficients of polynomial g(x,y)
 %
-% dxy : Coefficients of polynomial d(x,y)
+% dxy : (Vector) Coefficients of polynomial d(x,y)
 %
-% m : Total degree of f(x,y)
+% m : (Int) Total degree of f(x,y)
 %
-% n : Total degree of g(x,y)
+% n : (Int) Total degree of g(x,y)
 %
-% t : Total degree of d(x,y)
+% t : (Int) Total degree of d(x,y)
 
 syms x y;
 

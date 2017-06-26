@@ -73,6 +73,10 @@ for i = 1:1:nSubresultants
     fww = GetWithThetas(fxy_n, m, vTh1(i), vTh2(i));
     gww = GetWithThetas(gxy_n, n, vTh1(i), vTh2(i));
     
+    
+    plot_preproc(fxy, fww);
+    plot_preproc(gxy, vAlpha(i).*gww);
+    
     % %
     % Build the Sylvester Matrix
     Sk = BuildSylvesterMatrix_2Polys(fww, vAlpha(i).*gww, m, n, k);
@@ -111,7 +115,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         if (SETTINGS.PLOT_GRAPHS)
             
-            plotRowNorms(arr_R1RowNorms, limits_k, limits_t)
+            plotRowNorms(arr_R1_RowNorms, limits_k, limits_t)
             plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t, rank_range)
             
         end
@@ -142,7 +146,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vMetric = log10(vRatio_MaxMin_DiagonalEntry);
         
-    case 'Singular Values'
+    case 'Minimum Singular Values'
         
         vMinimumSingularValues = zeros(length(arr_SingularValues),1);
         for i = 1:1:length(arr_SingularValues)
@@ -167,7 +171,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
         error('err')
 
     otherwise
-        error('err')
+        error('Error : Not a valid metric')
 end
 
 if (lowerLimit_k == upperLimit_k)
@@ -176,7 +180,7 @@ if (lowerLimit_k == upperLimit_k)
     
 else
     
-    t = GetGCDDegree_MultipleSubresultants(vMetric,[lowerLimit_k, upperLimit_k]);
+    t = GetGCDDegree_MultipleSubresultants(vMetric,[lowerLimit_k, upperLimit_k], rank_range);
     
     rank_range_low = vMetric(t - lowerLimit_k) + 1;
     rank_range_high = vMetric(t - lowerLimit_k) + 1;
@@ -194,5 +198,45 @@ else
     th2 = vTh2(t-lowerLimit_k + 1);
     
 end
+
+end
+
+
+
+
+function plot_preproc(fxy, fww)
+%
+% % Inputs
+%
+% fxy : (matrix)
+%
+% fww : (matrix) Coefficients of preprocessed polynomial
+
+m = GetDegree_Bivariate(fxy);
+
+nCoefficients_fxy = nchoosek(m+2,2);
+v_fxy = GetAsVector(fxy);
+v_fww = GetAsVector(fww);
+v_fxy = v_fxy(1:nCoefficients_fxy);
+v_fww = v_fww(1:nCoefficients_fxy);
+
+% Get entries of maximum and minimum magnitude
+max_fxy = max(abs(v_fxy));
+min_fxy = min(abs(v_fxy));
+max_fww = max(abs(v_fww));
+min_fww = min(abs(v_fww));
+
+figure()
+
+hold on
+
+plot(1:1:nCoefficients_fxy, log10(v_fxy), '-o', 'DisplayName', 'f(x,y)')
+plot(1:1:nCoefficients_fxy, log10(v_fww), '-s', 'DisplayName', 'f(w,w)')
+hline([log10(max_fxy), log10(min_fxy)], {'b','b'});
+hline([log10(max_fww), log10(min_fww)], {'r','r'});
+
+
+legend(gca,'show');
+hold off
 
 end

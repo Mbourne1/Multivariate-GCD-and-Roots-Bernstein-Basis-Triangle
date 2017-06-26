@@ -1,5 +1,6 @@
-function [] = SetGlobalVariables( ex_num, emin, emax,...
-    mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method)
+function [] = SetGlobalVariables_GCD( ex_num, emin, emax,...
+    mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, ...
+    sylvester_build_method, rank_revealing_metric)
 %
 % % Inputs
 %
@@ -10,14 +11,32 @@ function [] = SetGlobalVariables( ex_num, emin, emax,...
 % emax : (Float)
 %
 % mean_method : (String)
+%   * None
+%   * Geometric Mean Matlab Method
+%
 %
 % bool_alpha_theta : (Boolean)
+%   * True
+%   * False
 %
 % low_rank_approx_method : (String)
+%   * None
+%   * Standard STLN
+%   * Standard SNTLN
+%
 %
 % apf_method : (String)
 %
 % sylvester_build_method : (String)
+%   * T
+%   * DT
+%   * TQ
+%   * DTQ
+%   * DTQ Denominator Removed
+%
+% rank_revealing_metric : (String)
+%   
+%
 
 global SETTINGS
 
@@ -38,6 +57,8 @@ SETTINGS.SEED = 1024;
 %   DTQ
 %   DT
 %   TQ
+%   DTQ Denominator Removed
+
 SETTINGS.SYLVESTER_BUILD_METHOD = sylvester_build_method;
 
 % Set Noise
@@ -80,9 +101,9 @@ SETTINGS.THRESHOLD_RANK = 1e-3;
 % Metric used to compute the degree of the GCD
 % R1 Row Norms
 % R1 Row Diagonals
-% Singular Values
+% Minimum Singular Values
 % Residuals
-SETTINGS.RANK_REVEALING_METRIC = 'Singular Values';
+SETTINGS.RANK_REVEALING_METRIC = rank_revealing_metric;
 
 % ------------------------------------------------------------------------
 %
@@ -107,34 +128,5 @@ SETTINGS.STLN_MAX_ITERATIONS = 50;
 SETTINGS.APF_METHOD = apf_method;
 
 
-%-------------------------------------------------------------------------
-%
-%   SETTINGS - DECONVOLUTION
-%
-%
-%
 
-% Deconvolution Settings for root finding method
-
-% Method used to deconvolve polynomials f_{i}(x,y) to compute h(x,y)
-%
-% 'Separate'
-% 'Batch Without STLN'
-% 'Batch With STLN'
-% 'Batch Constrained Without STLN'
-% 'Batch Constrained With STLN'
-%
-SETTINGS.HXY_DECONVOLUTION_METHOD = 'Batch Constrained Without STLN';
-
-
-% Method used to deconvolve polynomials h_{i}(x,y) to compute w_{i}(x,y)
-%
-% 'Separate'
-% 'Batch Without STLN'
-% 'Batch With STLN'
-%
-SETTINGS.WXY_DECONVOLUTION_METHOD = 'Batch Without STLN';
-
-
-SETTINGS.PREPROC_DECONVOLUTIONS = true;
 end

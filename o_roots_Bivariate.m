@@ -1,5 +1,7 @@
-function [] = o_roots_Bivariate(ex_num, emin, emax, mean_method, bool_alpha_theta,...
-    low_rank_approx_method, apf_method, sylvester_matrix_type)
+function [] = o_roots_Bivariate(ex_num, emin, emax, mean_method, ...
+    bool_alpha_theta, low_rank_approx_method, apf_method, ...
+    sylvester_matrix_type, rank_revealing_metric, deconvolution_method_hxy, ...
+    deconvolution_method_wxy)
 % O_ROOTS_BIVARIATE(ex_num,emin,emax,mean_method,bool_alpha_theta,low_rank_approx_method, apf_method, sylvester_matrix_type)
 %
 % Given an example number and set of parameters, obtain the roots of the
@@ -14,41 +16,44 @@ function [] = o_roots_Bivariate(ex_num, emin, emax, mean_method, bool_alpha_thet
 % emax : (Float) Upper noise level
 %
 % mean_method : (String)
-%       'Geometric Mean Matlab Method'
-%       'None'
+%   * 'Geometric Mean Matlab Method'
+%   * 'None'
 %
 % bool_alpha_theta : (Boolean)
-%       'y' - Include Preprocessing
-%       'n' - Exclude Preprocessing
+%   * true :  Include Preprocessing
+%   * false :  Exclude Preprocessing
 %
 % low_rank_approx_method : (String)
-%       'Standard SNTLN' : Include SNTLN
-%       'None'           : Exclude SNTLN
+%   * 'Standard SNTLN' : Include SNTLN
+%   * 'None'           : Exclude SNTLN
 %
 % sylvester_build_method : (String)
-%       'DTQ'
-%       'DT'
+%   * 'T'
+%   * 'DT'
+%   * 'TQ'
+%   * 'DTQ'
+%   * 'DTQ Denominator Removed'
+%    
+%
+%
 %
 %   
 %
 % % Examples
-% >> o_roots_Bivariate('1', 1e-12, 1e-10, 'None', false, 'None', 'None','DTQ')
-% >> o_roots_Bivariate('1', 1e-12, 1e-10, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'Standard APF','DTQ')
+% >> o_roots_Bivariate('1', 1e-12, 1e-10, 'None', false, 'None', 'None', 'DTQ', 'Minimum Singular Values', 'Batch', 'Batch')
+% >> o_roots_Bivariate('1', 1e-12, 1e-10, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'Standard APF', 'DTQ', 'Minimum Singular Values', 'Batch', 'Batch')
 
-% Set variables
-global SETTINGS
 
 
 % Restore defaults and add subfolders
 restoredefaultpath
 addpath(genpath(pwd));
 
-% Set the deconvolution method for the batch of deconvolutions in the
-% factorisation algorithm
-SETTINGS.DECONVOLUTION_METHOD = 'Batch';
 
-SetGlobalVariables(ex_num, emin, emax, mean_method, ...
-    bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_matrix_type);
+SetGlobalVariables_Roots(ex_num, emin, emax, mean_method, ...
+    bool_alpha_theta, low_rank_approx_method, apf_method, ...
+    sylvester_matrix_type, rank_revealing_metric, ...
+    deconvolution_method_hxy, deconvolution_method_wxy);
 
 
 % %

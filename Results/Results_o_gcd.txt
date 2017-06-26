@@ -1,0 +1,477 @@
+DATE, EX_NUM, m, n, t, ERROR_UXY, ERROR_VXY, ERROR_DXY, MEAN_METHOD, BOOL_ALPHA_THETA, LOW_RANK_APPROX_METHOD, LRA_ITE, APF_METHOD, APF_ITE, error_min, error_max, SUBRESULTANT_FORMAT, RANK_REVEALING_METRIC 
+22-Jun-2017 23:16:43,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:16:45,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:16:46,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:16:48,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:16:52,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:16:52,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:16:54,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:18:30,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:18:31,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:18:32,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:18:34,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:18:38,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:18:39,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:18:40,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:19:21,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:19:23,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:19:24,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:19:26,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:19:29,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:19:30,1,7,7,4,1.826022e-10,1.332081e-10,1.565221e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:19:31,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:19:34,1,7,7,4,3.431025e-11,3.539234e-11,1.291866e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:19:36,4,10,12,8,7.779735e-11,6.241770e-11,9.673161e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:19:39,1,7,7,4,3.431025e-11,3.539234e-11,1.291866e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:19:40,2,13,11,8,1.248811e-02,5.717421e-07,3.328491e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:19:42,4,10,12,8,1.351649e-11,2.519132e-11,1.198820e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:19:44,1,7,7,4,3.431025e-11,3.539234e-11,1.291866e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:19:47,2,13,11,8,5.010986e-10,3.582473e-10,3.276502e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:19:48,1,7,7,4,1.825980e-10,1.332041e-10,1.565176e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:19:48,3,20,21,16,1.590231e-08,1.793815e-08,2.871979e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:19:49,4,10,12,8,1.351649e-11,2.519132e-11,1.198820e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:19:53,1,7,7,4,1.825980e-10,1.332041e-10,1.565176e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:19:54,2,13,11,8,5.010986e-10,3.582473e-10,3.276502e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:19:55,4,10,12,8,1.351649e-11,2.519132e-11,1.198820e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:19:57,1,7,7,4,1.825980e-10,1.332041e-10,1.565176e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:20:01,1,7,7,4,3.430917e-11,3.539168e-11,1.291832e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:20:01,2,13,11,8,5.010986e-10,3.582473e-10,3.276502e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:20:02,4,10,12,8,7.780328e-11,6.241761e-11,9.673360e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:20:05,1,7,7,4,3.430917e-11,3.539168e-11,1.291832e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:20:08,4,10,12,8,7.780328e-11,6.241761e-11,9.673360e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:20:09,2,13,11,8,1.248801e-02,5.717494e-07,3.328185e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:20:10,1,7,7,4,3.430917e-11,3.539168e-11,1.291832e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:20:14,1,7,7,4,3.430927e-11,3.539185e-11,1.291818e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:20:14,4,10,12,8,7.780328e-11,6.241761e-11,9.673360e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:20:16,2,13,11,8,1.248801e-02,5.717494e-07,3.328185e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:20:18,1,7,7,4,3.430927e-11,3.539185e-11,1.291818e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:20:19,3,20,21,16,1.590231e-08,1.793815e-08,2.871979e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:20:21,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:20:23,1,7,7,4,3.430927e-11,3.539185e-11,1.291818e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:20:23,2,13,11,8,1.248801e-02,5.717494e-07,3.328185e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:20:27,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:20:27,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:20:30,2,13,11,8,5.045414e-10,3.582510e-10,3.276477e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:20:32,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:20:33,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:20:36,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:20:38,2,13,11,8,5.045414e-10,3.582510e-10,3.276477e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:20:40,4,10,12,8,1.351649e-11,2.519136e-11,5.310300e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:20:41,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:20:46,2,13,11,8,5.045414e-10,3.582510e-10,3.276477e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:20:46,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:20:46,4,10,12,8,1.351649e-11,2.519136e-11,5.310300e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:20:51,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:20:52,3,20,21,16,1.590231e-08,1.793815e-08,2.871979e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:20:53,4,10,12,8,1.351649e-11,2.519136e-11,5.310300e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:20:54,2,13,11,8,4.976402e-10,3.582404e-10,1.613136e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:20:57,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:21:01,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:21:02,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:21:02,2,13,11,8,4.976402e-10,3.582404e-10,1.613136e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:21:06,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:21:08,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:21:10,2,13,11,8,4.976402e-10,3.582404e-10,1.613136e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:21:11,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:21:15,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:21:16,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:21:18,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:21:21,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:21:22,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:21:25,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:21:26,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:21:26,3,20,21,16,6.386039e-11,1.146795e-09,1.080906e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:21:28,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:21:30,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:21:33,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:21:35,1,7,7,4,4.922176e-06,7.540764e-06,4.836975e-06,Geometric Mean Matlab Method,1,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:21:35,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:21:39,1,7,7,4,2.921483e-10,3.407864e-10,3.559425e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:21:41,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:21:42,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:21:43,1,7,7,4,2.921483e-10,3.407864e-10,3.559425e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:21:47,1,7,7,4,2.921483e-10,3.407864e-10,3.559425e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:21:49,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:21:49,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:21:51,1,7,7,4,1.130337e-10,9.704684e-11,8.637609e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:21:56,1,7,7,4,1.130337e-10,9.704684e-11,8.637609e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:21:56,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:21:57,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:21:58,3,20,21,16,6.386039e-11,1.146795e-09,1.080906e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:22:00,1,7,7,4,1.130337e-10,9.704684e-11,8.637609e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:22:03,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:22:04,1,7,7,4,2.921431e-10,3.407801e-10,3.559352e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:22:05,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:22:08,1,7,7,4,2.921431e-10,3.407801e-10,3.559352e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:22:09,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:22:12,1,7,7,4,2.921431e-10,3.407801e-10,3.559352e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:22:12,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:22:16,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:22:16,1,7,7,4,1.130322e-10,9.704623e-11,8.637475e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:22:20,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:22:21,1,7,7,4,1.130322e-10,9.704623e-11,8.637475e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:22:23,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:22:25,1,7,7,4,1.130322e-10,9.704623e-11,8.637475e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:22:29,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:22:30,1,7,7,4,1.130334e-10,9.704778e-11,8.637700e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:22:30,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:22:32,3,20,21,16,6.386039e-11,1.146795e-09,1.080906e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:22:34,1,7,7,4,1.130334e-10,9.704778e-11,8.637700e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:22:36,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:22:37,4,10,12,8,1.351809e-11,2.519168e-11,1.198921e-11,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:22:38,1,7,7,4,1.130334e-10,9.704778e-11,8.637700e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:22:42,4,10,12,8,5.501061e-10,1.431203e-09,3.996425e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:22:42,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:22:44,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:22:47,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:22:47,4,10,12,8,5.501061e-10,1.431203e-09,3.996425e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:22:51,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:22:52,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:22:52,4,10,12,8,5.501061e-10,1.431203e-09,3.996425e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:22:55,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:22:58,4,10,12,8,8.942331e-11,5.355560e-11,2.262762e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:22:59,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:23:00,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:23:03,4,10,12,8,8.942331e-11,5.355560e-11,2.262762e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:23:04,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:23:05,3,20,21,16,1.590229e-08,1.793811e-08,2.871961e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:23:08,2,13,11,8,5.045414e-10,3.582510e-10,3.276474e-10,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:23:08,4,10,12,8,8.942331e-11,5.355560e-11,2.262762e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:23:09,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:23:13,4,10,12,8,5.501121e-10,1.431212e-09,3.996450e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:23:13,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:23:13,2,13,11,8,9.895024e-01,8.260802e-04,4.022120e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:23:18,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:23:18,4,10,12,8,5.501121e-10,1.431212e-09,3.996450e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:23:19,2,13,11,8,9.895024e-01,8.260802e-04,4.022120e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:23:22,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:23:23,4,10,12,8,5.501121e-10,1.431212e-09,3.996450e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:23:24,2,13,11,8,9.895024e-01,8.260802e-04,4.022120e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:23:26,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:23:28,4,10,12,8,8.940874e-11,5.354502e-11,2.263564e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:23:30,2,13,11,8,9.898751e-01,9.701842e-04,8.195186e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:23:31,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:23:34,4,10,12,8,8.940874e-11,5.354502e-11,2.263564e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:23:36,2,13,11,8,9.898751e-01,9.701842e-04,8.195186e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:23:36,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:23:37,3,20,21,16,1.590229e-08,1.793811e-08,2.871961e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:23:40,4,10,12,8,8.940874e-11,5.354502e-11,2.263564e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:23:42,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:23:43,2,13,11,8,9.898751e-01,9.701842e-04,8.195186e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:23:46,4,10,12,8,8.940257e-11,5.354249e-11,4.879730e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:23:47,1,7,7,4,6.230667e-06,4.052766e-06,6.584527e-06,Geometric Mean Matlab Method,0,Standard STLN,6,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:23:49,2,13,11,8,9.927040e-01,9.657561e-04,4.722337e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:23:51,1,7,7,4,1.825997e-10,1.332071e-10,1.565205e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:23:51,4,10,12,8,8.940257e-11,5.354249e-11,4.879730e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:23:54,2,13,11,8,9.927040e-01,9.657561e-04,4.722337e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:23:56,1,7,7,4,1.825997e-10,1.332071e-10,1.565205e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:23:58,4,10,12,8,8.940257e-11,5.354249e-11,4.879730e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:24:01,2,13,11,8,9.927040e-01,9.657561e-04,4.722337e-04,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:24:01,1,7,7,4,1.825997e-10,1.332071e-10,1.565205e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:24:03,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:24:06,1,7,7,4,3.430671e-11,3.538980e-11,1.291708e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:24:06,2,13,11,8,9.999829e-01,2.800341e-01,3.970525e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:24:08,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:24:10,1,7,7,4,3.430671e-11,3.538980e-11,1.291708e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:24:12,2,13,11,8,9.999829e-01,2.800341e-01,3.970525e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:24:14,3,20,21,16,1.590229e-08,1.793811e-08,2.871961e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:24:14,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:24:15,1,7,7,4,3.430671e-11,3.538980e-11,1.291708e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:24:18,2,13,11,8,9.999829e-01,2.800341e-01,3.970525e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:24:19,1,7,7,4,1.826049e-10,1.332064e-10,1.565249e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:24:20,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:24:23,2,13,11,8,9.999829e-01,2.800789e-01,6.755624e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:24:24,1,7,7,4,1.826049e-10,1.332064e-10,1.565249e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:24:25,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:24:28,1,7,7,4,1.826049e-10,1.332064e-10,1.565249e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:24:28,2,13,11,8,9.999829e-01,2.800789e-01,6.755624e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:24:30,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:24:32,1,7,7,4,3.431063e-11,3.539252e-11,1.291887e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:24:34,2,13,11,8,9.999829e-01,2.800789e-01,6.755624e-01,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:24:35,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:24:36,1,7,7,4,3.431063e-11,3.539252e-11,1.291887e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:24:40,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:24:40,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:24:41,1,7,7,4,3.431063e-11,3.539252e-11,1.291887e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:24:45,1,7,7,4,3.430828e-11,3.539135e-11,1.291795e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:24:46,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:24:46,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:24:46,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:24:49,1,7,7,4,3.430828e-11,3.539135e-11,1.291795e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:24:51,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:24:53,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:24:54,1,7,7,4,3.430828e-11,3.539135e-11,1.291795e-11,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:24:56,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:24:58,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:24:59,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:25:01,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:25:03,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:25:04,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:25:06,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:25:07,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:25:11,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:25:12,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:25:12,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:25:16,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:25:16,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:25:17,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:25:17,4,10,12,8,1.671342e-05,5.433151e-06,3.077548e-06,Geometric Mean Matlab Method,0,Standard STLN,7,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:25:21,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:25:22,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:25:24,4,10,12,8,6.239032e-11,1.486158e-10,1.111268e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:25:27,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:25:30,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:25:32,4,10,12,8,6.239032e-11,1.486158e-10,1.111268e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:25:32,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:25:37,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:25:37,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:25:39,4,10,12,8,6.239032e-11,1.486158e-10,1.111268e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:25:42,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:25:43,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:25:45,4,10,12,8,1.423788e-11,2.504862e-11,5.279597e-12,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:25:47,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:25:49,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:25:52,4,10,12,8,1.423788e-11,2.504862e-11,5.279597e-12,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:25:52,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:25:52,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:25:56,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:25:56,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:25:58,4,10,12,8,1.423788e-11,2.504862e-11,5.279597e-12,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:26:01,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:26:02,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:26:04,4,10,12,8,6.238705e-11,1.486132e-10,1.111273e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:26:05,1,7,7,4,7.114542e-06,1.152629e-05,6.043203e-06,None,1,Standard STLN,5,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:26:08,2,13,11,8,9.999829e-01,2.707588e-01,4.136192e-01,Geometric Mean Matlab Method,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:26:09,1,7,7,4,2.921447e-10,3.407807e-10,3.531333e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:26:10,4,10,12,8,6.238705e-11,1.486132e-10,1.111273e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:26:13,1,7,7,4,2.921447e-10,3.407807e-10,3.531333e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:26:15,2,13,11,8,1.248830e-02,5.717481e-07,3.328437e-07,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:26:17,4,10,12,8,6.238705e-11,1.486132e-10,1.111273e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:26:17,1,7,7,4,2.921447e-10,3.407807e-10,3.531333e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:26:22,1,7,7,4,1.130345e-10,9.704914e-11,8.450153e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:26:22,2,13,11,8,1.248830e-02,5.717481e-07,3.328437e-07,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:26:24,4,10,12,8,1.423970e-11,2.504884e-11,5.279825e-12,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:26:24,3,20,21,16,6.386093e-11,1.146802e-09,1.772154e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:26:26,1,7,7,4,1.130345e-10,9.704914e-11,8.450153e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:26:30,2,13,11,8,1.248830e-02,5.717481e-07,3.328437e-07,None,1,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:26:30,4,10,12,8,1.423970e-11,2.504884e-11,5.279825e-12,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:26:30,1,7,7,4,1.130345e-10,9.704914e-11,8.450153e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:26:34,1,7,7,4,2.921441e-10,3.407855e-10,3.531361e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:26:36,4,10,12,8,1.423970e-11,2.504884e-11,5.279825e-12,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:26:37,2,13,11,8,5.023210e-10,3.582363e-10,3.276507e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:26:38,1,7,7,4,2.921441e-10,3.407855e-10,3.531361e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:26:42,4,10,12,8,1.423854e-11,2.504833e-11,4.960469e-01,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:26:42,1,7,7,4,2.921441e-10,3.407855e-10,3.531361e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:26:44,2,13,11,8,5.023210e-10,3.582363e-10,3.276507e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:26:46,1,7,7,4,1.130335e-10,9.704711e-11,8.449889e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:26:48,4,10,12,8,1.423854e-11,2.504833e-11,4.960469e-01,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:26:50,1,7,7,4,1.130335e-10,9.704711e-11,8.449889e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:26:51,2,13,11,8,5.023210e-10,3.582363e-10,3.276507e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:26:54,1,7,7,4,1.130335e-10,9.704711e-11,8.449889e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:26:54,4,10,12,8,1.423854e-11,2.504833e-11,4.960469e-01,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:26:55,3,20,21,16,6.386093e-11,1.146802e-09,1.772154e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:26:58,2,13,11,8,4.629937e-02,1.011094e-06,9.377689e-07,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:26:58,1,7,7,4,1.130312e-10,9.704616e-11,8.449752e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:27:00,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:27:01,1,7,7,4,1.130312e-10,9.704616e-11,8.449752e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:27:04,2,13,11,8,4.629937e-02,1.011094e-06,9.377689e-07,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:27:05,1,7,7,4,1.130312e-10,9.704616e-11,8.449752e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:27:06,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:27:09,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:27:10,2,13,11,8,4.629937e-02,1.011094e-06,9.377689e-07,None,1,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:27:11,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:27:13,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:27:16,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:27:17,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:27:17,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:27:20,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:27:22,3,20,21,16,6.386093e-11,1.146802e-09,1.772154e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:27:23,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:27:23,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:27:24,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:27:28,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:27:28,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:27:30,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:27:31,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:27:34,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:27:35,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:27:36,2,13,11,8,4.988045e-10,3.582501e-10,1.613136e-01,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:27:39,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:27:40,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:27:42,2,13,11,8,4.988045e-10,3.582501e-10,1.613136e-01,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:27:43,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:27:45,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:27:46,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:27:48,2,13,11,8,4.988045e-10,3.582501e-10,1.613136e-01,None,1,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:27:49,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:27:50,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:27:51,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:27:54,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:27:55,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:27:57,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:27:58,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:28:01,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:28:01,1,7,7,4,3.931098e-06,4.388261e-06,1.822768e-06,None,0,Standard STLN,2,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:28:02,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:28:05,1,7,7,4,7.095391e-10,5.114705e-10,7.065932e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:28:07,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:28:08,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:28:09,1,7,7,4,7.095391e-10,5.114705e-10,7.065932e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:28:13,1,7,7,4,7.095391e-10,5.114705e-10,7.065932e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:28:14,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:28:14,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:28:16,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:28:17,1,7,7,4,4.743444e-11,3.157356e-11,1.124359e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:28:20,4,10,12,8,1.423970e-11,2.504884e-11,5.279807e-12,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:28:20,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:28:21,1,7,7,4,4.743444e-11,3.157356e-11,1.124359e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:28:24,4,10,12,8,5.501124e-10,1.431212e-09,3.242730e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:28:25,1,7,7,4,4.743444e-11,3.157356e-11,1.124359e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:28:27,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:28:28,4,10,12,8,5.501124e-10,1.431212e-09,3.242730e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:28:28,1,7,7,4,7.095316e-10,5.114625e-10,7.065847e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:28:32,1,7,7,4,7.095316e-10,5.114625e-10,7.065847e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:28:33,4,10,12,8,5.501124e-10,1.431212e-09,3.242730e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:28:33,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:28:36,1,7,7,4,7.095316e-10,5.114625e-10,7.065847e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:28:37,4,10,12,8,8.941153e-11,5.354577e-11,2.613862e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:28:40,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:28:40,1,7,7,4,4.743191e-11,3.157200e-11,1.124333e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:28:41,4,10,12,8,8.941153e-11,5.354577e-11,2.613862e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:28:43,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:28:44,1,7,7,4,4.743191e-11,3.157200e-11,1.124333e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:28:46,4,10,12,8,8.941153e-11,5.354577e-11,2.613862e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:28:47,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:28:48,1,7,7,4,4.743191e-11,3.157200e-11,1.124333e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:28:50,4,10,12,8,5.501114e-10,1.431216e-09,3.242731e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:28:52,1,7,7,4,4.743111e-11,3.157138e-11,1.124320e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:28:53,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:28:55,4,10,12,8,5.501114e-10,1.431216e-09,3.242731e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:28:55,1,7,7,4,4.743111e-11,3.157138e-11,1.124320e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:28:59,4,10,12,8,5.501114e-10,1.431216e-09,3.242731e-10,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:28:59,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:28:59,1,7,7,4,4.743111e-11,3.157138e-11,1.124320e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:29:03,4,10,12,8,8.939578e-11,5.353792e-11,2.613941e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:29:04,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:29:06,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:29:08,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:29:08,4,10,12,8,8.939578e-11,5.353792e-11,2.613941e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:29:11,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:29:12,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:29:12,4,10,12,8,8.939578e-11,5.353792e-11,2.613941e-11,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:29:12,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:29:16,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:29:17,4,10,12,8,8.938961e-11,5.353468e-11,5.109128e-01,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:29:19,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:29:20,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:29:21,4,10,12,8,8.938961e-11,5.353468e-11,5.109128e-01,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:29:24,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:29:25,2,13,11,8,5.016716e-10,3.582368e-10,3.276579e-10,None,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:29:26,4,10,12,8,8.938961e-11,5.353468e-11,5.109128e-01,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:29:28,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:29:30,2,13,11,8,9.930617e-01,9.805220e-04,4.829525e-04,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:29:30,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:29:32,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:29:35,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:29:35,2,13,11,8,9.930617e-01,9.805220e-04,4.829525e-04,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:29:36,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:29:38,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:29:40,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:29:40,2,13,11,8,9.930617e-01,9.805220e-04,4.829525e-04,None,0,None,0,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:29:40,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:29:44,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:29:44,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:29:45,2,13,11,8,2.006777e-01,1.696129e-05,9.307206e-06,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:29:48,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:29:49,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:29:49,2,13,11,8,2.006777e-01,1.696129e-05,9.307206e-06,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:29:52,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:29:53,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:29:54,2,13,11,8,2.006777e-01,1.696129e-05,9.307206e-06,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:29:56,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:29:58,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:29:59,2,13,11,8,9.927040e-01,9.657577e-04,4.751807e-04,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:30:00,1,7,7,4,1.145857e-06,1.585666e-06,9.724579e-07,Geometric Mean Matlab Method,1,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:30:02,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:30:03,2,13,11,8,9.927040e-01,9.657577e-04,4.751807e-04,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:30:04,1,7,7,4,7.907214e-10,7.010171e-10,9.007020e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:30:05,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:30:07,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:30:07,1,7,7,4,7.907214e-10,7.010171e-10,9.007020e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:30:08,2,13,11,8,9.927040e-01,9.657577e-04,4.751807e-04,None,0,None,0,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:30:11,1,7,7,4,7.907214e-10,7.010171e-10,9.007020e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:30:12,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:30:13,2,13,11,8,2.006019e-01,1.696164e-05,9.296942e-06,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:30:15,1,7,7,4,1.176862e-10,1.193096e-10,8.641303e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:30:16,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:30:18,2,13,11,8,2.006019e-01,1.696164e-05,9.296942e-06,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:30:18,1,7,7,4,1.176862e-10,1.193096e-10,8.641303e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:30:21,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:30:22,1,7,7,4,1.176862e-10,1.193096e-10,8.641303e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:30:22,2,13,11,8,2.006019e-01,1.696164e-05,9.296942e-06,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:30:25,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:30:26,1,7,7,4,7.907228e-10,7.010207e-10,9.007056e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:30:27,2,13,11,8,9.999829e-01,2.799250e-01,6.792255e-01,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:30:29,1,7,7,4,7.907228e-10,7.010207e-10,9.007056e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:30:30,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:30:32,2,13,11,8,9.999829e-01,2.799250e-01,6.792255e-01,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:30:33,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:30:33,1,7,7,4,7.907228e-10,7.010207e-10,9.007056e-10,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:30:35,4,10,12,8,6.952977e-10,1.235019e-08,2.762032e-09,None,0,Standard STLN,4,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:30:36,2,13,11,8,9.999829e-01,2.799250e-01,6.792255e-01,None,0,None,0,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:30:37,1,7,7,4,1.176838e-10,1.193080e-10,8.641057e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:30:40,1,7,7,4,1.176838e-10,1.193080e-10,8.641057e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:30:40,4,10,12,8,2.701243e-10,1.347566e-10,2.215073e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:30:42,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:30:44,1,7,7,4,1.176838e-10,1.193080e-10,8.641057e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:30:46,4,10,12,8,2.701243e-10,1.347566e-10,2.215073e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:30:47,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:30:48,1,7,7,4,1.176862e-10,1.193095e-10,8.641297e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:30:51,4,10,12,8,2.701243e-10,1.347566e-10,2.215073e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:30:51,1,7,7,4,1.176862e-10,1.193095e-10,8.641297e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:30:52,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:30:55,1,7,7,4,1.176862e-10,1.193095e-10,8.641297e-11,Geometric Mean Matlab Method,0,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:30:57,4,10,12,8,6.392855e-11,1.887474e-10,1.764388e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:30:57,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:30:59,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:30:59,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:31:02,4,10,12,8,6.392855e-11,1.887474e-10,1.764388e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:31:02,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:31:03,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,T,R1 Row Diagonals 
+22-Jun-2017 23:31:07,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,T,Minimum Singular Values 
+22-Jun-2017 23:31:08,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:31:08,4,10,12,8,6.392855e-11,1.887474e-10,1.764388e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:31:10,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Norms 
+22-Jun-2017 23:31:13,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:31:14,4,10,12,8,2.701208e-10,1.347521e-10,2.215072e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:31:14,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DT,R1 Row Diagonals 
+22-Jun-2017 23:31:18,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DT,Minimum Singular Values 
+22-Jun-2017 23:31:18,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:31:19,4,10,12,8,2.701208e-10,1.347521e-10,2.215072e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:31:22,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Norms 
+22-Jun-2017 23:31:24,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:31:25,4,10,12,8,2.701208e-10,1.347521e-10,2.215072e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:31:26,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,TQ,R1 Row Diagonals 
+22-Jun-2017 23:31:27,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:31:29,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:31:30,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,TQ,Minimum Singular Values 
+22-Jun-2017 23:31:30,4,10,12,8,6.392866e-11,1.887468e-10,1.764383e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:31:34,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:31:34,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:31:36,4,10,12,8,6.392866e-11,1.887468e-10,1.764383e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:31:38,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ,R1 Row Diagonals 
+22-Jun-2017 23:31:40,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:31:41,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:31:42,4,10,12,8,6.392866e-11,1.887468e-10,1.764383e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,Minimum Singular Values 
+22-Jun-2017 23:31:46,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:31:46,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:31:48,4,10,12,8,6.392812e-11,1.887457e-10,5.310299e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Norms 
+22-Jun-2017 23:31:50,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:31:51,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:31:54,1,7,7,4,2.405203e-06,3.502714e-06,2.380234e-06,Geometric Mean Matlab Method,0,Standard STLN,2,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:31:54,4,10,12,8,6.392812e-11,1.887457e-10,5.310299e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,R1 Row Diagonals 
+22-Jun-2017 23:31:56,3,20,21,16,6.386129e-11,1.146801e-09,1.080912e-09,Geometric Mean Matlab Method,1,Standard STLN,1,None,0,1.000000e-12,1.000000e-10,DTQ,R1 Row Norms 
+22-Jun-2017 23:31:57,2,13,11,8,9.999988e-01,1.075135e-04,4.191763e-05,None,0,Standard STLN,50,None,0,1.000000e-12,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:31:58,1,7,7,4,7.095361e-10,5.114674e-10,7.065902e-10,None,1,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Norms 
+22-Jun-2017 23:32:00,4,10,12,8,6.392812e-11,1.887457e-10,5.310299e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ Denominator Removed,Minimum Singular Values 
+22-Jun-2017 23:32:02,1,7,7,4,7.095361e-10,5.114674e-10,7.065902e-10,None,1,None,0,None,0,1.000000e-10,1.000000e-10,T,R1 Row Diagonals 

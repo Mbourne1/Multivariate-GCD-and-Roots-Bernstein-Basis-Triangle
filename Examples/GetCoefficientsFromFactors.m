@@ -25,7 +25,7 @@ for i = 1:1:length(arr_sym_factors_fxy)
     arr_m{i} = double(feval(symengine, 'degree', arr_sym_factors_fxy{i}));
     
     % Get the factor in the Bernstein form
-    factor_brn = PowerToBernstein(factor,arr_m{i});
+    factor_brn = PowerToBernstein(factor, arr_m{i});
     arr_factors{i} = factor_brn;
     
     

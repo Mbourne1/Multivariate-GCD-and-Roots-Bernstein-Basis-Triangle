@@ -9,7 +9,7 @@ function [arr_wxy] = Get_arr_wxy(arr_hxy,vDegt_hxy)
 
 global SETTINGS
 
-switch SETTINGS.WXY_DECONVOLUTION_METHOD
+switch SETTINGS.DECONVOLUTION_METHOD_WXY
     
     case 'Separate' % Separate deconvolution
         
@@ -26,14 +26,14 @@ switch SETTINGS.WXY_DECONVOLUTION_METHOD
         
     otherwise
         
-        display(SETTINGS.WXY_DECONVOLUTION_METHOD)
+        display(SETTINGS.DECONVOLUTION_METHOD_WXY)
         
         Options_str = ...
             sprintf([
             '*Separate \n'...
-            '*Batch Without STLN \n'...
+            '*Batch \n'...
             '*Batch With STLN \n'...
-            '*Batch Constrained Without STLN \n'...
+            '*Batch Constrained \n'...
             '*Batch Constrained With STLN \n'
             ]);
         error([mfilename ' : ' sprintf('Deconvolution method must be one of the following : \n') Options_str])

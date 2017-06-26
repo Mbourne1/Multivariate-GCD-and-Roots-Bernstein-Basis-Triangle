@@ -12,9 +12,6 @@ function [] = plotRowNorms(arr_RowNorms, limits_k, limits_t)
 lowerLimit_k = limits_k(1);
 upperLimit_k = limits_k(2);
 
-%
-lowerLimit_t = limits_t(1);
-upperLimit_t = limits_t(2);
 
 
 figure_name = 'Plotting Row Norms';
@@ -32,8 +29,8 @@ for i = lowerLimit_k:1:upperLimit_k
 end
 
 % Plot vertical lines
-vline(lowerLimit_t);
-vline(upperLimit_t);
+vline(limits_t, {'-r','-r'});
+
 
 hold off
 

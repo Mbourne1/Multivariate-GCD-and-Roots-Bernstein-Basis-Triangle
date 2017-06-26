@@ -10,7 +10,7 @@ function [arr_wxy,vDeg_t_wxy] = o_roots_mymethod_newmethod(fxy_matrix,M)
 % M : Total degree of polynomial f(x,y)
 %
 % % Outputs
-% 
+%
 % arr_wxy : (Array of Matrices)
 %
 % vDeg_t_wx : (Vector) Vector containing total degree of each polynomi
@@ -45,10 +45,10 @@ while vDeg_x_arr_fxy(ite,1) > 0
         % The GCD is a constant
         %arr_fxy{ite+1,1} = Differentiate_wrt_x(arr_fxy{ite},vDeg_t_arr_fxy(ite));
         arr_fxy{ite+1,1} = Differentiate_wrt_x(arr_fxy{ite});
-       
+        
         % Deconvolve
-%         arr_uxy{ite+1,1} = Deconvolve_Bivariate(arr_fxy{ite}, arr_fxy{ite+1},...
-%             vDeg_t_arr_fxy(ite), vDeg_t_arr_fxy(ite)-1);
+        %         arr_uxy{ite+1,1} = Deconvolve_Bivariate(arr_fxy{ite}, arr_fxy{ite+1},...
+        %             vDeg_t_arr_fxy(ite), vDeg_t_arr_fxy(ite)-1);
         arr_uxy{ite+1,1} = Deconvolve_Bivariate(arr_fxy{ite}, arr_fxy{ite+1});
         
         
@@ -96,7 +96,7 @@ while vDeg_x_arr_fxy(ite,1) > 0
     LineBreakLarge();
     
     % GCD is only a scalar with respect to x so set equal to g(x,y).
-
+    
     limits_t = [lowerLimit_t, upperLimit_t];
     
     
@@ -149,7 +149,7 @@ switch SETTINGS.HXY_METHOD
     
     case 'From Deconvolutions'
         
-        switch SETTINGS.DECONVOLUTION_METHOD
+        switch SETTINGS.DECONVOLUTION_METHOD_HXY
             
             case 'Separate' % Separate deconvolution
                 
@@ -196,7 +196,7 @@ vDeg_t_hxy = vDeg_t_arr_fxy(1:end-1) - vDeg_t_arr_fxy(2:end);
 
 if nEntries_hx > 1
     
-    switch SETTINGS.DECONVOLUTION_METHOD
+    switch SETTINGS.DECONVOLUTION_METHOD_WXY
         
         case 'Separate' % Separate deconvolution
             
@@ -205,7 +205,7 @@ if nEntries_hx > 1
                 % Deconvolve
                 arr_wxy{i,1} = Deconvolve_Bivariate(arr_hxy{i}, arr_hxy{i+1});
             end
-
+            
         case 'Batch' % Batch deconvolution
             
             arr_wxy = Deconvolve_Bivariate_Batch(arr_hxy, vDeg_t_hxy);
@@ -215,7 +215,7 @@ if nEntries_hx > 1
             
     end
     
-  
+    
     vDeg_t_wxy = vDeg_t_hxy(1:end-1) - vDeg_t_hxy(2:end);
     
     

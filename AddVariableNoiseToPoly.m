@@ -35,7 +35,7 @@ r = (2*rand(m+1,m+1))-ones(m+1,m+1);
 
 
 % Generate random variables v_{i}
-v = rand(m+1,m+1);
+v = rand(m+1, m+1);
 
 % Get vector 'eps' - the vector which stores the upper Noise/Signal
 % threshold \epsilon_{i} for each cofficient a_{i}

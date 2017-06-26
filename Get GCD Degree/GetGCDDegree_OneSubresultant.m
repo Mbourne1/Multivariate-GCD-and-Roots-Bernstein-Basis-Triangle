@@ -24,7 +24,10 @@ if( SETTINGS.PLOT_GRAPHS)
         figure('name',figure_name)
         hold on
         title('Singular values of S_{1}')
-        plot(log10(vMetric))
+        plot(vMetric, '-s')
+        xlabel('i')
+        ylabel('log_{10}(\sigma_{i})')
+        
         hold off
         
 end

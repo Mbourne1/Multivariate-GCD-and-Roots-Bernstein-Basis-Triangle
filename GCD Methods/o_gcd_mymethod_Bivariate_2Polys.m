@@ -33,12 +33,21 @@ function [fxy_o, gxy_o, dxy_o, uxy_o, vxy_o, t, rank_range] = ...
 % 
 % t : (Int) Total degree of the GCD d(x,y)
 
-% Note : fxy and gxy are square matrices where entries in the upper left 
-% triangle are the coefficients of f(x,y) and g(x,y) respectively. The 
-% lower right triangle entries are all zeros.
+
+% Get the degree of the GCD using only the first sylvester subresultant
+% matrix
+%boolComputeDegreeSingularValuesS1 = true;
+%if ( boolComputeDegreeSingularValuesS1 == true)
+%    t = ComputeDegreeSingularValuesS1(fxy, gxy, m, n);
+%end
+
+
+
 
 % Compute the degree of the GCD
-[t, GM_fx, GM_gx, alpha, th1, th2, rank_range] = GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
+[t, GM_fx, GM_gx, alpha, th1, th2, rank_range] = ...
+    GetGCDDegree_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
+
 
 % % 
 % Normalize fxy and gxy to obtain fxy_n and gxy_n
@@ -50,10 +59,12 @@ gxy_n = gxy ./ GM_gx;
 [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
     GetLowRankApproximation_2Polys(fxy_n, gxy_n, alpha, th1, th2, m, n, t);
 
+
 % %
 % Get the GCD polynomial d(x,y)
 [fxy_lra, gxy_lra, uxy_lra, vxy_lra, dxy_lra, alpha_lra, th1_lra, th2_lra] = ...
     APF_2Polys(fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr, m, n, t);
+
 
 % Get outputs
 fxy_o = fxy_lra;
@@ -63,4 +74,31 @@ uxy_o = uxy_lra;
 vxy_o = vxy_lra;
 
 
+end
+
+
+
+function [t] = ComputeDegreeSingularValuesS1(fxy, gxy, m, n)
+
+
+    GM_fx = GetMean(fxy, m, n-1);
+    GM_gx = GetMean(gxy, n, m-1);
+    
+    % Divide entries of f(x,y) and g(x,y) by geometric mean
+    fxy_n = fxy ./ GM_fx;
+    gxy_n = gxy ./ GM_gx;
+    
+    [alpha, th1, th2] = Preprocess(fxy_n, gxy_n, m, n, 1);
+    
+    % Get f(x,y) and g(x,y) with thetas to get f(w_{1},w_{2}) and g(w_{1},w_{2})
+    fww = GetWithThetas(fxy_n, m, th1, th2);
+    gww = GetWithThetas(gxy_n, n, th1, th2);
+    
+    
+    S1 = BuildSylvesterMatrix_2Polys(fww, alpha.*gww, m, n, 1);
+    
+    vSingularValues = svd(S1);
+    vMetric = log10(vSingularValues);
+    t = GetGCDDegree_OneSubresultant(vMetric);
+    
 end

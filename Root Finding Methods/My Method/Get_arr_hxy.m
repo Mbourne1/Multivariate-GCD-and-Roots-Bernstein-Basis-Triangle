@@ -5,13 +5,13 @@ function arr_hxy = Get_arr_hxy(arr_fxy,vDegt_fxy)
 %
 % % Inputs
 %
-% arr_fxy : Array of polynomials f(x,y)
+% arr_fxy : (Array of Matrices) Array of polynomials f(x,y)
 %
-% vDegt_fxy : Vector of Total degree of polynomials f(x,y)
+% vDegt_fxy : (Vector of Integers) Vector of Total degree of polynomials f(x,y)
 
 global SETTINGS
 
-switch SETTINGS.HXY_DECONVOLUTION_METHOD
+switch SETTINGS.DECONVOLUTION_METHOD_HXY
     
     case 'Separate' % Separate deconvolution
         
@@ -39,14 +39,14 @@ switch SETTINGS.HXY_DECONVOLUTION_METHOD
         
     otherwise
         
-        display(SETTINGS.HXY_DECONVOLUTION_METHOD)
+        display(SETTINGS.DECONVOLUTION_METHOD_HXY)
         
         Options_str = ...
             sprintf([
             '*Separate \n'...
-            '*Batch Without STLN \n'...
+            '*Batch \n'...
             '*Batch With STLN \n'...
-            '*Batch Constrained Without STLN \n'...
+            '*Batch Constrained \n'...
             '*Batch Constrained With STLN \n'
             ]);
         error([mfilename ' : ' sprintf('Deconvolution method must be one of the following : \n') Options_str])

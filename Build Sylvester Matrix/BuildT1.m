@@ -42,18 +42,19 @@ count = 1;
 
 for diag_index = 0:1:n_k
     
-    for i = diag_index:-1:0
+    for i = diag_index : -1 : 0
+        
         j = diag_index - i;
         
         % Get matrix of coefficients of f(x,y) shifted down by i rows and
         % across by j columns
         temp_mat = zero_matrix;
-        temp_mat(i+1:i+m+1,j+1:j+m+1) = fxy_tri;
+        temp_mat(i + 1 : i + m + 1, j + 1 : j + m + 1) = fxy_tri;
         
         temp_vec = GetAsVector(temp_mat);
         
         % Remove all but the first nchoosek(m+n+2,2) coefficients
-        temp_vec = temp_vec(1:nCoefficients_hxy);
+        temp_vec = temp_vec(1 : nCoefficients_hxy);
         
         % Insert coefficients into the i,j th column of C(f(x,y)).
         

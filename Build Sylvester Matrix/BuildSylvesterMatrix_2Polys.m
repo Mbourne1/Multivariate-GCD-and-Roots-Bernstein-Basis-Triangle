@@ -20,34 +20,75 @@ function Sk = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, k)
 %
 % Sk : (Matrix) kth Sylvester subresultant matrix S_{k}(f,g)
 
-% Build the diagonal matrix D^{-1}
-D = BuildD_2Polys(m, n-k);
 
-% Build the matrix T_{n-k}(f(x,y))
-T1_fx = BuildT1(fxy, m, n-k);
-
-% Build the matrix T_{m-k}(g(x,y))
-T1_gx = BuildT1(gxy, n, m-k);
-
-Q = BuildQ_2Polys(m,n,k);
 
 global SETTINGS
 switch SETTINGS.SYLVESTER_BUILD_METHOD
     case 'T'
-        
+
+        % Build the matrix T_{n-k}(f(x,y))
+        T1_fx = BuildT1(fxy, m, n - k);
+
+        % Build the matrix T_{m-k}(g(x,y))
+        T1_gx = BuildT1(gxy, n, m - k);
+
         Sk = [T1_fx T1_gx] ;
         
     case 'DT'
-        
+        % Build the diagonal matrix D^{-1}
+        D = BuildD_2Polys(m, n - k);
+
+        % Build the matrix T_{n-k}(f(x,y))
+        T1_fx = BuildT1(fxy, m, n - k);
+
+        % Build the matrix T_{m-k}(g(x,y))
+        T1_gx = BuildT1(gxy, n, m - k);
+
+       
         Sk = D*[T1_fx T1_gx];
         
     case 'DTQ'
+        % Build the diagonal matrix D^{-1}
+        D = BuildD_2Polys(m, n - k);
+
+        % Build the matrix T_{n-k}(f(x,y))
+        T1_fx = BuildT1(fxy, m, n - k);
+
+        % Build the matrix T_{m-k}(g(x,y))
+        T1_gx = BuildT1(gxy, n, m - k);
+
+        Q = BuildQ_2Polys(m, n, k);
         
         Sk = D*[T1_fx T1_gx]*Q;
     
     case 'TQ'
-    
+
+        % Build the matrix T_{n-k}(f(x,y))
+        T1_fx = BuildT1(fxy, m, n - k);
+
+        % Build the matrix T_{m-k}(g(x,y))
+        T1_gx = BuildT1(gxy, n, m - k);
+
+        Q = BuildQ_2Polys(m, n, k);
+        
         Sk = [T1_fx T1_gx]*Q;
+        
+    case 'DTQ Denominator Removed'
+        % Build the diagonal matrix D^{-1}
+        D = BuildD_2Polys(m, n-k);
+
+        % Build the matrix T_{n-k}(f(x,y))
+        T1_fx = BuildT1(fxy, m, n-k) ./ nchoosek(m + n - k, n - k);
+
+        % Build the matrix T_{m-k}(g(x,y))
+        T1_gx = BuildT1(gxy, n, m-k) ./ nchoosek(m + n - k , m - k);
+
+        Q = BuildQ_2Polys(m,n,k);
+        
+        Sk = D*[T1_fx T1_gx]*Q;
+        
+    otherwise
+        error('err')
         
 end
 

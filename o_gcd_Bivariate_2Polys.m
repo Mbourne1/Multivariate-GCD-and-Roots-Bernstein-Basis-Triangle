@@ -1,6 +1,7 @@
-function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, ...
-    low_rank_approx_method, apf_method, sylvester_matrix_type)
-% O_GCD : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
+function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, ...
+    bool_alpha_theta, low_rank_approx_method, apf_method, ...
+    sylvester_matrix_type, rank_revealing_metric)
+% O_GCD_BIVARIATE_2POLYS : Compute the GCD of two polynomials f(x,y) and g(x,y) where f(x,y)
 % and g(x,y) are given in the Bernstein form, and are taken from the
 % example file.
 %
@@ -33,16 +34,24 @@ function [] = o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha
 %       'Standard Nonlinear APF'
 %
 % sylvester_matrix_type : (String)
-%       * T
-%       * DT
-%       * DTQ
-%       * TQ
+%   * T
+%   * DT
+%   * TQ
+%   * DTQ
+%   * DTQ Denominator Removed
+%
+% rank_revealing_metric : (String)
+%   * R1 Row Norms
+%   * R1 Row Diagonals
+%   * Minimum Singular Values
+%   * Residuals
+%
 %
 % % Examples
 %
-% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'None', false, 'None', 'None', 'DTQ')
-% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'None', 'None', 'DTQ')
-% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'None', 'DTQ')
+% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'None', false, 'None', 'None', 'DTQ', 'Minimum Singular Values')
+% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'None', 'None', 'DTQ', 'Minimum Singular Values')
+% >> o_gcd_Bivariate_2Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'None', 'DTQ', 'Minimum Singular Values')
 
 
 % % Ensure that minimum noise level is less than maximum noise level
@@ -54,21 +63,14 @@ if emin > emax
     
 end
 
-problem_type = 'GCD';
-
 % % Set global variables
-SetGlobalVariables(ex_num, emin, emax, mean_method, bool_alpha_theta,...
-    low_rank_approx_method, apf_method, sylvester_matrix_type);
+SetGlobalVariables_GCD(ex_num, emin, emax, mean_method, bool_alpha_theta,...
+    low_rank_approx_method, apf_method, sylvester_matrix_type, rank_revealing_metric);
 
 
-% Add subfolders
+% Restore default path and add subfolders of current directory
 restoredefaultpath
-
-% Determine where your m-file's folder is.
-folder = fileparts(which(mfilename)); 
-
-% Add that folder plus all subfolders to the path.
-addpath(genpath(folder));
+addpath(genpath(pwd))
 
 % Print parameters to console
 fprintf('INPUTS. \n')
@@ -77,6 +79,7 @@ fprintf('EMIN : %s \n',emin)
 fprintf('EMAX : %s \n',emax)
 fprintf('MEAN METHOD : %s \n', mean_method)
 fprintf('PREPROCESSING : %s \n',num2str(bool_alpha_theta))
+fprintf('RANK REVEALING METRIC : %s \n', rank_revealing_metric)
 fprintf('LOW RANK METHOD : %s \n',low_rank_approx_method)
 fprintf('APF METHOD : %s \n', apf_method)
 
@@ -95,7 +98,7 @@ gxy = AddVariableNoiseToPoly(gxy, emin, emax);
 % %
 % Get GCD by my method
 limits_t = [0 min(m,n)];
-rank_range = [-16 0];
+rank_range = [0 0];
 
 [fxy, gxy, dxy, uxy, vxy, t, rank_range] = o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
 
@@ -142,7 +145,11 @@ function [] = PrintToResultsFile(m, n, t, my_error)
 
 global SETTINGS
 
-fullFileName = sprintf('Results/Results_o_gcd_%s.txt',datetime('today'));
+% Get datetime and filename
+%v = datevec(now);
+%fullFileName = sprintf('Results/Results_o_gcd_%s-%s-%s.txt',num2str(v(1)), num2str(v(2)), num2str(v(3)));
+
+fullFileName = sprintf('Results/Results_o_gcd.txt');
 
 % If file already exists append a line
 if exist(fullFileName, 'file')
@@ -163,7 +170,7 @@ end
     function WriteNewLine()
         
         % 15 FIELDS
-        fprintf(fileID,'%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n',...
+        fprintf(fileID,'%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n',...
             datetime('now'),...
             SETTINGS.EX_NUM,...
             int2str(m),...
@@ -180,13 +187,14 @@ end
             num2str(SETTINGS.APF_REQ_ITE),...
             SETTINGS.EMIN,...
             SETTINGS.EMAX,...
-            SETTINGS.SYLVESTER_BUILD_METHOD...
+            SETTINGS.SYLVESTER_BUILD_METHOD,...
+            SETTINGS.RANK_REVEALING_METRIC...
             );
         
     end
 
     function WriteHeader()
-        fprintf(fileID,'DATE,EX_NUM,m,n,t,ERROR_UXY,ERROR_VXY,ERROR_DXY,MEAN_METHOD,BOOL_ALPHA_THETA,LOW_RANK_APPROX_METHOD,LRA_ITE,APF_METHOD,APF_ITE,error_min,error_max,Sylvester_Matrix_Type \n');
+        fprintf(fileID,'DATE, EX_NUM, m, n, t, ERROR_UXY, ERROR_VXY, ERROR_DXY, MEAN_METHOD, BOOL_ALPHA_THETA, LOW_RANK_APPROX_METHOD, LRA_ITE, APF_METHOD, APF_ITE, error_min, error_max, SUBRESULTANT_FORMAT, RANK_REVEALING_METRIC \n');
     end
 
 end
