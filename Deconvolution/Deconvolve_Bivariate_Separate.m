@@ -1,16 +1,28 @@
-function arr_hx = Deconvolve_Bivariate_Separate(arr_fx)
+function arr_hxy = Deconvolve_Bivariate_Separate(arr_fxy)
+%
+% % Inputs
+%
+% arr_fxy : (Array of Matrices) 
+%
+%
+% % Outputs
+%
+% arr_hxy
+%
+%
+%
 % Peform the sequence of deconvolutions independently
 
 % Get number of polynomials f_{i}(x)
-nPolys = length(arr_fx);
+nPolynomials_fxy = length(arr_fxy);
 
 % Initialise an array to store polynomials h_{i}(x) = h{i-1} ./ h{i}
-arr_hx = cell(nPolys-1,1);
+arr_hxy = cell(nPolynomials_fxy - 1, 1);
 
 % For each pair of polynomials perform deconvolution.
-for i = 1:1:nPolys-1
+for i = 1 : 1 : nPolynomials_fxy - 1
     
-    arr_hx{i,1} = Deconvolve_Bivariate(arr_fx{i,1},arr_fx{i+1,1}) ;
+    arr_hxy{i,1} = Deconvolve_Bivariate(arr_fxy{i, 1}, arr_fxy{i + 1, 1}) ;
     
 end
 

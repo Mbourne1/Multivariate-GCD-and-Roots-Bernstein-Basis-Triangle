@@ -15,6 +15,10 @@ function [fxy] = GetCoefficientsFromFactors(arr_sym_factors_fxy)
 
 syms x y;
 
+
+nFactors = length(arr_sym_factors_fxy);
+arr_factors = cell(nFactors,1);
+
 % For each factor
 for i = 1:1:length(arr_sym_factors_fxy)
     

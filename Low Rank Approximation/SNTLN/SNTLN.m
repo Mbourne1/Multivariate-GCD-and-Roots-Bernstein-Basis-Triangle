@@ -102,13 +102,13 @@ gww = GetWithThetas(gxy, n, th1(ite), th2(ite));
 % Build the kth Sylvester Subresultant matrix S_{k}(f,g) = D*T(f,g)*Q
 
 % Build the diagonal matrix D^{-1}
-D = BuildD_2Polys(m, n-k);
+D = BuildD_2Polys(m, n - k);
 
 % Build the matrix T_{n-k}(f)
-T1_fww = BuildT1(fww, m, n-k);
+T1_fww = BuildT1(fww, m, n - k);
 
 % Build the matrix T_{m-k}(g)
-T1_gww = BuildT1(gww, n, m-k);
+T1_gww = BuildT1(gww, n, m - k);
 
 % Build the matrix Q_{k}
 Q = BuildQ_2Polys(m, n, k);
@@ -132,7 +132,7 @@ e = I(:,idx_col);
 % %  
 
 % Get partial derivatives of f(\omega_{1},\omega_{2}) with respect to \alph
-fww_wrt_alpha = zeros(m+1,m+1);
+fww_wrt_alpha = zeros(m + 1, m + 1);
 
 % Get partial derivatives of g(\omega_{1},\omega_{2}) with respect to \alph
 alpha_gww_wrt_alpha = gxy;
@@ -164,7 +164,7 @@ DTQ_wrt_th2 = BuildDTQ_2Polys(fww_wrt_th2, alpha(ite).*gww_wrt_th2, k);
 % if we are working with strictly the roots problem, the number of entries
 % in z can be reduced.
 
-nRows_Sk_fg = nchoosek(m+n-k+2, 2);
+nRows_Sk_fg = nchoosek(m + n - k + 2, 2);
 
 zk = zeros(nCoefficients_fg , 1);
 
@@ -200,7 +200,7 @@ test1b = ck;
 test1 = (test1a - test1b);
 display(norm(test1));
 
-%%
+% %
 % Calculate the derivatives wrt alpha and theta of the removed column.
 
 % Get parital c_{k} with respect to \alpha 
@@ -236,7 +236,7 @@ display(norm(test2));
 % Calculate the initial residual r = ck - (Ak*x)
 res_vec = ck - (DTQ_fg*M*xk);
 
-%% Get the matrix p, which will store all the perturbations returned from LSE file
+% % Get the matrix p, which will store all the perturbations returned from LSE file
 nEntries = nCoefficients_fxy + nCoefficients_gxy + nCoefficients_x + 3;
 
 % Set the intial value of E to the identity matrix
@@ -288,10 +288,10 @@ f = -(yy - start_point);
 
 % Set the termination criterion to a large value. It will be
 % over written later.
-condition(ite) = norm(res_vec)/norm(ck);
+vCondition(ite) = norm(res_vec)/norm(ck);
 
 
-while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERATIONS
+while vCondition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERATIONS
     
     
     % Get small petrubations by LSE
@@ -414,8 +414,8 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     
     % Get the vectors z_fx and z_gx as matrices, which match the shape of
     % f(x) and g(x).
-    z_fxy = GetAsMatrix([vec_z_fxy ; zeros(nZeros_fxy,1)],m,m);
-    z_gxy = GetAsMatrix([vec_z_gxy ; zeros(nZeros_gxy,1)],n,n);
+    z_fxy = GetAsMatrix([vec_z_fxy ; zeros(nZeros_fxy,1)], m, m);
+    z_gxy = GetAsMatrix([vec_z_gxy ; zeros(nZeros_gxy,1)], n, n);
     
     % Get matrices z_fw_mat and z_gw_mat, by multiplying rows by
     % theta_{1}^{i} and columns by theta_{2}^{j}
@@ -523,10 +523,10 @@ while condition(ite) > SETTINGS.STLN_MAX_ERROR && ite < SETTINGS.STLN_MAX_ITERAT
     C = [Hz,Hx,H_alpha,H_th1, H_th2];  % the matrix C
            
     % Calculate the normalised residual of the solution.
-    condition(ite) = norm(res_vec) / norm(ck + hk);
+    vCondition(ite) = norm(res_vec) / norm(ck + hk);
     
     % Update fnew - used in LSE Problem.
-    f = -(yy-start_point);
+    f = -(yy - start_point);
     
 end
 
@@ -540,7 +540,7 @@ LineBreakLarge()
 SETTINGS.LOW_RANK_APPROX_REQ_ITE = ite;
 
 % Update z and x_ls
-vec_z = yy(1:nCoefficients_fxy + nCoefficients_gxy);
+vec_z = yy(1 : nCoefficients_fxy + nCoefficients_gxy);
 
 % Get z1 and z2
 zf = vec_z(1:nCoefficients_fxy);

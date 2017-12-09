@@ -28,13 +28,13 @@ vDeg_arr_wxy = diff([vDeg_arr_hxy; 0]);
 vMult = find(vDeg_arr_wxy~=0);
 
 % Get the number of polynomials in arr_fxy of f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy,1);
+nPolynomials_arr_fxy = size(arr_fxy, 1);
 
 % Get the number of polynomials in the array of h_{i}(x,y)
-nPolys_arr_hxy = nPolys_arr_fxy - 1;
+nPolys_arr_hxy = nPolynomials_arr_fxy - 1;
 
-vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
-for i = 1:1:nPolys_arr_fxy
+vDeg_arr_fxy = zeros(nPolynomials_arr_fxy,1);
+for i = 1:1:nPolynomials_arr_fxy
     
     vDeg_arr_fxy(i)  = GetDegree_Bivariate(arr_fxy{i});
     
@@ -55,8 +55,8 @@ else
     
 end
 
-
-arr_fww = GetPolynomialArrayWithThetas(arr_fxy,th1,th2);
+% Preprocess polynomials f(x,y) -> f(w_{1}, w_{2})
+arr_fww = GetPolynomialArrayWithThetas(arr_fxy, th1, th2);
 
 
 
@@ -73,37 +73,36 @@ rhs_fww = BuildRHS_vec(arr_fww);
 
 x_ls = SolveAx_b(DT_fwwQ, rhs_fww);
 
-unique_vMult = unique(vMult);
+nUniquePolys_pxy = unique(vMult);
 
-arr_pww = cell(length(unique_vMult),1);
+arr_pww = cell(length(nUniquePolys_pxy), 1);
 
-for i = 1:1:length(unique_vMult)
+for i = 1:1:length(nUniquePolys_pxy)
     
     
-    mult = unique_vMult(i);
+    mult = nUniquePolys_pxy(i);
     
     % Get degree of p(x,y)
     deg_px = vDegt_fxy(mult) - vDegt_fxy(mult+1);
     
     % Get number of coefficients in p(x,y)
-    nCoefficients_px = nchoosek(deg_px+2,2);
+    nCoefficients_px = nchoosek(deg_px + 2, 2);
+    nZeros_px = nchoosek(deg_px + 1, 2);
     
     % Get coefficients of p(x,y) from x_ls
-    vec_px = x_ls(1:nCoefficients_px);
+    vec_px = x_ls(1 : nCoefficients_px);
     
-    % Remove coefficients
-    x_ls(1:nCoefficients_px) =[];
+    % Remove coefficients from solution vector
+    x_ls(1 : nCoefficients_px) =[];
     
     
-    nZeros_px = nchoosek(deg_px+1,2);
-    
-    vec_px = ...
+    vec_pxy = ...
         [
         vec_px;
-        zeros(nZeros_px,1)
+        zeros(nZeros_px, 1)
         ];
     
-    arr_pww{i,1} = GetAsMatrix(vec_px, deg_px, deg_px);
+    arr_pww{i,1} = GetAsMatrix(vec_pxy, deg_px, deg_px);
     
     
     
@@ -111,7 +110,7 @@ end
 
 
 % Get array
-arr_hww = Get_hxy(arr_pww, unique_vMult);
+arr_hww = Get_hxy(arr_pww, nUniquePolys_pxy);
 
 
 % Get degree of polynomials h(x,y)

@@ -1,6 +1,7 @@
 function [fxy_lr, gxy_lr, hxy_lr, uxy_lr, vxy_lr, wxy_lr,...
-    alpha_lr, th1_lr, th2_lr] = ...
-    GetLowRankApproximation_3Polys(fxy, gxy, hxy, alpha, th1, th2, m, n, o, k)
+    alpha_lr, beta_lr, gamma_lr, th1_lr, th2_lr] = ...
+    GetLowRankApproximation_3Polys(fxy, gxy, hxy, alpha, beta, ...
+    gamma, th1, th2, m, n, o, k)
 % Get the low rank approximation of the Sylvester matrix S_{t}(f,g), and
 % return the polynomials f_lr(x,y) and g_lr(x,y) which are the perturbed forms of
 % input polynomials f(x,y) and g(x,y).
@@ -8,24 +9,50 @@ function [fxy_lr, gxy_lr, hxy_lr, uxy_lr, vxy_lr, wxy_lr,...
 %
 % % Inputs.
 %
-% [fxy, gxy, hxy] : Coefficients of polynomial f(x,y), g(x,y) and h(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
+% 
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
 %
-% alpha : \alpha
+% hxy : (Matrix) Coefficients of polynomial h(x,y)
 %
-% [th1, th2] : \theta_{1}
+% alpha : (Float) Optimal value of \alpha
 %
-% [m, n, o] : Total degree of f(x,y), g(x,y) and h(x,y)
+% beta : (Float) Optimal value of \beta
+%
+% th1 : (Float) \theta_{1}
+%
+% th2 : (Float) \theta_{2}
+%
+% m : (Int) Total degree of f(x,y)
+%
+% n : (Int) Total degree of g(x,y)
+%
+% o : (Int) Total degree of h(x,y)
 %
 % % Outputs
 %
-% [fxy_lr, gxy_lr, hxy_lr] : Coefficients of polynomial f_lr(x,y) which is 
+% fxy_lr : (Matrix) 
+%
+% gxy_lr : (Matrix) 
+%
+% hxy_lr : (Matrix)  Coefficients of polynomial f_lr(x,y) which is 
 % used in the low rank approximation of S_{t}(f,g).
 %
-% [uxy_lr, vxy_lr, wxy_lr] :
+% uxy_lr : (Matrix) 
 %
-% alpha : \alpha
+% vxy_lr : (Matrix) 
 %
-% [th1, th2] : \theta_{1}
+% wxy_lr : (Matrix) 
+%
+% alpha : (Float) \alpha
+%
+% beta : (Float)
+%
+% gamma : (Float)
+%
+% th1 : (Float) 
+%
+% th2 : (Float) \theta_{2}
 
 global SETTINGS
 
@@ -41,18 +68,25 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
                
         % Get polynomials u(\omega_{1},\omega_{2}) and
         % v(\omega_{1},\omega_{2}).
-        [uww, vww, www] = GetCofactors_3Polys(fww, gww, hww, m, n, o, k);
+        [uww, vww, www] = GetCofactors_3Polys(...
+            alpha .* fww,...
+            beta .* gww,...
+            gamma .* hww, ...
+            m, n, o, k);
         
         fxy_lr = fxy;
         gxy_lr = gxy;
         hxy_lr = hxy;
                 
         % Get u(x,y), v(x,y) and w(x,y)
-        uxy_lr = GetWithoutThetas(uww, m-k, th1, th2);
-        vxy_lr = GetWithoutThetas(vww, n-k, th1, th2);
-        wxy_lr = GetWithoutThetas(www, o-k, th1, th2);
+        uxy_lr = GetWithoutThetas(uww, m - k, th1, th2);
+        vxy_lr = GetWithoutThetas(vww, n - k, th1, th2);
+        wxy_lr = GetWithoutThetas(www, o - k, th1, th2);
         
         alpha_lr = alpha;
+        beta_lr = beta;
+        gamma_lr = gamma;
+        
         th1_lr = th1;
         th2_lr = th2;
         

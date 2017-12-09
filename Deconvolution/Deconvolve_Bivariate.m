@@ -1,4 +1,4 @@
-function hxy = Deconvolve_Bivariate(fxy,gxy)
+function hxy = Deconvolve_Bivariate(fxy, gxy)
 % DECONVOLVE_BIVARIATE :
 % Deconvolve the polynomials f(x,y) and g(x,y) to obtain h(x,y)
 %
@@ -32,13 +32,13 @@ n = n1;
 % f(x,y).
 
 % Build the matrix D^{-1}_{n}
-D = BuildD_2Polys(n, m-n);
+D = BuildD_2Polys(n, m - n);
 
 % Build the matrix T_{m-n}(g)
-T1 = BuildT1(gxy, n, m-n);
+T1 = BuildT1(gxy, n, m - n);
 
 % Build the matrix Q_{m-n}
-Q = BuildQ1(m-n);
+Q = BuildQ1(m - n);
 
 % Build the matrix D^{-1}_{m}*T_{m-n}(g)Q_{m-n}
 DTQ = D*T1*Q;
@@ -65,8 +65,8 @@ x_ls = SolveAx_b(DTQ, v_fxy);
 % append zeros to fill lower right triangle to form matrix of h(x,y))
 
 % Get number of zeros in the coefficient matrix for polynomial h(x,y)
-if (m-n+1 > 1)
-    nZeros_hxy = nchoosek(m-n+1, 2);
+if (m - n + 1 > 1)
+    nZeros_hxy = nchoosek(m - n + 1, 2);
 else
     nZeros_hxy = 0;
 end
@@ -79,7 +79,7 @@ v_hxy = ...
     ];
 
 % Get the matrix of coefficients of h(x,y).
-hxy = GetAsMatrix(v_hxy, m-n, m-n);
+hxy = GetAsMatrix(v_hxy, m - n, m - n);
 
 
 

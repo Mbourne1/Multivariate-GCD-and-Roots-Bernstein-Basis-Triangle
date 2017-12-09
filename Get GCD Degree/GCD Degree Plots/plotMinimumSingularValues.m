@@ -15,18 +15,33 @@ lowerLimit_k = limits_k(1);
 upperLimit_k = limits_k(2);
 
 vec_x = lowerLimit_k : 1 : upperLimit_k;
+global SETTINGS
 
-figure_name = sprintf('');
+figure_name = sprintf('Minimum Singular Values of %s' ,SETTINGS.SYLVESTER_MATRIX_FORMAT);
 figure('name',figure_name)
 hold on
-plot(vec_x, log10(vMinimumSingularValues),'-s')
 
-xlim(limits_k);
-xlabel('k')
-ylabel('log_{10}(\sigma_{k})')
+plot(vec_x, log10(vMinimumSingularValues),'-s','LineWidth',2)
+
+try
+    xlim(limits_k);
+catch
+end
+
 % 
-hline(rank_range,{'r','r'});
-vline(limits_t, {'r','r'});
+hline(rank_range,{'--r','--r'});
+vline(limits_t, {'--r','--r'});
+
+
+% Labels
+xlabel('$k$', 'Interpreter', 'latex')
+ylabel('$\log_{10}\left( \sigma_{k} \right)$', 'Interpreter', 'latex')
+
+% Display
+grid on
+box on
+
+
 
 
 

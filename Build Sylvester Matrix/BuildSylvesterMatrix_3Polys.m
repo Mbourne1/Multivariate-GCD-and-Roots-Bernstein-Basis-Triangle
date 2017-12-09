@@ -1,68 +1,208 @@
 function Sk = BuildSylvesterMatrix_3Polys(fxy, gxy, hxy, m, n, o, k)
-% BuildSylvesterMatrix(fxy,gxy,m,n,k)
+% BuildSylvesterMatrix_3Polys(fxy, fxy2, gxy, hxy, m, n, k)
 %
 % Build the Sylvester subresultant matrix S_{k}(f,g)
-% 
+%
 %
 % Inputs
 %
-% [fxy, gxy, hxy] : Coefficients of the polynomial f(x,y), g(x,y) and
+% fxy : (Matrix)
+%
+% fxy2 : (Matrix)
+%
+% gxy : (Matrix)
+%
+% hxy : (Matrix) Coefficients of the polynomial f(x,y), g(x,y) and
 % h(x,y)
 %
-% [m, n, o] : Total degree of polynomial f(x,y), g(x,y) and h(x,y)
+% m : (Int) Degree of f(x,y)
+%
+% n : (Int) Degree of g(x,y)
+%
+% o : (Int) degree of h(x,y)
 %
 % k : Index of the Sylvester subresultant matrix S_{k} to be constructed.
 
-% Build the diagonal matrix D^{-1}
-D = BuildD_3Polys(m,n,o,k);
-
-% Build the matrix T_{n-k}(f)
-T1_fx = BuildT1(fxy,m,n-k);
-
-% Build the matrix T_{m-k}(g)
-T1_gx = BuildT1(gxy,n,m-k);
-
-Q = BuildQ_3Polys(m,n,o,k);
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_BUILD_METHOD
+
+switch SETTINGS.SYLVESTER_MATRIX_3POLY_N_EQUATIONS
+    
+    case '2'
+        Sk = BuildSylvesterMatrix_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k);
+        
+    case '3'
+        Sk = BuildSylvesterMatrix_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k);
+        
+    otherwise
+        error('err');
+end
+end
+
+
+function Sk = BuildSylvesterMatrix_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k)
+% BuildSylvesterMatrix_3Polys(fxy, fxy2, gxy, hxy, m, n, k)
+%
+% Build the Sylvester subresultant matrix S_{k}(f,g)
+%
+%
+% Inputs
+%
+% fxy : (Matrix)
+%
+% fxy2 : (Matrix)
+%
+% gxy : (Matrix)
+%
+% hxy : (Matrix) Coefficients of the polynomial f(x,y), g(x,y) and
+% h(x,y)
+%
+% m : (Int) Degree of f(x,y)
+%
+% n : (Int) Degree of g(x,y)
+%
+% o : (Int) degree of h(x,y)
+%
+% k : Index of the Sylvester subresultant matrix S_{k} to be constructed.
+
+
+global SETTINGS
+switch SETTINGS.SYLVESTER_MATRIX_FORMAT
     case 'T'
         
         
-        Sk = [T1_fx T1_gx] ;
+        T = BuildT_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k);
+        
+        Sk = T;
         
     case 'DT'
         
+        D = BuildD_3Polys_2Eqns(m, n, o, k);
+        T = BuildT_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k);
         
-        % Build the matrix D
-        D = BuildD_3Polys(m,n,o,k);
-        %D1 = BuildD_2Polys(m,n-k);
-        %D2 = BuildD_2Polys(m,o-k);
-        
-        % Build the matrix T
-        T1_f = BuildT1(fxy,m,n-k);
-        T2_f = BuildT1(fxy,m,o-k);
-        T3_g = BuildT1(gxy,n,m-k);
-        T4_h = BuildT1(hxy,o,m-k);
-        
-        diagonal = blkdiag(T1_f, T2_f);
-        column = [T3_g; T4_h];
-        T = [diagonal column];
-
         % Build the matrix DT
         Sk = D*T;
         
     case 'DTQ'
         
         
-        Sk = BuildDTQ_3Polys(fxy, gxy, hxy, m, n, o, k);
+        D = BuildD_3Polys_2Eqns(m, n, o, k);
+        T = BuildT_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k);
+        Q = BuildQ_3Polys(m, n, o, k);
         
-        %Sk = D*[T1_fx T1_gx]*Q;
-    
+        % Build the matrix DTQ
+        Sk = D*T*Q;
+        
+        
     case 'TQ'
         
-        Sk = [T1_fx T1_gx]*Q;
+        T = BuildT_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k);
+        Q = BuildQ_3Polys(m, n, o, k);
+        
+        
+        Sk = T * Q;
+        
+    case 'DTQ Denominator Removed'
+        
+        error('Not Yet Complete')
+        
     otherwise
+        
+        error('err')
+        
+end
+
+nRows_RowPartition_1 = nchoosek(m + n - k + 2, 2);
+nRows_RowPartition_2 = nchoosek(m + o - k + 2, 2);
+
+R1 = Sk(1 : nRows_RowPartition_1, :);
+R2 = Sk(nRows_RowPartition_1 + 1 : end , : );
+
+max_R1 = max(max(abs(R1(R1~=0))));
+min_R1 = min(min(abs(R1(R1~=0))));
+
+max_R2 = max(max(abs(R2(R2~=0))));
+min_R2 = min(min(abs(R2(R2~=0))));
+
+r1 = max_R1 ./ min_R1;
+r2 = max_R2 ./ min_R2;
+
+fprintf('Ratio r1 : %e \n',r1);
+fprintf('Ratio r2 : %e \n', r2);
+
+end
+
+
+
+function Sk = BuildSylvesterMatrix_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k)
+% BuildSylvesterMatrix_3Polys(fxy, fxy2, gxy, hxy, m, n, k)
+%
+% Build the Sylvester subresultant matrix S_{k}(f,g)
+%
+%
+% Inputs
+%
+% fxy : (Matrix)
+%
+% fxy2 : (Matrix)
+%
+% gxy : (Matrix)
+%
+% hxy : (Matrix) Coefficients of the polynomial f(x,y), g(x,y) and
+% h(x,y)
+%
+% m : (Int) Degree of f(x,y)
+%
+% n : (Int) Degree of g(x,y)
+%
+% o : (Int) degree of h(x,y)
+%
+% k : Index of the Sylvester subresultant matrix S_{k} to be constructed.
+
+
+global SETTINGS
+switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+    case 'T'
+        
+        
+        T = BuildT_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k);
+        
+        Sk = T;
+        
+    case 'DT'
+        
+        D = BuildD_3Polys_3Eqns(m, n, o, k);
+        T = BuildT_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k);
+        
+        % Build the matrix DT
+        Sk = D*T;
+        
+    case 'DTQ'
+        
+        
+        D = BuildD_3Polys_3Eqns(m, n, o, k);
+        T = BuildT_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k);
+        Q = BuildQ_3Polys(m, n, o, k);
+        
+        % Build the matrix DTQ
+        Sk = D*T*Q;
+        
+        
+    case 'TQ'
+        
+        T = BuildT_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k);
+        Q = BuildQ_3Polys(m, n, o, k);
+        
+        
+        Sk = T * Q;
+        
+    case 'DTQ Denominator Removed'
+        
+        error('Not Yet Complete')
+        
+    otherwise
+        
+        error('err')
         
 end
 

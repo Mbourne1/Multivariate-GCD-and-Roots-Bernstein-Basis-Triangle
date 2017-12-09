@@ -24,13 +24,13 @@ function T1 = BuildT1(fxy, m, n_k)
 % T1 : (Matrix) The partition T_{n-k}(f) of the Sylvester matrix S_{k}(f,g)
 
 % Get number of coefficients of v(x,y)
-nCoefficients_vxy = nchoosek(n_k + 2,2);
+nCoefficients_vxy = nchoosek(n_k + 2, 2);
 
 % Get number of coefficients in the product fg = h(x,y)
-nCoefficients_hxy = nchoosek(m+n_k+2,2);
+nCoefficients_hxy = nchoosek(m + n_k + 2, 2);
 
 % Initialise a zero matrix
-zero_matrix = zeros(m+n_k+1,m+n_k+1);
+zero_matrix = zeros(m + n_k + 1, m + n_k + 1);
 
 T1 = zeros(nCoefficients_hxy,nCoefficients_vxy);
 

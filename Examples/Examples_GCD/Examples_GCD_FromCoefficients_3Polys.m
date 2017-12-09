@@ -35,6 +35,10 @@ addpath(genpath('../Examples'));
 [f_root_mult_arr, g_root_mult_arr, h_root_mult_arr, d_root_mult_arr,...
     u_root_mult_arr, v_root_mult_arr, w_root_mult_arr] = GCD_Examples_Bivariate_3Polys(ex_num);
 
+
+% Given the set of symbolic factors and corresponding multiplicities, get
+% the matrices of coefficients of f(x,y), g(x,y) and h(x,y) as well as
+% d(x,y), u(x,y), v(x,y) and w(x,y)
 [fxy] = GetCoefficientsFromSymbolicRoots(f_root_mult_arr);
 [gxy] = GetCoefficientsFromSymbolicRoots(g_root_mult_arr);
 [hxy] = GetCoefficientsFromSymbolicRoots(h_root_mult_arr);
@@ -45,7 +49,7 @@ addpath(genpath('../Examples'));
 [vxy] = GetCoefficientsFromSymbolicRoots(v_root_mult_arr);
 [wxy] = GetCoefficientsFromSymbolicRoots(w_root_mult_arr);
 
-% Get the symbolic polynomials in power form
+% Get the symbolic polynomials in the power basis for printing to screen.
 symbolic_f = GetSymbolicPoly(f_root_mult_arr);
 symbolic_g = GetSymbolicPoly(g_root_mult_arr);
 symbolic_h = GetSymbolicPoly(h_root_mult_arr);
@@ -60,7 +64,6 @@ symbolic_w = GetSymbolicPoly(w_root_mult_arr);
 display(symbolic_f)
 display(symbolic_g)
 display(symbolic_h)
-
 display(symbolic_d)
 
 
@@ -70,7 +73,7 @@ display(symbolic_d)
 [o, o1, o2] = GetDegreeStructure(symbolic_h);
 [t, t1, t2] = GetDegreeStructure(symbolic_d);
 
-
+% Print Degree structure to screen
 fprintf([mfilename ' : ' sprintf('Total Degree of f(x,y) : %i \n',m)]);
 fprintf([mfilename ' : ' sprintf('Total Degree of g(x,y) : %i \n',n)]);
 fprintf([mfilename ' : ' sprintf('Total Degree of h(x,y) : %i \n',o)]);

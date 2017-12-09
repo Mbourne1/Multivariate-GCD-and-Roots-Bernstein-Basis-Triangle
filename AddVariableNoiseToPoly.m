@@ -31,15 +31,16 @@ global SETTINGS
 rng(SETTINGS.SEED)
 
 % Generate random variables r_{i}
-r = (2*rand(m+1,m+1))-ones(m+1,m+1);
+a = -1;
+b = 1;
+r = a + ((b - a).* rand(m+1,m+1)); 
 
-
-% Generate random variables v_{i}
-v = rand(m+1, m+1);
 
 % Get vector 'eps' - the vector which stores the upper Noise/Signal
 % threshold \epsilon_{i} for each cofficient a_{i}
-eps = el + v.*(eu-el);
+a = el;
+b = eu;
+eps = a + rand(m + 1, m + 1).*(b - a);
 
 % Calculate the noise vector = a_{i}r_{i}.*\epsilon_{i}
 noise_matrix = fxy .* r .* eps;

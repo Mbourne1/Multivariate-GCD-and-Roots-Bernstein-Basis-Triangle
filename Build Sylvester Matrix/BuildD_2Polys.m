@@ -19,7 +19,7 @@ for i = 0:1:m+n_k
     
     for j = 0:1:m+n_k-i    
         
-        temp_mat(i+1,j+1) = 1./Trinomial(m+n_k,i,j);
+        temp_mat(i+1,j+1) = 1./Trinomial(m + n_k, i, j);
         
     end
     

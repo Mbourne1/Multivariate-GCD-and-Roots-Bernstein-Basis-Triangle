@@ -20,10 +20,10 @@ function f_vec = GetAsVector(fxy_matrix)
 count = 1;
 
 % Initialise an empty vector for coefficients of f(x,y)
-f_vec = zeros((m1+1)*(m2+1),1);
+f_vec = zeros((m1 + 1) * (m2 + 1), 1);
 
 % Get the number of diagonals in the matrix of coefficients of f(x,y)
-nDiagonals = (m1+1)+(m2+1)-1;
+nDiagonals = (m1 + 1) + (m2 + 1) -1;
 
 
 for tot = 0 : 1 : nDiagonals
@@ -32,7 +32,7 @@ for tot = 0 : 1 : nDiagonals
         
         if( i > m1 || j > m2)
         else
-            f_vec(count) = fxy_matrix(i+1,j+1);
+            f_vec(count) = fxy_matrix(i + 1, j + 1);
             count = count + 1;
         end
         

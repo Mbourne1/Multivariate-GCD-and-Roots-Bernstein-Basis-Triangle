@@ -35,9 +35,12 @@ end
 global SETTINGS
 if( SETTINGS.PREPROC_DECONVOLUTIONS)
     
-    %[th1, th2] = GetOptimalTheta(arr_fxy);
-    th1 = 1;
-    th2 = 1;
+    try    
+        [th1, th2] = GetOptimalTheta(arr_fxy);
+    catch
+        th1 = 1;
+        th2 = 1;
+    end
     
 else
     
@@ -84,10 +87,10 @@ function C_fxy = BuildC(arr_fxy)
 % C_fxy : (Matrxi)
 
 % Get number of polynomials in f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy,1);
+nPolys_arr_fxy = size(arr_fxy, 1);
 
 % Get degree of each polynomial f_{i}(x,y)
-vDeg_fxy = zeros(nPolys_arr_fxy,1);
+vDeg_fxy = zeros(nPolys_arr_fxy, 1);
 
 for i = 1 : 1 : nPolys_arr_fxy
     
@@ -98,10 +101,10 @@ end
 arr_DT1Q1 = cell(nPolys_arr_fxy, 1);
 
 % For each of the polynomials excluding the first f_{1},...,f_{d}
-for i = 2:1:nPolys_arr_fxy
+for i = 2 : 1 : nPolys_arr_fxy
     
     % Get the degree of f{i-1}
-    n = vDeg_fxy(i-1);
+    n = vDeg_fxy(i - 1);
     
     % Get the degree of f{i}
     m = vDeg_fxy(i);
@@ -110,11 +113,11 @@ for i = 2:1:nPolys_arr_fxy
     fxy = arr_fxy{i};
     
     % Build the matrix T_{n-m}(f(x,y))
-    T1 = BuildT1(fxy, m, n-m);
+    T1 = BuildT1(fxy, m, n - m);
     
     
-    D = BuildD_2Polys(m, n-m);
-    Q1 = BuildQ1(n-m);
+    D = BuildD_2Polys(m, n - m);
+    Q1 = BuildQ1(n - m);
     
     arr_DT1Q1{i-1} = D*T1*Q1;
 end

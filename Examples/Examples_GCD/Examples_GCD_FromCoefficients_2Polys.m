@@ -1,4 +1,4 @@
-function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients_2Polys(ex_num)
+function [fxy, gxy, uxy, vxy, dxy, m, n, t] = Examples_GCD_FromCoefficients_2Polys(ex_num)
 %
 % % Inputs
 %
@@ -7,9 +7,13 @@ function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD_FromCoefficients_2Polys(ex_n
 %
 % % Outputs
 %
-% fxy : (Vector) Coefficients of polynomial f(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
 %
-% gxy : (Vector) Coefficients of polynomial g(x,y)
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
+%
+% uxy : (Matrix) Coefficients of u(x,y)
+%
+% vxy : (Matrix) Coefficients of v(x,y)
 %
 % dxy : (Vector) Coefficients of polynomial d(x,y)
 %

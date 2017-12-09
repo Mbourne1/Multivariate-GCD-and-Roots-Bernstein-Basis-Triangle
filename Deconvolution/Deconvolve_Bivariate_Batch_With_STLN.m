@@ -24,9 +24,8 @@ global SETTINGS
 % Form the left hand side matrix
 
 % Get number of polynomials in the array arr_fxy of f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy,1);
-
 % Get number of polynomials in the array arr_hxy of h_{i}(x,y)
+nPolys_arr_fxy = size(arr_fxy, 1);
 nPolys_arr_hxy = nPolys_arr_fxy - 1;
 
 % %
@@ -59,6 +58,7 @@ vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 if( SETTINGS.PREPROC_DECONVOLUTIONS)
     
     [th1, th2] = GetOptimalTheta(arr_fxy);
+    
 else
     th1 = 1;
     th2 = 1;
@@ -80,7 +80,8 @@ arr_fww = GetPolynomialArrayWithThetas(arr_fxy, th1, th2);
 vRHS_fww = BuildRHS_vec(arr_fww);
 
 % Build the matrix C(f1,...,fd)
-DT_fwwQ = BuildDTQ_2Polys(arr_fww);
+
+DT_fwwQ = BuildLHS_Matrix(arr_fww);
 
 % Get vector of coefficients of the polynomials h_{i}(x,y)
 v_hww = SolveAx_b(DT_fwwQ,vRHS_fww);
@@ -93,7 +94,7 @@ arr_hww = GetPolynomialArrayFromVector(v_hww,vDeg_arr_hxy);
 % z = [z0 z1 ... zd]
 arr_zww = cell(nPolys_arr_fxy,1);
 
-for i = 1:1:nPolys_arr_fxy
+for i = 1 : 1 : nPolys_arr_fxy
     m = vDeg_arr_fxy(i);
     arr_zww{i,1} = zeros(m+1,m+1);
 end
@@ -125,7 +126,6 @@ end
 
 % Get number of coefficients in all polynomials f_{i}(x,y)
 nCoefficients_fxy = sum(v_nCoefficients_arr_fxy);
-
 nCoefficients_hxy = sum(v_nCoefficients_arr_hxy);
 
 % Get sum of all coefficients except the final f_{i}(x,y)
@@ -144,28 +144,34 @@ P = [...
 DY_hQ = BuildDYQ(arr_hww,vDeg_arr_fxy);
 
 % Compute the initial residual
-res_vec = ((vRHS_fww + v_RHS_zww) - (DT_fwwQ*v_hww));
+t = ((vRHS_fww + v_RHS_zww) - (DT_fwwQ*v_hww));
 
 % Set the iteration number
 ite = 1;
 
-F = eye(nCoefficients_hxy + nCoefficients_fxy);
+% Define the weight vector
+E = [eye(nCoefficients_fxy) zeros(nCoefficients_fxy, nCoefficients_hxy)];
 
-G = [DT_fwwQ (DY_hQ)-P];
+% Build the matrix C for the LSE problem
+C_z = (DY_hQ) - P;
+C_h = DT_fwwQ;
+C = [ C_z C_h ];
 
 
-
-condition(ite) = norm(res_vec) ./ norm(vRHS_fww);
+% Get the condition 
+condition(ite) = norm(t) ./ norm(vRHS_fww);
 
 start_point = ...
     [
-    v_hww;
-    v_zww;
+        v_zww;
+        v_hww;
     ];
 
 yy = start_point;
 
-s = -(yy - start_point);
+
+
+s = E * (start_point - yy);
 
 % Perform iteration to obtain perturbations
 
@@ -175,47 +181,48 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     % Use the QR decomposition to solve the LSE problem and then
     % update the solution.
     % min |Fy-s| subject to Gy=t
-    y = LSE(F, s, G, res_vec);
+    y = LSE_new(E, s, C, t);
     
     yy = yy + y;
     
     % Output y gives delta h and delta z
-    delta_h = y(1 : nCoefficients_hxy);
-    delta_z = y(nCoefficients_hxy+1 : end);
+    delta_z = y(1 : nCoefficients_fxy);
+    delta_h = y(nCoefficients_fxy + 1 : end);
+    
+
+    % Add structured perturbations to vector z.
+    v_zww = v_zww + delta_z;
     
     % Add structured perturbations to vector h.
     v_hww = v_hww + delta_h;
-    
-    % Add structured perturbations to vector z.
-    v_zww = v_zww + delta_z;
     
     arr_zww = GetPolynomialArrayFromVector(v_zww, vDeg_arr_fxy);
     arr_hww = GetPolynomialArrayFromVector(v_hww, vDeg_arr_hxy);
     
     
     % Increment s in LSE Problem
-    s = -(yy-start_point);
+    s = E * (start_point - yy);
     
     % Build the iterative DY_hQ
-    DY_hQ = BuildDYQ(arr_hww,vDeg_arr_fxy);
+    DY_hQ = BuildDYQ(arr_hww, vDeg_arr_fxy);
     
     % Build D[C(f)+C(h)]Q
-    DC_fQ = BuildDTQ_2Polys(arr_fww);
-    DC_zQ = BuildDTQ_2Polys(arr_zww);
+    DC_fQ = BuildLHS_Matrix(arr_fww);
+    DC_zQ = BuildLHS_Matrix(arr_zww);
     
     % Build G
-    G = [(DC_fQ + DC_zQ) (DY_hQ - P)];
+    C = [(DC_fQ + DC_zQ) (DY_hQ - P)];
     
     % Update the RHS_vector
     vRHS_fww = BuildRHS_vec(arr_fww);
     vRHS_zww = BuildRHS_vec(arr_zww);
     
     % Calculate residual and increment t in LSE Problem
-    res_vec = ((vRHS_fww + vRHS_zww ) - ((DC_fQ + DC_zQ)*v_hww));
+    t = ((vRHS_fww + vRHS_zww ) - ((DC_fQ + DC_zQ)*v_hww));
     
     
     % Get the condition
-    condition(ite +1) = norm(res_vec)./norm((vRHS_fww + vRHS_zww));
+    condition(ite +1) = norm(t)./norm((vRHS_fww + vRHS_zww));
     
     % Increment iteration number
     ite = ite + 1;
@@ -225,12 +232,24 @@ end
 % Get array of polynomials h_{i}(x,y) from h_{i}(\omega1,\omega2)
 arr_hxy = GetPolynomialArrayWithoutThetas(arr_hww,th1,th2);
 
+LineBreakLarge()
+fprintf([mfilename ': Iterations Required : ' num2str(ite) '\n'])
+LineBreakLarge()
 
+
+% Plot Residuals
+figure_name = sprintf([mfilename ' : Residuals']);
+figure('Name',figure_name)
+hold on
+plot(log10(condition),'-s','LineWidth',2)
+xlabel('$ite$','Interpreter','latex','FontSize', 20)
+ylabel('$\log_{10}$','Interpreter','latex','FontSize', 20)
+hold off
 
 
 end
 
-function C_fxy = BuildDTQ_2Polys(arr_fxy)
+function C_fxy = BuildLHS_Matrix(arr_fxy)
 % Build the matrix C(f1,...,fd)
 %
 % Inputs.
@@ -242,10 +261,10 @@ function C_fxy = BuildDTQ_2Polys(arr_fxy)
 % C_fxy :
 
 % Get number of polynomials in f_{i}(x,y)
-nPolys_arr_fxy = size(arr_fxy,1);
+nPolys_arr_fxy = size(arr_fxy, 1);
 
 % Get degree of each polynomial f_{i}(x,y)
-vDeg_arr_fxy = zeros(nPolys_arr_fxy,1);
+vDeg_arr_fxy = zeros(nPolys_arr_fxy, 1);
 
 for i = 1 : 1 : nPolys_arr_fxy
     
@@ -258,24 +277,24 @@ vDeg_arr_hxy = vDeg_arr_fxy(1:end-1) - vDeg_arr_fxy(2:end);
 
 
 % Initialise a cell array
-arr_DT1Q1 = cell(nPolys_arr_fxy-1,1);
+arr_DT1Q1 = cell(nPolys_arr_fxy - 1, 1);
 
 % For each of the polynomials excluding the first f_{1},...,f_{d}
-for i = 1:1:nPolys_arr_fxy-1
+for i = 1 : 1 : nPolys_arr_fxy - 1
     
     
     % Get the degree of f{i}
     m = vDeg_arr_fxy(i+1);
     
+    % Get the degree of h_{i}
     n = vDeg_arr_hxy(i);
     
     % Temporarily call the ith entry f(x,y)
     fxy = arr_fxy{i+1};
     
     % Build the matrix T_{n-m}(f(x,y))
-    T1 = BuildT1(fxy, m, n);
-    
     D = BuildD_2Polys(m, n);
+    T1 = BuildT1(fxy, m, n);
     Q1 = BuildQ1(n);
     
     arr_DT1Q1{i} = D*T1*Q1;

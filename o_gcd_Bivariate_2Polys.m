@@ -64,8 +64,9 @@ if emin > emax
 end
 
 % % Set global variables
-SetGlobalVariables_GCD(ex_num, emin, emax, mean_method, bool_alpha_theta,...
-    low_rank_approx_method, apf_method, sylvester_matrix_type, rank_revealing_metric);
+SetGlobalVariables_GCD_2Polys(ex_num, emin, emax, mean_method, ...
+    bool_alpha_theta, low_rank_approx_method, apf_method, ...
+    sylvester_matrix_type, rank_revealing_metric);
 
 
 % Restore default path and add subfolders of current directory
@@ -82,11 +83,13 @@ fprintf('PREPROCESSING : %s \n',num2str(bool_alpha_theta))
 fprintf('RANK REVEALING METRIC : %s \n', rank_revealing_metric)
 fprintf('LOW RANK METHOD : %s \n',low_rank_approx_method)
 fprintf('APF METHOD : %s \n', apf_method)
+fprintf('SYLVESTER FORMAT : %s \n', sylvester_matrix_type)
 
 
 % %
 % Get two polynomials f(x,y) and g(x,y) from example file.
-[fxy, gxy, uxy_exact, vxy_exact, dxy_exact, m, n, t_exact] = Examples_GCD(ex_num);
+[fxy, gxy, uxy_exact, vxy_exact, dxy_exact, m, n, t_exact] = ...
+    Examples_GCD(ex_num);
 
 
 % %
@@ -100,46 +103,30 @@ gxy = AddVariableNoiseToPoly(gxy, emin, emax);
 limits_t = [0 min(m,n)];
 rank_range = [0 0];
 
-[fxy, gxy, dxy, uxy, vxy, t, rank_range] = o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
+[fxy, gxy, dxy, uxy, vxy, t, rank_range] = ...
+    o_gcd_mymethod_Bivariate_2Polys(fxy, gxy, m, n, limits_t, rank_range);
 
 
 % Get Error in u(x,y), v(x,y) and d(x,y)
-my_error.uxy = GetError(uxy, uxy_exact);
-my_error.vxy = GetError(vxy, vxy_exact);
-my_error.dxy = GetError(dxy, dxy_exact);
+my_error.uxy = GetMatrixDistance(uxy_exact, uxy);
+my_error.vxy = GetMatrixDistance(vxy_exact, vxy);
+my_error.dxy = GetMatrixDistance(dxy_exact, dxy );
 
+%average_error = mean([log10(my_error.uxy) log10(my_error.vxy) log10(my_error.dxy) ]);
+average_error = geomean([(my_error.uxy) (my_error.vxy) (my_error.dxy) ]);
 % Print the error in u(x,y), v(x,y) and d(x,y)
+LineBreakLarge()
 fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', my_error.uxy)]);
 fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', my_error.vxy)]);
 fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', my_error.dxy)]);
+fprintf([mfilename ' : ' sprintf('Average: %e \n', average_error)]);
+LineBreakLarge()
 
 PrintToResultsFile(m,n,t,my_error)
 
 end
 
-function [dist] = GetDistance(fxy, gxy)
-%
-% % Inputs
-%
-% fxy : (Matrix) Coefficients of polynomial f(x,y)
-%
-% gxy : (Matrix) Coefficients of polynomial g(x,y)
-%
-%
-% % Outputs
-%
-% dist : Distance between two polynomials
 
-fxy = fxy./fxy(1,1);
-gxy = gxy./gxy(1,1);
-
-try
-    dist = norm(fxy - gxy) ./ norm(fxy);
-catch
-    dist = 1000;
-end
-
-end
 
 function [] = PrintToResultsFile(m, n, t, my_error)
 
@@ -187,7 +174,7 @@ end
             num2str(SETTINGS.APF_REQ_ITE),...
             SETTINGS.EMIN,...
             SETTINGS.EMAX,...
-            SETTINGS.SYLVESTER_BUILD_METHOD,...
+            SETTINGS.SYLVESTER_MATRIX_FORMAT,...
             SETTINGS.RANK_REVEALING_METRIC...
             );
         
@@ -199,19 +186,3 @@ end
 
 end
 
-function [dist_fxy] = GetError(fxy, fxy_exact)
-% GetError : Get distance between f(x,y) and exact form.
-%
-% % Inputs.
-%
-% fxy : (Matrix) Coefficients of f(x,y) as computed.
-%
-% fxy_exact : (Matrix) Coefficients of f(x,y) exact.
-%
-% % Outputs.
-%
-% dist_fxy : Distance between f(x,y) and exact f(x,y)
-
-dist_fxy = GetDistance(fxy_exact, fxy);
-
-end

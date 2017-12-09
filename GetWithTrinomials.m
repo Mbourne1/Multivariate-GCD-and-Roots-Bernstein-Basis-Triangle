@@ -17,8 +17,9 @@ function fxy_tri = GetWithTrinomials(fxy,m)
 % Initialise a zero matrix to store coefficients of f(x,y)
 fxy_tri = zeros(m+1,m+1);
 
-for i = 0:1:m
-    for j = 0:1:m-i
+for i = 0 : 1 : m
+    for j = 0:1:m - i
+        
         fxy_tri(i+1,j+1) = fxy(i+1,j+1) .* Trinomial(m,i,j);
         
     end

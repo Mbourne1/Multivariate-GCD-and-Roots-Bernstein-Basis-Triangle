@@ -7,7 +7,7 @@ arr_ex_num = {'1', '2', '3', '4', '5', '6'};
 arr_el = {1e-12, 1e-10, 1e-8, 1e-6};
 arr_mean_method = {'Geometric Mean Matlab Method', 'None'};
 arr_bool_alpha_theta = {true, false};
-arr_low_rank_approx_method = {'None','Standard STLN'};
+arr_low_rank_approx_method = {'None','Standard STLN', 'Standard SNTLN'};
 apf_method = 'None';
 arr_sylvester_build_method = {'T','DT', 'TQ', 'DTQ', 'DTQ Denominator Removed'};
 arrRankRevealingMetric = { 'R1 Row Norms', 'R1 Row Diagonals', 'Minimum Singular Values'}; % Code for residuals not complete
@@ -30,25 +30,25 @@ parfor i1 = 1:1:length(arr_ex_num)
                             rank_revealing_metric = arrRankRevealingMetric{i7};
                             
                             
-                            %try
-                            
-                            
-                            close all;
-                            clc;
-                            o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method, rank_revealing_metric);
-                            myFileName = 'log_GCD_Bivariate_2Polys.txt';
-                            fileId = fopen(myFileName,'a');
-                            fprintf(fileId,'%s %s \n',datetime('now'), 'success \n');
-                            fclose(fileId);
-                            
-                            %catch err
-                            
-                            %    myFileName = 'log_GCD_Bivariate_2Polys.txt';
-                            %    fileId = fopen(myFileName,'a');
-                            %    fprintf(fileId,'%s %s \n\n\n', datetime('now'), getReport(err));
-                            %    fclose(fileId);
-                            
-                            %end
+                            try
+                                
+                                
+                                close all;
+                                clc;
+                                o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method, rank_revealing_metric);
+                                myFileName = 'log_GCD_Bivariate_2Polys.txt';
+                                fileId = fopen(myFileName,'a');
+                                fprintf(fileId,'%s %s \n',datetime('now'), 'success \n');
+                                fclose(fileId);
+                                
+                            catch err
+                                
+                                myFileName = 'log_GCD_Bivariate_2Polys.txt';
+                                fileId = fopen(myFileName,'a');
+                                fprintf(fileId,'%s %s \n\n\n', datetime('now'), getReport(err));
+                                fclose(fileId);
+                                
+                            end
                         end
                     end
                 end

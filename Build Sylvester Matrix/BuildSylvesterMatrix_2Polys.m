@@ -23,7 +23,7 @@ function Sk = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, k)
 
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_BUILD_METHOD
+switch SETTINGS.SYLVESTER_MATRIX_FORMAT
     case 'T'
 
         % Build the matrix T_{n-k}(f(x,y))
@@ -78,10 +78,10 @@ switch SETTINGS.SYLVESTER_BUILD_METHOD
         D = BuildD_2Polys(m, n-k);
 
         % Build the matrix T_{n-k}(f(x,y))
-        T1_fx = BuildT1(fxy, m, n-k) ./ nchoosek(m + n - k, n - k);
+        T1_fx = BuildT1(fxy, m, n-k) * nchoosek(m + n - k, n - k);
 
         % Build the matrix T_{m-k}(g(x,y))
-        T1_gx = BuildT1(gxy, n, m-k) ./ nchoosek(m + n - k , m - k);
+        T1_gx = BuildT1(gxy, n, m-k) * nchoosek(m + n - k , m - k);
 
         Q = BuildQ_2Polys(m,n,k);
         

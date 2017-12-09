@@ -1,4 +1,18 @@
-function [lambda] = GetMean(fxy,m,n_k)
+function [lambda] = GetMean(fxy, m, n_k)
+%
+% % Inputs
+%
+% fxy : (Matrix)
+%
+% m : (Int)
+%
+% n_k : (Int)
+%
+% % Outputs
+%
+% lambda : (Float)
+
+
 
 global SETTINGS
 

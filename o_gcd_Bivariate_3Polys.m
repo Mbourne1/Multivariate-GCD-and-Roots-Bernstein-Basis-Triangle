@@ -1,5 +1,7 @@
-function [] = o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type)
-% o_gcd(ex_num,emin,mean_method,bool_alpha_theta,low_rank_approx_method,apf_method,degree_method)
+function [] = o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, ...
+    bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type,...
+    rank_revealing_metric, nEquations)
+% o_gcd(ex_num, emin, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type, rank_revealing_metric)
 %
 % Calculate the GCD d(x,y) of two polynomials f(x,y) and g(x,y) taken from
 % the example file.
@@ -36,39 +38,19 @@ function [] = o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha
 %       * DTQ
 %       * TQ
 %
+% rank_revealing_metric : (String)
+%   'Minimum Singular Values'
+%
+%
 % % Example
 %
 % >> o_gcd_Bivariate_3Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'None', 'None', 'DTQ')
 % >> o_gcd_Bivariate_3Polys('1', 1e-10, 1e-12, 'Geometric Mean Matlab Method', true, 'Standard STLN', 'Standard Nonlinear APF', 'DTQ')
 
 
-% Set the Global Variables
-global SETTINGS
-
 % add path
 restoredefaultpath
-
 addpath(genpath(pwd));
-
-addpath(...
-    'APF',...
-    'Bernstein Functions',...
-    'Build Matrices',...
-    'Build Sylvester Matrix',...
-    'Formatting',...
-    'GCD Methods',...
-    'Get Cofactors',...
-    'Get GCD Coefficients',...
-    'Results'...
-    );
-
-addpath(genpath('Examples'));
-addpath(genpath('Get GCD Degree'));
-addpath(genpath('Preprocessing'));
-addpath(genpath('Low Rank Approximation'));
-
-
-problem_type = 'GCD';
 
 % % Ensure that minimum noise level is less than maximum noise level
 if emin > emax
@@ -78,7 +60,9 @@ if emin > emax
 end
 
 % Set global variables
-SetGlobalVariables(problem_type, ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_type)
+SetGlobalVariables_GCD_3Polys( ex_num, emin, emax, mean_method, ...
+    bool_alpha_theta, low_rank_approx_method, apf_method, ...
+    sylvester_type, rank_revealing_metric, nEquations);
 
 % Print Parameters to screen
 fprintf('INPUTS. \n')
@@ -90,6 +74,9 @@ fprintf('PREPROCESSING : %s \n',num2str(bool_alpha_theta))
 fprintf('LOW RANK METHOD : %s \n',low_rank_approx_method)
 fprintf('APF METHOD : %s \n', apf_method)
 fprintf('SYLVESTER TYPE : %s \n', sylvester_type)
+fprintf('SYLVESTER EQUATIONS : %s \n', num2str(nEquations))
+fprintf('RANK REVEALING METRIC : %s \n', rank_revealing_metric)
+
 
 % Get example polynomials
 [fxy_exact, gxy_exact, hxy_exact,...
@@ -102,21 +89,21 @@ fprintf('SYLVESTER TYPE : %s \n', sylvester_type)
 fprintf('\n')
 fprintf('----------------------------------------------------------------\n')
 fprintf('Input Polynomials Degrees:\n')
-fprintf('m  : %i \n',m)
-fprintf('m1 : %i \n',m1)
-fprintf('m2 : %i \n\n',m2)
+fprintf('m  : %i \n', m)
+fprintf('m1 : %i \n', m1)
+fprintf('m2 : %i \n\n', m2)
 
-fprintf('n  : %i \n',n)
-fprintf('n1 : %i \n',n1)
-fprintf('n2 : %i \n\n',n2)
+fprintf('n  : %i \n', n)
+fprintf('n1 : %i \n', n1)
+fprintf('n2 : %i \n\n', n2)
 
-fprintf('o  : %i \n',o)
-fprintf('o1 : %i \n',o1)
-fprintf('o2 : %i \n\n',o2)
+fprintf('o  : %i \n', o)
+fprintf('o1 : %i \n', o1)
+fprintf('o2 : %i \n\n', o2)
 
-fprintf('t  : %i \n',t_exact)
-fprintf('t1 : %i \n',t1_exact)
-fprintf('t2 : %i \n',t2_exact)
+fprintf('t  : %i \n', t_exact)
+fprintf('t1 : %i \n', t1_exact)
+fprintf('t2 : %i \n', t2_exact)
 fprintf('----------------------------------------------------------------\n')
 fprintf('\n')
 fprintf('----------------------------------------------------------------\n')
@@ -131,9 +118,6 @@ fprintf('----------------------------------------------------------------\n')
 [gxy, ~] = AddVariableNoiseToPoly(gxy_exact, emin, emax);
 [hxy, ~] = AddVariableNoiseToPoly(hxy_exact, emin, emax);
 
-% %
-% % Get the GCD by zengs method
-%[u,v,w] = o_gcd_zeng(fxy,gxy);
 
 
 % Get GCD d(x,y) and quotient polynomials u(x,y) and v(x,y)
@@ -141,31 +125,11 @@ lowerLimit = 1;
 upperLimit = min([m,n,o]);
 t_limits = [lowerLimit, upperLimit];
 
-
-
-switch SETTINGS.DEGREE_METHOD
-    case 'Total'
-        
-        fxy_matrix_padd = zeros(m+1,m+1);
-        gxy_matrix_padd = zeros(n+1,n+1);
-        
-        [m1, m2] = GetDegree_Bivariate(fxy);
-        fxy_matrix_padd(1:m1+1, 1:m2+1) = fxy;
-        
-        [n1, n2] = size(gxy);
-        gxy_matrix_padd(1:n1+1, 1:n2+1) = gxy;
-        
-        fxy = fxy_matrix_padd;
-        gxy = gxy_matrix_padd;
-        
-    case 'Relative'
-        
-    case 'Both'
-end
+rank_range = [0 , 0];
 
 % Get the GCD by my method
 [fxy, gxy, hxy, dxy, uxy, vxy, wxy, t] = ...
-    o_gcd_mymethod_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, t_limits);
+    o_gcd_mymethod_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, t_limits, rank_range);
 
 
 
@@ -173,20 +137,25 @@ end
 my_error.uxy = GetError(uxy, uxy_exact);
 my_error.vxy = GetError(vxy, vxy_exact);
 my_error.wxy = GetError(wxy, wxy_exact);
-
 my_error.dxy = GetError(dxy, dxy_exact);
 
+my_error.mean = geomean([my_error.uxy, my_error.vxy, my_error.wxy my_error.dxy]);
+
+
 % Print the error in u(x,y), v(x,y) and d(x,y)
+LineBreakLarge()
 fprintf([mfilename ' : ' sprintf('Distance u(x,y) : %e \n', my_error.uxy)]);
 fprintf([mfilename ' : ' sprintf('Distance v(x,y) : %e \n', my_error.vxy)]);
 fprintf([mfilename ' : ' sprintf('Distance w(x,y) : %e \n', my_error.wxy)]);
 fprintf([mfilename ' : ' sprintf('Distance d(x,y) : %e \n', my_error.dxy)]);
+fprintf([mfilename ' : ' sprintf('Average : %e \n', my_error.mean)])
+LineBreakLarge()
 
 PrintToResultsFile(m, n, o, t, my_error)
 
 end
 
-function [dist] = GetDistance(fxy,gxy)
+function [dist] = GetDistance(fxy, gxy)
 % Get Distance between two matrices
 %
 % % Inputs
@@ -196,13 +165,36 @@ function [dist] = GetDistance(fxy,gxy)
 % gxy : (Matrix) Coefficients of the polynomial g(x,y)
 
 
-fxy = fxy./fxy(1,1);
-gxy = gxy./gxy(1,1);
+%fxy = fxy./fxy(1,1);
+%gxy = gxy./gxy(1,1);
+
+fxy = fxy ./ norm(fxy);
+gxy = gxy ./ norm(gxy);
+
+
+sum_f = sum(sum(fxy));
+sum_g = sum(sum(gxy));
+
+if sum_f * sum_g < 0
+   gxy = gxy.* -1; 
+end
+
+%fxy = MakePositive(fxy);
+%gxy = MakePositive(gxy);
 
 try
     dist = norm(fxy - gxy) ./ norm(fxy);
 catch
     dist = 1000;
+end
+
+end
+
+
+function fxy = MakePositive(fxy)
+
+if fxy(1) < 0
+    fxy = fxy.*-1;
 end
 
 end
@@ -263,7 +255,7 @@ end
             num2str(SETTINGS.APF_REQ_ITE),...
             SETTINGS.EMIN,...
             SETTINGS.EMAX,...
-            SETTINGS.SYLVESTER_MATRIX_TYPE...
+            SETTINGS.SYLVESTER_MATRIX_FORMAT...
             );
         % 19 arguments
         
@@ -288,7 +280,7 @@ function [dist_fxy] = GetError(fxy,fxy_exact)
 %
 % dist_fxy : Distance between f(x,y) and exact f(x,y)
 
-dist_fxy = GetDistance(fxy_exact,fxy);
+dist_fxy = GetDistance(fxy_exact, fxy);
 
 end
 

@@ -1,4 +1,4 @@
-function [fxy,m] = Examples_Roots(ex_num)
+function [fxy, arr_fxy, arr_hxy, arr_wxy,  m] = Examples_Roots(ex_num)
 % Examples_Roots(ex_num)
 %
 % Given an example number, return the matrix of coefficients of a
@@ -14,24 +14,19 @@ function [fxy,m] = Examples_Roots(ex_num)
 %
 % fxy : Coefficients of matrix f(x,y)
 %
-% m : Total degree of f(x,y)
+% arr_fxy : (Array of Matrices)
+%
+% arr_hxy : (Array of Matrices)
+%
+% arr_wxy : (Array of Matrices)
+%
+% m : (Int) Total degree of f(x,y)
 
 
 
+[fxy, arr_fxy, arr_hxy, arr_wxy, m] = Examples_Roots_FromCoefficients(ex_num);
 
-TYPE = 'From Coefficients';
 
-switch TYPE 
-    case 'From Roots'
-        
-        [fxy,m] = Examples_Roots_FromRoots(ex_num);
-        
-    case 'From Coefficients'
-        
-        [fxy,m] = Examples_Roots_FromCoefficients(ex_num);
-        
-end
-    
 
 
 

@@ -1,4 +1,4 @@
-function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2, rank_range] = ...
+function [t, GM_fx, GM_gx, GM_hx, lambda, mu, rho, th1, th2, rank_range] = ...
     GetGCDDegree_Bivariate_3Polys(fxy, gxy, hxy, m, n, o, limits_t, rank_range)
 % GetGCDDegree_Bivariate_3Polys(fxy, gxy, hxy, m, n, o)
 %
@@ -16,7 +16,7 @@ function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2, rank_range] = ...
 %
 % o : (Int) Degree of polynomial h(x,y)
 %
-% limits_t : [(Int) (Int)] 
+% limits_t : [(Int) (Int)]
 %
 % rank_range : [(Float) (Float) ]
 %
@@ -24,13 +24,21 @@ function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2, rank_range] = ...
 %
 % t : (Int) Degree of GCD d(x,y)
 %
-% GM_fx : (Float) Geometric mean of coefficients of f(x)
+% GM_fx1 : (Float) Geometric mean of coefficients of f(x) in the first
+% partition of the subresultant matrix.
+%
+% GM_fx2 : (Float) Geometric mean of coefficients of f(x) in the third
+% partition of the subresultant matrix.
 %
 % GM_gx : (Float) Geometric mean of coefficients of g(x)
 %
 % GM_hx : (Float) Geometric mean of coefficients of h(x)
 %
 % alpha : (Float) Optimal value of \alpha
+%
+% beta : (Float) Optimal value of \beta
+%
+% gamma : (Float) Optimal value of \gamma
 %
 % th1 : (Float) Optimal value of \theta_{1}
 %
@@ -39,7 +47,7 @@ function [t, GM_fx, GM_gx, GM_hx, alpha, th1, th2, rank_range] = ...
 global SETTINGS
 
 % Get range of Sylvester subresultant matrices to be constructed
-lowerLimit_k = 0;
+lowerLimit_k = 1;
 upperLimit_k = min([m,n,o]);
 limits_k = [lowerLimit_k upperLimit_k];
 
@@ -50,53 +58,99 @@ rank_range_high = rank_range(2);
 nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 arr_SingularValues = cell(nSubresultants, 1);
+arr_NormalisedSingularValues = cell(nSubresultants, 1);
 arr_R1 = cell(nSubresultants, 1);
+
+% Initialise vectors to store geometric means
 vGM_fx = zeros(nSubresultants, 1);
 vGM_gx = zeros(nSubresultants, 1);
 vGM_hx = zeros(nSubresultants, 1);
+
+% Initialise vectors to store alpha, beta, theta_{1} and theta_{2}
 vAlpha = zeros(nSubresultants, 1);
 vBeta = zeros(nSubresultants, 1);
+vGamma = zeros(nSubresultants, 1);
+
 vTh1 = zeros(nSubresultants, 1);
 vTh2 = zeros(nSubresultants, 1);
 
-
-for i = 1:1:nSubresultants
+for i = 1 : 1 : nSubresultants
     
     k = lowerLimit_k + (i-1);
     
     % %
     % Geometric Mean
     
-    % Get Geometric mean of f(x,y) in C_{n-k}(f), g(x,y) and h(x,y)
-    vGM_fx(i) = GetMean(fxy, m, n-k);
-    vGM_gx(i) = GetMean(gxy, n, m-k);
-    vGM_hx(i) = GetMean(hxy, o, n-k);
+    
+    switch SETTINGS.SYLVESTER_MATRIX_3POLY_N_EQUATIONS
+        
+        case '2'
+            % Get Geometric mean of f(x,y) in C_{n-k}(f), g(x,y) and h(x,y)
+            vGM_fx(i) = GetMean_2Partitions(fxy, m, n, o, k );
+            vGM_gx(i) = GetMean(gxy, n, m - k);
+            vGM_hx(i) = GetMean(hxy, o, n - k);
+            
+        case '3'
+            vGM_fx(i) = GetMean_2Partitions(fxy, m, n, o, k );
+            vGM_gx(i) = GetMean_2Partitions(gxy, n, m, o, k);
+            vGM_hx(i) = GetMean_2Partitions(hxy, o, n, m, k);
+            
+        otherwise
+            error('err')
+    end
     
     % Divide entries of f(x,y) and g(x,y) by geometric mean
     fxy_n = fxy ./ vGM_fx(i);
     gxy_n = gxy ./ vGM_gx(i);
     hxy_n = hxy ./ vGM_hx(i);
     
+    
     % %
     % Preprocess
-    [alpha, beta, th1, th2] = Preprocess_3Polys(fxy_n, gxy_n, hxy_n, m, n, o, k);
+    [lambda, mu, rho, th1, th2] = Preprocess_3Polys(fxy_n, gxy_n, hxy_n, m, n, o, k);
     
-    vAlpha(i) = alpha;
-    vBeta(i) = beta;
+    
+    
+    
+    
+    vAlpha(i) = lambda;
+    vBeta(i) = mu;
+    vGamma(i) = rho;
     vTh1(i) = th1;
     vTh2(i) = th2;
-  
+    
     % Get f(x,y) and g(x,y) with thetas to get f(w_{1},w_{2}) and g(w_{1},w_{2})
     fww = GetWithThetas(fxy_n, m, th1, th2);
-    a_gww = alpha .* GetWithThetas(gxy_n, n, th1, th2);
-    b_hww = beta .* GetWithThetas(hxy_n, o, th1, th2);
+    gww = GetWithThetas(gxy_n, n, th1, th2);
+    hww = GetWithThetas(hxy_n, o, th1, th2);
+    
+    if i == 1
+        PlotCoefficients(...
+            {fxy, lambda .* fww,...
+            gxy, mu.*gww, ...
+            hxy, rho.*hww},...
+            {...
+            '$f(x,y)$', '$\lambda \tilde{f}(\omega_{1},\omega_{2})$', ...
+            '$g(x,y)$', '$\mu     \tilde{g}(\omega_{1}, \omega_{2})$', ...
+            '$h(x,y)$', '$\rho    \tilde{h}(\omega_{1}, \omega_{2})$'...
+            });
+        %PlotCoefficients({gxy, mu .* gww}, {'g(x,y)', '\beta g(\omega, \omega)'});
+        %PlotCoefficients({hxy, rho .* hww}, {'h(x,y)', '\gamma h(\omega,\omega)'});
+    end
     
     
     % Build the Sylvester Matrix
-    Sk = BuildSylvesterMatrix_3Polys(fww, a_gww, b_hww, m, n, o, k);
+    Sk = BuildSylvesterMatrix_3Polys(...
+        lambda .* fww, ...
+        mu .* gww, ...
+        rho .* hww , m, n, o, k);
     
     % Get vector of singular values
-    arr_SingularValues{i} = svd(Sk);
+    vSingularValues = svd(Sk);
+    arr_SingularValues{i} = vSingularValues;
+    arr_NormalisedSingularValues{i} = vSingularValues./vSingularValues(1);
+    
+    
     
     [~,R] = qr(Sk);
     [~,c] = size(R);
@@ -163,25 +217,52 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vMetric = log10(vRatio_MaxMin_DiagonalEntry);
         
-    case 'Singular Values'
+    case 'Minimum Singular Values'
         
         vMinimumSingularValues = zeros(length(arr_SingularValues),1);
+        
         for i = 1:1:length(arr_SingularValues)
             
-            vec = arr_SingularValues{i};
-            vMinimumSingularValues(i) = min(vec);
+            vSingularValues = arr_SingularValues{i};
             
+            vMinimumSingularValues(i) = min(vSingularValues);
+            
+        end
+        
+        if(SETTINGS.PLOT_GRAPHS)
+            plotSingularValues_S1(arr_SingularValues{1})
+            plotSingularValues(arr_SingularValues, limits_k, limits_t);
+            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
+            
+            
+        end
+        
+        vMetric = log10(vMinimumSingularValues);
+        
+    case 'Normalised Minimum Singular Values'
+        
+        vMinimumNormalisedSingularValues = zeros(length(arr_NormalisedSingularValues),1);
+        
+        
+        for i = 1:1:length(arr_NormalisedSingularValues)
+            
+            % Get set of all normalised singular values of S_{i}
+            vNormalisedSingularValues = arr_NormalisedSingularValues{i};
+            
+            % Get minimum of the set
+            vMinimumNormalisedSingularValues(i) = min(vNormalisedSingularValues);
             
         end
         
         if(SETTINGS.PLOT_GRAPHS)
             
-            plotSingularValues(arr_SingularValues, limits_k, limits_t);
-            plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
+            
+            plotSingularValues(arr_NormalisedSingularValues, limits_k, limits_t);
+            plotMinimumSingularValues(vMinimumNormalisedSingularValues, limits_k, limits_t, rank_range);
             
         end
         
-        vMetric = log10(vMinimumSingularValues);
+        vMetric = log10(vMinimumNormalisedSingularValues);
         
     case 'Residuals'
         
@@ -197,10 +278,20 @@ if (lowerLimit_k == upperLimit_k)
     % Get the degree of the GCD
     t = GetGCDDegree_OneSubresultant(vMetric);
     
+    GM_fx = vGM_fx(t - lowerLimit_k + 1);
+    GM_gx = vGM_gx(t - lowerLimit_k + 1);
+    GM_hx = vGM_hx(t - lowerLimit_k + 1);
+    
+    lambda = vAlpha(t - lowerLimit_k + 1);
+    mu = vBeta(t - lowerLimit_k + 1);
+    rho = vGamma(t - lowerLimit_k + 1);
+    th1 = vTh1(t - lowerLimit_k + 1);
+    th2 = vTh2(t - lowerLimit_k + 1);
+    
 else
     
     % Get the degree of the GCD
-    t = GetGCDDegree_MultipleSubresultants(vMetric, limits_k, rank_range);
+    t = GetGCDDegree_MultipleSubresultants(vMetric, limits_k, limits_t, rank_range);
     
     rank_range_low = vMetric(t - (lowerLimit_k - 1) );
     if (t < upperLimit_k)
@@ -209,15 +300,19 @@ else
     
     % update rank range
     rank_range = [rank_range_low rank_range_high];
-   
+    
     
     GM_fx = vGM_fx(t - lowerLimit_k + 1);
     GM_gx = vGM_gx(t - lowerLimit_k + 1);
     GM_hx = vGM_hx(t - lowerLimit_k + 1);
-    alpha = vAlpha(t - lowerLimit_k + 1);
+    
+    lambda = vAlpha(t - lowerLimit_k + 1);
+    mu = vBeta(t - lowerLimit_k + 1);
+    rho = vGamma(t - lowerLimit_k + 1);
     th1 = vTh1(t - lowerLimit_k + 1);
     th2 = vTh2(t - lowerLimit_k + 1);
     
 end
 
 end
+

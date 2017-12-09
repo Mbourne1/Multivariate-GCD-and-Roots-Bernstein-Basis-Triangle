@@ -11,9 +11,9 @@ function [t, GM_fx, GM_gx, alpha, th1, th2, rank_range] = GetGCDDegree_Bivariate
 %
 % n : (Int) Total degree of g(x,y)
 %
-% limits_t : (Int Int) 
+% limits_t : (Int Int)
 %
-% rank_range : [Float Float] 
+% rank_range : [Float Float]
 %
 % % Outputs
 %
@@ -41,6 +41,8 @@ nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 % Initialise some arrays
 arr_SingularValues = cell(nSubresultants,1);
+arr_NormalisedSingularValues = cell(nSubresultants,1);
+
 arr_R1 = cell(nSubresultants,1);
 
 vGM_fx = zeros(nSubresultants,1);
@@ -74,15 +76,33 @@ for i = 1:1:nSubresultants
     gww = GetWithThetas(gxy_n, n, vTh1(i), vTh2(i));
     
     
-    plot_preproc(fxy, fww);
-    plot_preproc(gxy, vAlpha(i).*gww);
+    % Plot coefficients of unprocessed and preprocessed polynomails (Only on
+    % first iteration, to avoid too many graphs
+    if i == 1
+        PlotPolynomials(...
+            {fxy, fww, gxy, vAlpha(i)*gww},...
+            {...
+            '$f\left(x, y \right)$',...
+            '$\tilde{f}\left(\omega_{1},\omega_{2}\right)$',...
+            'g(x,y)',...
+            '$\alpha \tilde{g} \left(\omega_{1}, \omega_{2} \right)$'...
+            });
+        
+    end
     
     % %
     % Build the Sylvester Matrix
     Sk = BuildSylvesterMatrix_2Polys(fww, vAlpha(i).*gww, m, n, k);
     
     % Get vector of singular values
-    arr_SingularValues{i} = svd(Sk);
+    
+    vSingularValues = svd(Sk);
+    
+    arr_SingularValues{i} = vSingularValues;
+    arr_NormalisedSingularValues{i} = vSingularValues./vSingularValues(1);
+    
+    
+    
     
     [~,R] = qr(Sk);
     [~,c] = size(R);
@@ -146,13 +166,44 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vMetric = log10(vRatio_MaxMin_DiagonalEntry);
         
+    case 'Normalised Minimum Singular Values'
+        
+        
+        vMinimumNormalisedSingularValues = zeros(length(arr_SingularValues),1);
+        
+        
+        for i = 1:1:length(arr_SingularValues)
+            
+            vSingularValues = arr_SingularValues{i};
+            vMinimumSingularValues(i) = min(vSingularValues);
+            
+            vSingularValues = arr_NormalisedSingularValues{i};
+            vMinimumNormalisedSingularValues(i) = min(vSingularValues);
+            
+        end
+        
+        if(SETTINGS.PLOT_GRAPHS)
+            
+            
+            plotSingularValues(arr_NormalisedSingularValues, limits_k, limits_t);
+            %plotSingularValues(arr_SingularValues, limits_k, limits_t);
+            
+            %plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
+            plotMinimumSingularValues(vMinimumNormalisedSingularValues, limits_k, limits_t, rank_range);
+        end
+        
+        %vMetric = log10(vMinimumSingularValues);
+        vMetric = log10(vMinimumNormalisedSingularValues);
+        
+        
     case 'Minimum Singular Values'
         
         vMinimumSingularValues = zeros(length(arr_SingularValues),1);
+        
         for i = 1:1:length(arr_SingularValues)
             
-            vec = arr_SingularValues{i};
-            vMinimumSingularValues(i) = min(vec);
+            vSingularValues = arr_SingularValues{i};
+            vMinimumSingularValues(i) = min(vSingularValues);
             
             
         end
@@ -160,16 +211,16 @@ switch SETTINGS.RANK_REVEALING_METRIC
         if(SETTINGS.PLOT_GRAPHS)
             
             plotSingularValues(arr_SingularValues, limits_k, limits_t);
+            
             plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
             
         end
         
         vMetric = log10(vMinimumSingularValues);
         
-
     case 'Residuals'
         error('err')
-
+        
     otherwise
         error('Error : Not a valid metric')
 end
@@ -180,7 +231,9 @@ if (lowerLimit_k == upperLimit_k)
     
 else
     
-    t = GetGCDDegree_MultipleSubresultants(vMetric,[lowerLimit_k, upperLimit_k], rank_range);
+    t = GetGCDDegree_MultipleSubresultants(vMetric,[lowerLimit_k, upperLimit_k], limits_t, rank_range);
+    
+    fprintf('Computed Value t : %i',t);
     
     rank_range_low = vMetric(t - lowerLimit_k) + 1;
     rank_range_high = vMetric(t - lowerLimit_k) + 1;
@@ -204,7 +257,7 @@ end
 
 
 
-function plot_preproc(fxy, fww)
+function PlotPolynomials(arrPolys, arrPolyNames)
 %
 % % Inputs
 %
@@ -212,31 +265,63 @@ function plot_preproc(fxy, fww)
 %
 % fww : (matrix) Coefficients of preprocessed polynomial
 
-m = GetDegree_Bivariate(fxy);
 
-nCoefficients_fxy = nchoosek(m+2,2);
-v_fxy = GetAsVector(fxy);
-v_fww = GetAsVector(fww);
-v_fxy = v_fxy(1:nCoefficients_fxy);
-v_fww = v_fww(1:nCoefficients_fxy);
+% Get number of polynomails
+nPolys = length(arrPolys);
 
-% Get entries of maximum and minimum magnitude
-max_fxy = max(abs(v_fxy));
-min_fxy = min(abs(v_fxy));
-max_fww = max(abs(v_fww));
-min_fww = min(abs(v_fww));
 
 figure()
 
 hold on
 
-plot(1:1:nCoefficients_fxy, log10(v_fxy), '-o', 'DisplayName', 'f(x,y)')
-plot(1:1:nCoefficients_fxy, log10(v_fww), '-s', 'DisplayName', 'f(w,w)')
-hline([log10(max_fxy), log10(min_fxy)], {'b','b'});
-hline([log10(max_fww), log10(min_fww)], {'r','r'});
+for i = 1 : 1 : nPolys
+    
+    
+    fxy = arrPolys{i};
+    
+    % Get degree of polynomial
+    m = GetDegree_Bivariate(fxy);
+    
+    % Get number of coefficients
+    nCoefficients_fxy = nchoosek(m + 2, 2);
+    
+    % Get as vector
+    v_fxy = GetAsVector(fxy);
+    v_fxy = v_fxy(1 : nCoefficients_fxy);
+    
+    % Get polynomial name
+    poly_name = arrPolyNames{i};
+    
+    % Plot coefficients
+    plot(1 : 1 : nCoefficients_fxy, log10(v_fxy), '-o', 'DisplayName', poly_name);
+    
+    
+end
 
 
-legend(gca,'show');
+% axis labels
+% 
+xlabel('$i$ : Coefficient Index','Interpreter','latex','FontSize', 20)
+ylabel('$\log_{10} \left( \Re \right)$','Interpreter', 'latex', 'FontSize', 20)
+
+% Legend settings
+leg1 = legend(gca,'show');
+set(leg1,'Interpreter','latex');
+set(leg1,'FontSize',20);
 hold off
+
+
+% Resizing Figure
+myplot = gca;
+myval_side = 0.12;
+myval_base = 0.10;
+set(myplot, 'Position', [ myval_side myval_base 0.98 - myval_side 0.98 - myval_base])
+
+% Set window size
+set(gcf, 'Position', [100, 100, 700, 700])
+
+% Display Properties
+grid on
+box on
 
 end

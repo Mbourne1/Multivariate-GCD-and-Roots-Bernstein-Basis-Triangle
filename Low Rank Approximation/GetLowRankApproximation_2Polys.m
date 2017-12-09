@@ -55,13 +55,13 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         
         % Get polynomials u(\omega_{1},\omega_{2}) and
         % v(\omega_{1},\omega_{2}).
-        [uww,vww] = GetCofactors_2Polys(fww, a_gww,k);
+        [uww, vww] = GetCofactors_2Polys(fww, a_gww,k);
         
         fxy_lr = fxy;
         gxy_lr = gxy;
         
-        uxy_lr = GetWithoutThetas(uww, m-k, th1, th2);
-        vxy_lr = GetWithoutThetas(vww, n-k, th1, th2);
+        uxy_lr = GetWithoutThetas(uww, m - k, th1, th2);
+        vxy_lr = GetWithoutThetas(vww, n - k, th1, th2);
         
         alpha_lr = alpha;
         th1_lr = th1;
@@ -77,13 +77,13 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         a_gww = alpha.*gww;
         
         % Get low rank approximation
-        [fww_lr,a_gww_lr,uww_lr,vww_lr] = STLN(fww, a_gww, k);
+        [fww_lr, a_gww_lr, uww_lr, vww_lr] = STLN(fww, a_gww, k);
         
         
         fxy_lr = GetWithoutThetas(fww_lr, m, th1, th2);
         gxy_lr = GetWithoutThetas(a_gww_lr, n, th1, th2) ./ alpha;
-        uxy_lr = GetWithoutThetas(uww_lr, m-k, th1, th2);
-        vxy_lr = GetWithoutThetas(vww_lr, n-k, th1, th2);
+        uxy_lr = GetWithoutThetas(uww_lr, m - k, th1, th2);
+        vxy_lr = GetWithoutThetas(vww_lr, n - k, th1, th2);
         
         alpha_lr = alpha;
         th1_lr = th1;

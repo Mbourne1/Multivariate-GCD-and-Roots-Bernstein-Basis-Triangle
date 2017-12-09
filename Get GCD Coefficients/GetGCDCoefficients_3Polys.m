@@ -1,4 +1,4 @@
-function dxy = GetGCDCoefficients_3Polys(fxy, gxy, hxy, uxy, vxy, wxy, m, n, o, t)
+function dxy = GetGCDCoefficients_3Polys(fxy1, gxy, hxy, uxy, vxy, wxy, m, n, o, t)
 % Compute coefficients of polynomial d(x,y), by solving the system Ax = b
 % where A is the coefficient matrix given by H^{-1}[C(u);C(v)]G, b is the
 % vector of coefficients of f(x,y) and g(x,y) and b is an unknown vector of
@@ -6,18 +6,30 @@ function dxy = GetGCDCoefficients_3Polys(fxy, gxy, hxy, uxy, vxy, wxy, m, n, o, 
 %
 % % Inputs.
 %
-% [fxy, gxy, hxy] : Coefficients of polynomial f(x,y), g(x,y) and h(x,y)
+% fxy : (Matrix) Coefficients of polynomial f(x,y)
+%
+% gxy : (Matrix) Coefficients of polynomial g(x,y)
+%
+% hxy : (Matrix) Coefficients of polynomial and h(x,y)
 % 
-% [uxy, vxy, wxy] : Coefficients of polynomial u(x,y), v(x,y) and w(x,y)
+% uxy : (Matrix) Coefficients of polynomial u(x,y)
 %
-% [m, n, o] : Total degree of f(x,y), g(x,y) and h(x,y)
+% vxy : (Matrix) Coefficients of polynomial v(x,y)
 %
-% t : Total degree of d(x,y)
+% wxy : (Matrix) Coefficients of polynomial w(x,y)
+%
+% m : (Int) Total degree of f(x,y)
+%
+% n : (Int) Total degree of g(x,y)
+%
+% o : (Int) Total degree of h(x,y)
+%
+% t : (Int) Total degree of d(x,y)
 %
 %
 % % Outputs.
 %
-% dxy : Coefficients of polynomail d(x,y)
+% dxy : (Matrix) Coefficients of polynomail d(x,y)
 %
 
 
@@ -25,20 +37,20 @@ function dxy = GetGCDCoefficients_3Polys(fxy, gxy, hxy, uxy, vxy, wxy, m, n, o, 
 % Build the matrix HCG
 
 % Build matrix H
-H1 = BuildD_2Polys(m-t,t);
-H2 = BuildD_2Polys(n-t,t);
-H3 = BuildD_2Polys(o-t,t);
+H1 = BuildD_2Polys(m - t, t);
+H2 = BuildD_2Polys(n - t, t);
+H3 = BuildD_2Polys(o - t, t);
 
 H = blkdiag(H1,H2,H3);
 
 % Build matrix C_{t}(u)
-C1 = BuildT1(uxy, m-t, t);
+C1 = BuildT1(uxy, m - t, t);
 
 % Build matrix C_{t}(v)
-C2 = BuildT1(vxy, n-t, t);
+C2 = BuildT1(vxy, n - t, t);
 
 % Build matrix C_{t}(w)
-C3 = BuildT1(wxy, o-t, t);
+C3 = BuildT1(wxy, o - t, t);
 
 
 % Build matrix C
@@ -53,19 +65,19 @@ G = BuildQ1(t);
 % first removed)
 
 % Get vector of coefficients of f(x,y)
-v_fxy = GetAsVector(fxy);
-nCoeffs_fxy = nchoosek(m+2,2);
+v_fxy = GetAsVector(fxy1);
+nCoeffs_fxy = nchoosek(m + 2,2);
 v_fxy = v_fxy(1:nCoeffs_fxy);
 
 % Get vector of coefficients of g(x,y)
 v_gxy = GetAsVector(gxy);
-nCoeffs_gxy = nchoosek(n+2,2);
-v_gxy = v_gxy(1:nCoeffs_gxy);
+nCoeffs_gxy = nchoosek(n + 2,2);
+v_gxy = v_gxy(1 : nCoeffs_gxy);
 
 % Get vector of coefficients of g(x,y)
 v_hxy = GetAsVector(hxy);
-nCoeffs_hxy = nchoosek(o+2,2);
-v_hxy = v_hxy(1:nCoeffs_hxy);
+nCoeffs_hxy = nchoosek(o + 2,2);
+v_hxy = v_hxy(1 : nCoeffs_hxy);
 
 
 % Build RHS Vector

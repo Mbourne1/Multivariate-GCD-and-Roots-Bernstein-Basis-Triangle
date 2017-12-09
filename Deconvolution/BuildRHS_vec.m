@@ -1,6 +1,7 @@
 
 function vRHS = BuildRHS_vec(arr_fxy)
-
+%
+% % Inputs
 
 % Get number of polynomials in array f_{i}(x,y)
 nPolys_arr_fxy = size(arr_fxy,1);

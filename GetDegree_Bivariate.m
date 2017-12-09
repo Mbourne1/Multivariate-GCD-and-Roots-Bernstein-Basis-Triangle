@@ -13,9 +13,12 @@ function [m1, m2] = GetDegree_Bivariate(fxy)
 %
 % m2 : (Int) Degree of f(x,y) with respect to variable y.
 
+
+
+
 % Get the number of rows and columns of the matrix containing the
 % coefficients of f(x,y)
-[nRows,nCols] = size(fxy);
+[nRows, nCols] = size(fxy);
 
 m1 = nRows - 1;
 m2 = nCols - 1;

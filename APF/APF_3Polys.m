@@ -1,23 +1,36 @@
-function [fxy_lr, gxy_lr, hxy_lr,...
-    uxy_lr, vxy_lr, wxy_lr, dxy_lr, ...
-    alpha_lr, th1_lr, th2_lr] = ...
-    APF_3Polys(fxy, gxy, hxy,...
-    uxy, vxy, wxy,...
-    alpha, th1, th2,...
-    m, n, o, k)
+function [fxy_lr, gxy_lr, hxy_lr, uxy_lr, vxy_lr, wxy_lr, dxy_lr, ...
+    lambda_lr, mu_lr, rho_lr, th1_lr, th2_lr] = APF_3Polys(fxy, gxy, hxy, uxy, ...
+    vxy, wxy, lambda, mu, rho, th1, th2, m, n, o, k)
 %
 % % Inputs
 %
-% [fxy, gxy, hxy] : (Matrix)(Matrix)(Matrix)
+% fxy : (Matrix) Coefficients of f(x,y)
 %
-% [uxy, vxy, wxy] : (Matrix)(Matrix)(Matrix)
+% gxy : (Matrix) Coefficients of g(x,y)
+%
+% hxy : (Matrix) Coefficients of h(x,y)
+%
+% uxy : (Matrix) Coefficients of u(x,y)
+%
+% vxy : (Matrix) Coefficients of v(x,y)
+%
+% wxy : (Matrix) Coefficietns of w(x,y)
 %
 % alpha : (Float) Optimal value of alpha
 %
-% [th1, th2] : (Float) (Float)
+% beta : (Float) Optimal value of beta
 %
-% [m, n, o] : (Int)(Int)(Int) Total degree of polynomials f(x,y), g(x,y) 
-% and h(x,y)
+% gamma : (Float)
+%
+% th1 : (Float) Optimal value of theta_{1}
+%
+% th2 : (Float) Optimal value of theta_{2}
+% 
+% m : (Int) Total degree of polynomial f(x,y)
+%
+% n : (Int) Total degree of polynomial g(x,y)
+%
+% o : (Int) Total degree of polynomial h(x,y)
 %
 % k : (Int)
 %
@@ -50,17 +63,22 @@ switch SETTINGS.APF_METHOD
     case 'None'
         
         % Get f(\omega_{1},\omega_{2}) and g(\omega_{1},\omega_{2})
-        fww = GetWithThetas(fxy, m, th1, th2);
+        fww = GetWithThetas(fxy, m, th1, th2);        
         gww = GetWithThetas(gxy, n, th1, th2);
         hww = GetWithThetas(hxy, o, th1, th2);
         
         % Get u(\omega_{1},\omega_{2}) and v(\omega_{1},\omega_{2})
-        uww = GetWithThetas(uxy, m-k, th1, th2);
-        vww = GetWithThetas(vxy, n-k, th1, th2);
-        www = GetWithThetas(wxy, o-k, th1, th2);
+        uww = GetWithThetas(uxy, m - k, th1, th2);
+        vww = GetWithThetas(vxy, n - k, th1, th2);
+        www = GetWithThetas(wxy, o - k, th1, th2);
         
         % Get d(\omega_{1},\omega_{2})
-        dww = GetGCDCoefficients_3Polys(fww, gww, hww, uww, vww, www, m, n, o, k);
+        dww = GetGCDCoefficients_3Polys(...
+            lambda .* fww, ...
+            mu .* gww, ...
+            rho .* hww, ...
+            uww, vww, www, ...
+            m, n, o, k);
         
         % Get f(x,y) and g(x,y)
         fxy_lr = fxy;
@@ -73,7 +91,10 @@ switch SETTINGS.APF_METHOD
         wxy_lr = wxy;
         
         % Get \alpha, \theta_{1} and \theta_{2}
-        alpha_lr = alpha;
+        lambda_lr = lambda;
+        mu_lr = mu;
+        rho_lr = rho;
+        
         th1_lr = th1;
         th2_lr = th2;
         
