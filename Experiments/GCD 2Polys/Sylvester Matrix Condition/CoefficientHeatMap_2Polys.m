@@ -1,18 +1,20 @@
 function [] = CoefficientHeatMap_2Polys(m , n, k)
-% 
+% Plot heatmap of scaling effect of 
 %
 % % Input
 %
-% m : (Int)
+% m : (Int) Degree of polynomial f(x,y)
 %
-% n : (Int)
+% n : (Int) Degree of polynomial g(x,y)
 %
-% k : (Int)
+% k : (Int) Index of subresultant matrix
 %
 % >> CoefficientHeatMap(10, 5, 3)
 
-close all; clc;
+close all; 
+clc;
 
+% 
 fxy = ones(m + 1, m + 1);
 gxy = ones(n + 1, n + 1);
 
@@ -25,19 +27,19 @@ arrSylvesterFormats = {...
     'DTQ', ...
     'DTQ Denominator Removed' ...
     };
-
+% Get number of sylvester subresultant matrix variants
 nFormats = length(arrSylvesterFormats);
 
 arrSk = cell(nFormats,1);
 
-for i = 1:1:nFormats
+for i = 1 : 1 : nFormats
    
     arrSk{i} = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, k, arrSylvesterFormats{i});
     
 end
 
 
-for i = 1:1:nFormats
+for i = 1 : 1 : nFormats
    
     format_name = arrSylvesterFormats{i};
     Sk = arrSk{i};

@@ -5063,3 +5063,5 @@ DATE, EX_NUM, m, n, t, ERROR_UXY, ERROR_VXY, ERROR_DXY, MEAN_METHOD, BOOL_ALPHA_
 06-Nov-2017 18:42:45,12,14,11,8,9.005377e-10,7.410582e-10,3.090752e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-10,DTQ,Minimum Singular Values 
 06-Nov-2017 18:49:39,12,14,11,8,5.582028e-09,4.480417e-09,4.293959e-09,None,0,None,0,None,0,1.000000e-14,1.000000e-14,DTQ,Minimum Singular Values 
 06-Nov-2017 18:49:44,12,14,11,8,9.895789e-14,8.115812e-14,3.681717e-14,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-14,1.000000e-14,DTQ,Minimum Singular Values 
+24-Dec-2017 18:57:29,19,23,19,15,1.184742e-10,4.674852e-10,5.575772e-11,None,0,None,0,None,0,1.000000e-14,1.000000e-14,DTQ,Minimum Singular Values 
+24-Dec-2017 18:57:58,19,23,19,15,2.022681e-13,4.200256e-13,9.243235e-14,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-14,1.000000e-14,DTQ,Minimum Singular Values 

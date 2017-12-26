@@ -1,9 +1,18 @@
 function [] = Experiment_DeconvolutionMethod(ex_num)
+% Experiment on the differente deconvolution method, with and without
+% preprocessing
+%
+% % Inputs
+%
+% ex_num : (String) Example Number
 
-close all; clc; 
+
+close all; 
+clc; 
+
+
 global SETTINGS
 SETTINGS.PLOT_GRAPHS = false;
-
 
 % % Good Examples
 %
@@ -22,11 +31,14 @@ SETTINGS.PLOT_GRAPHS = false;
 %
 %
 
+% Set noise level
 emin = 1e-6;
 
+% Perform deconvolutions without preprocessing
 bool_preproc = false;            
 o_deconvolution(ex_num, emin, bool_preproc)
 
+% Perform deconvolutions with preprocessing
 bool_preproc = true;            
 o_deconvolution(ex_num, emin, bool_preproc)
 

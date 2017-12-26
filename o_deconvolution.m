@@ -39,49 +39,59 @@ SETTINGS.PLOT_GRAPHS = true;
 % containing the multiplicity of each factor.
 [factor_mult_arr] = Deconvolution_Examples_Bivariate(ex_num);
 
-factor = factor_mult_arr(:,1);
+vFactor = factor_mult_arr(:,1);
 
 vMult = factor_mult_arr(:,2);
+
 % vMult is symbolic so make it numeric
 vMult = double(vMult);
 
-% Get the highest power of any factor
-highest_pwr = max(vMult);
+% Get the highest multiplicity of any factor in f_{0}(x,y)
+highest_multiplicity = max(vMult);
 
 
 % %
 % %
 % Generate the polynomials f_{0},...,f_{m}(x)
 
-arr_symbolic_fxy = cell(highest_pwr + 1, 1);
+% Initialise array to store polynomials f_{i}(x,y)
+arr_symbolic_fxy = cell(highest_multiplicity + 1, 1);
 
-vDegree_arr_fxy = zeros(highest_pwr + 1, 1);
+% Initialise a vector to store the degree of each polynomial f_{i}(x,y)
+vDegree_arr_fxy = zeros(highest_multiplicity + 1, 1);
 
-for i = 0:1:highest_pwr
+% For each polynomial f_{i}(x,y)
+for i = 0 : 1 : highest_multiplicity
     
-    % Get the multiplicities of the roots of f_{i+1}
+    % Get the multiplicities of the roots of f_{i}
     mults = ((vMult - i) + abs(vMult - i)) ./ 2;
     
-    % Get the symbolic polynomial f_{i+1}
-    arr_symbolic_fxy{i + 1} = prod(factor.^(mults));
+    % Get the symbolic polynomial f_{i}
+    arr_symbolic_fxy{i + 1} = prod(vFactor.^(mults));
     
-    % Get the degree of polynomial f_{i+1}(x)
+    % Get the degree of polynomial f_{i}(x)
     vDegree_arr_fxy(i + 1) = double(feval(symengine, 'degree', (arr_symbolic_fxy{i+1})));
+    
 end
 
 % Display first polynomial
 display(arr_symbolic_fxy{1})
 
+%
+%
+%
+%
+
 % Get the degree structure of the polynomials h_{i} where h_{i} =
 % f_{i-1}/f_{i}.
-vDegt_arr_hxy = -1 .* diff(vDegree_arr_fxy);
+vDegree_arr_hxy = -1 .* diff(vDegree_arr_fxy);
 
 % Get the sequence of polynomials h_{i}(x) in symbolic form
-arr_symbolic_hxy = cell(length(arr_symbolic_fxy)-1, 1);
+arr_symbolic_hxy = cell(length(arr_symbolic_fxy) - 1, 1);
 
 for i = 1 : 1 : length(arr_symbolic_fxy) - 1
     
-    arr_symbolic_hxy{i} = arr_symbolic_fxy{i} / arr_symbolic_fxy{i+1};
+    arr_symbolic_hxy{i} = arr_symbolic_fxy{i} / arr_symbolic_fxy{i + 1};
     
 end
 
@@ -101,18 +111,18 @@ arr_hxy_bernstein_exact = cell(nPolynomials_arr_hxy, 1);
 for i = 1:1:nPolynomials_arr_fxy
     
     
-    arr_fxy_power{i,1} = double(rot90(coeffs(arr_symbolic_fxy{i},[x,y],'All'),2));
+    arr_fxy_power{i, 1} = double(rot90(coeffs(arr_symbolic_fxy{i}, [x,y], 'All'), 2));
     
-    arr_fxy_bernstein{i,1} = PowerToBernstein(arr_fxy_power{i,1},vDegree_arr_fxy(i));
+    arr_fxy_bernstein{i, 1} = PowerToBernstein(arr_fxy_power{i, 1}, vDegree_arr_fxy(i));
     
     if i <= nPolynomials_arr_hxy
         
-        arr_hxy_power_exact{i,1} = double(rot90(coeffs(arr_symbolic_hxy{i},[x,y],'All'),2));
+        arr_hxy_power_exact{i, 1} = double(rot90(coeffs(arr_symbolic_hxy{i}, [x,y], 'All'), 2));
         
-        arr_hxy_bernstein_exact{i,1} = PowerToBernstein(arr_hxy_power_exact{i,1},vDegt_arr_hxy(i));
+        arr_hxy_bernstein_exact{i, 1} = PowerToBernstein(arr_hxy_power_exact{i,1}, vDegree_arr_hxy(i));
         
     else
-        arr_fxy_power{i,1} = 1;
+        arr_fxy_power{i, 1} = 1;
     end
     
 end
@@ -145,9 +155,10 @@ LineBreakLarge();
 arr_hxy = cell(nMethods,1);
 arr_Error = cell(nMethods,1);
 
+% For each deconvolution method
 for i = 1 : 1 : nMethods
     
-    % Get deconvolution method
+    % Get name of deconvolution method
     method_name = arr_DeconvolutionMethod{i};
     
     switch method_name
@@ -174,7 +185,7 @@ for i = 1 : 1 : nMethods
     
     fprintf([mfilename ' : ' sprintf('%s \n', method_name )]);
     
-    arr_Error{i,1} = GetErrors(arr_hxy{i}, arr_hxy_bernstein_exact);
+    arr_Error{i, 1} = GetErrors(arr_hxy{i}, arr_hxy_bernstein_exact);
     
 end
 
@@ -182,9 +193,7 @@ end
 
 
 
-% Plotting
-
-
+% Plotting results
 
 if (SETTINGS.PLOT_GRAPHS)
     
@@ -205,6 +214,8 @@ if (SETTINGS.PLOT_GRAPHS)
         
     end
     
+    % Figure Layout
+    
     grid on
     box on
     
@@ -212,12 +223,14 @@ if (SETTINGS.PLOT_GRAPHS)
     set(l,'Interpreter','latex');
     set(l,'FontSize',16);
     
+    
     myval_side = 0.10;
     myval_base = 0.08;
     myplot = gca;
     set(myplot, 'Position', [ myval_side myval_base 0.98 - myval_side 0.98 - myval_base])
     set(gcf, 'Position', [100, 100, 710, 650])
     
+    % Figure Labels
     xlabel('i : Index of factor $f_{i}(x)$', 'Interpreter', 'latex','FontSize',20);
     ylabel('$\log_{10} (\epsilon)$','Interpreter', 'latex', 'FontSize', 20);
     hold off
@@ -228,7 +241,7 @@ end
 %--------------------------------------------------------------------------
 % Console writing
 
-for i = 1:1:nMethods
+for i = 1 : 1 : nMethods
     
     methodName = arr_DeconvolutionMethod{i};
     vError = arr_Error{i};

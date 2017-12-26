@@ -24,7 +24,8 @@ function [fxy,gxy,uxy,vxy,dxy,m,n,t] = Examples_GCD(ex_num)
 
 
 
-[fxy, gxy, uxy, vxy, dxy, m, n, t] = Examples_GCD_FromCoefficients_2Polys(ex_num);
+[fxy, gxy, uxy, vxy, dxy, m, n, t] = ...
+    Examples_GCD_FromCoefficients_2Polys(ex_num);
         
   
 
