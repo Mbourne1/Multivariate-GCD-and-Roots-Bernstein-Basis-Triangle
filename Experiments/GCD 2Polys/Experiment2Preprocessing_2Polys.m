@@ -25,8 +25,8 @@ clc;
 % Constants
 
 % Set upper and lower noise level
-el = 1e-14;
-eu = 1e-14;
+el = 1e-5;
+eu = 1e-5;
 
 % Low rank approximation method
 % 'None'
