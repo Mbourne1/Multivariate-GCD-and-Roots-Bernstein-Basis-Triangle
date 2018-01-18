@@ -55,7 +55,7 @@ global SETTINGS
 %   * true
 %   * false
 %
-SETTINGS.PLOT_GRAPHS = false;
+SETTINGS.PLOT_GRAPHS = true;
 
 
 
@@ -169,4 +169,6 @@ SETTINGS.DECONVOLUTION_METHOD_HXY = deconvolution_method_hx;
 %
 SETTINGS.DECONVOLUTION_METHOD_WXY = deconvolution_method_wx;
 SETTINGS.PREPROC_DECONVOLUTIONS = true;
+
+SETTINGS.MAX_ERROR_DECONVOLUTIONS = 1e-10;
 end
