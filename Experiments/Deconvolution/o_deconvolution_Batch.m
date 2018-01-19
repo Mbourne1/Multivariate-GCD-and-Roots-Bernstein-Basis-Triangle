@@ -6,7 +6,7 @@ function [] = o_deconvolution_Batch()
 
 global SETTINGS
 
-SETTINGS.PLOT_GRAPHS = false;
+SETTINGS.PLOT_GRAPHS_DECONVOLUTION = false;
 
 % Get Example Numbers
 arr_ex_num = {'1', '2', '3'};

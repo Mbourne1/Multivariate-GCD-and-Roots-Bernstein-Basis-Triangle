@@ -92,7 +92,7 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         
         %[uxy_lr,vxy_lr] = GetCofactors(fxy_lr,gxy_lr,t);
         
-        if( SETTINGS.PLOT_GRAPHS)
+        if( SETTINGS.PLOT_GRAPHS_LRA)
             
             % Build the Sylvester matrix of f(x,y) and g(x,y)
             S1 = BuildDTQ_2Polys(fxy, gxy, k);
@@ -127,7 +127,7 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
         
         
         
-        if( SETTINGS.PLOT_GRAPHS)
+        if( SETTINGS.PLOT_GRAPHS_LRA)
             
                 
                 % Get f(\omega_{1},\omega_{2}) and g(\omega_{1},\omega_{2})

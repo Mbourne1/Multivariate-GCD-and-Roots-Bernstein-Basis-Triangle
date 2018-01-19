@@ -12,7 +12,7 @@ clc;
 
 
 global SETTINGS
-SETTINGS.PLOT_GRAPHS = false;
+SETTINGS.PLOT_GRAPHS_DECONVOLUTION = false;
 
 % % Good Examples
 %

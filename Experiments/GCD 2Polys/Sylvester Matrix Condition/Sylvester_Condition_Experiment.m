@@ -141,7 +141,7 @@ hold off
 
 end
 
-function condition = GetConditionFirstPartition(mat_fxy, m, n, k, sylvester_build_method)
+function condition = GetConditionFirstPartition(mat_fxy, m, n, k, sylvester_matrix_variant)
 %
 % % Inputs
 %
@@ -149,9 +149,9 @@ function condition = GetConditionFirstPartition(mat_fxy, m, n, k, sylvester_buil
 %
 % n_k : (Int)
 %
-% sylvester_build_method
+% sylvester_matrix_variant: (String)
 
-switch sylvester_build_method
+switch sylvester_matrix_variant
 
     
     case 'DTQ'
@@ -217,15 +217,16 @@ switch sylvester_build_method
         T1 = T1 ./ com_denom_T1;
         Cf = D*[T1]*Q1;
         condition = cond(Cf);
-
+    otherwise
+        error('err')
 end
 
 end
 
 
-function condition = GetConditionSylvesterMatrix(mat_fxy, mat_gxy, m ,n , k, sylvester_build_method)
+function condition = GetConditionSylvesterMatrix(mat_fxy, mat_gxy, m ,n , k, sylvester_matrix_variant)
 
-switch sylvester_build_method
+switch sylvester_matrix_variant
 
     
     case 'DTQ'
@@ -298,7 +299,9 @@ switch sylvester_build_method
         T2 = T2 ./ com_denom_T2;
         Sk = D*[T1 T2]*Q;
         condition = cond(Sk);
-
+        
+    otherwise 
+        error('err');
 end
 
 end

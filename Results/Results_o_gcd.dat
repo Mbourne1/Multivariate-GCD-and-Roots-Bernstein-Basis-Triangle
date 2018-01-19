@@ -1,0 +1,19 @@
+DATE, EX_NUM, m, n, t, ERROR_UXY, ERROR_VXY, ERROR_DXY, MEAN_METHOD, BOOL_ALPHA_THETA, LOW_RANK_APPROX_METHOD, LRA_ITE, APF_METHOD, APF_ITE, error_min, error_max, SUBRESULTANT_FORMAT, RANK_REVEALING_METRIC 
+19-Jan-2018 19:29:05,1,7,7,4,1.245993e-05,2.253122e-05,1.415007e-05,None,0,None,0,None,0,1.000000e-05,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:29:08,1,7,7,4,2.017461e-05,2.729059e-05,1.941614e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-05,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:39:51,1,7,7,4,1.245993e-05,2.253122e-05,1.415007e-05,None,0,None,0,None,0,1.000000e-05,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:39:55,1,7,7,4,2.017461e-05,2.729059e-05,1.941614e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-05,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:43:37,1,7,7,4,1.245993e-05,2.253122e-05,1.415007e-05,None,0,None,0,None,0,1.000000e-05,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:43:40,1,7,7,4,2.017461e-05,2.729059e-05,1.941614e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-05,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:44:45,1,7,7,4,1.911854e-05,2.756686e-05,1.929357e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:44:48,1,7,7,4,1.911854e-05,2.756686e-05,1.929357e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:44:51,1,7,7,4,1.911854e-05,2.756686e-05,1.929357e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:44:54,1,7,7,4,1.911854e-05,2.756686e-05,1.929357e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:44:57,1,7,7,4,1.911854e-05,2.756686e-05,1.929357e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:45:03,2,13,11,8,1.060450e-04,7.848141e-05,6.123202e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:45:08,2,13,11,8,1.060450e-04,7.848141e-05,6.123202e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:45:12,2,13,11,8,1.060450e-04,7.848141e-05,6.123202e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:45:17,2,13,11,8,1.060450e-04,7.848141e-05,6.123202e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:45:23,2,13,11,8,1.060450e-04,7.848141e-05,6.123202e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:45:50,3,20,21,16,3.102080e-06,5.186992e-05,1.849410e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 
+19-Jan-2018 19:46:17,3,20,21,16,3.102080e-06,5.186992e-05,1.849410e-05,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-06,1.000000e-05,DTQ,Minimum Singular Values 

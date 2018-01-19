@@ -14,7 +14,7 @@ function [] = Experiment2Preprocessing_2Polys(ex_num)
 % >> Experiment2Preprocessing_2Polys('19')
 
 
-addpath(genpath(pwd));
+
 close all;
 clc;
 

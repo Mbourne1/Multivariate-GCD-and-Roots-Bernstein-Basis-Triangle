@@ -18,7 +18,7 @@ calling_function = St(2).name;
 fprintf([calling_function ' - ' mfilename ' : ' 'Only one subresultant exists. \n'])
 
 
-if( SETTINGS.PLOT_GRAPHS)
+if( SETTINGS.PLOT_GRAPHS_RANK)
     
         figure_name = sprintf([calling_function ' : Singular values of S_{1} \n']);
         figure('name',figure_name)

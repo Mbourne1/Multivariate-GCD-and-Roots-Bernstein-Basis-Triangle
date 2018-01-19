@@ -1,5 +1,5 @@
 global SETTINGS
-if( SETTINGS.PLOT_GRAPHS)
+if( SETTINGS.PLOT_GRAPHS_RANK)
     
     % plot the minimum singular values
     figure_name = sprintf('%s : Minimum Singular Values of %s',mfilename,SETTINGS.SYLVESTER_MATRIX_TYPE);

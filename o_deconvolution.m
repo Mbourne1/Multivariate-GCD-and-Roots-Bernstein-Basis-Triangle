@@ -195,7 +195,7 @@ end
 
 % Plotting results
 
-if (SETTINGS.PLOT_GRAPHS)
+if (SETTINGS.PLOT_GRAPHS_DECONVOLUTION)
     
     figure_name = sprintf([mfilename ':' 'Deconvolution Methods Error']);
     figure('name',figure_name)

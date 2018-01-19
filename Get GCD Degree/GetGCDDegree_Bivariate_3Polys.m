@@ -182,7 +182,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             
             plotRowNorms(arr_R1RowNorms, limits_k, limits_t)
             plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t, rank_range)
@@ -208,7 +208,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vRatio_MaxMin_DiagonalEntry = vMinDiagonalEntry ./ vMaxDiagonalEntry;
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             
             %plotDiagonalsR1(arr_R1, myLimits, limits_t)
             plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t, rank_range);
@@ -229,7 +229,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             plotSingularValues_S1(arr_SingularValues{1})
             plotSingularValues(arr_SingularValues, limits_k, limits_t);
             plotMinimumSingularValues(vMinimumSingularValues, limits_k, limits_t, rank_range);
@@ -254,7 +254,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             
             
             plotSingularValues(arr_NormalisedSingularValues, limits_k, limits_t);

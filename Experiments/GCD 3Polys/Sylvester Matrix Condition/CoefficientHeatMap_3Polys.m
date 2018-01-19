@@ -75,7 +75,7 @@ h.GridVisible = 'off';
 end
 
 
-function Sk = BuildSylvesterMatrix_3Polys(fxy, gxy, hxy, m, n, o, k, sylvester_build_method)
+function Sk = BuildSylvesterMatrix_3Polys(fxy, gxy, hxy, m, n, o, k, sylvester_matrix_variant)
 % BuildSylvesterMatrix(fxy,gxy,m,n,k)
 %
 % Build the Sylvester subresultant matrix S_{k}(f,g)
@@ -97,10 +97,11 @@ function Sk = BuildSylvesterMatrix_3Polys(fxy, gxy, hxy, m, n, o, k, sylvester_b
 % o : (Int) degree of h(x,y)
 %
 % k : Index of the Sylvester subresultant matrix S_{k} to be constructed.
+%
+% sylvester_matrix_variant : (String)
 
 
-
-switch sylvester_build_method
+switch sylvester_matrix_variant
     case 'T'
         
         

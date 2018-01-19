@@ -7,16 +7,6 @@ function [] = PlotCoefficients(arrPolys, arrNames)
 % arrNames : (Array of Strings)
 
 
-global SETTINGS
-
-% 
-if SETTINGS.PLOT_GRAPHS == false
-return
-    
-end
-    
-
-
 figure()
 hold on
 for i = 1 : 1 : length(arrPolys)

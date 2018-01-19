@@ -132,11 +132,8 @@ function [] = PrintToResultsFile(m, n, t, my_error)
 
 global SETTINGS
 
-% Get datetime and filename
-%v = datevec(now);
-%fullFileName = sprintf('Results/Results_o_gcd_%s-%s-%s.txt',num2str(v(1)), num2str(v(2)), num2str(v(3)));
 
-fullFileName = sprintf('Results/Results_o_gcd.txt');
+fullFileName = sprintf('Results/Results_o_gcd.dat');
 
 % If file already exists append a line
 if exist(fullFileName, 'file')

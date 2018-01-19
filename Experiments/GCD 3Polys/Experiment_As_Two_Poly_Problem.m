@@ -26,7 +26,7 @@ end
 apf_method = 'None';
 low_rank_approx_method = 'None';
 rank_revealing_metric = 'Minimum Singular Values';
-sylvester_build_method = 'DTQ';
+sylvester_matrix_variant = 'DTQ';
 
 arr_ex_variant = {'a','b','c'};
 
@@ -34,7 +34,7 @@ for i = 1 : 1  : length(arr_ex_variant)
     
     ex_variant = arr_ex_variant{i}; 
     ex_num = strcat(ex_number, ex_variant);
-    o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method, rank_revealing_metric) ;
+    o_gcd_Bivariate_2Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_matrix_variant, rank_revealing_metric) ;
 
 
 end
@@ -45,7 +45,7 @@ nEquations = '2';
 for i = 1 : 1 : length(arr_ex_variant)
     ex_variant = arr_ex_variant{i}; 
     ex_num = strcat(ex_number, ex_variant);
-    o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method, rank_revealing_metric, nEquations)
+    o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_matrix_variant, rank_revealing_metric, nEquations)
 end
 
 
@@ -53,7 +53,7 @@ end
 % Three polynomials - 3 x 3 subresultant 
 
 nEquations = '3';
-o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_build_method, rank_revealing_metric, nEquations)
+o_gcd_Bivariate_3Polys(ex_num, emin, emax, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_matrix_variant, rank_revealing_metric, nEquations)
 
 
 

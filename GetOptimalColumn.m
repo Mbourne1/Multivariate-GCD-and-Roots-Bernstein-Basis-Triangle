@@ -30,7 +30,7 @@ for k = 1 : 1 : nColumns_Sk
     % Get column c_{k} for removal from S_{k}
     ck = Sk(:,k);
     
-    % Perform QR delete to remove k column from QR decomposition of 
+    % Perform QR delete to remove k column from QR decomposition of
     % S_{t_{1},t_{2}}
     [Q,~] = qrdelete(Qk, Rk, k);
     
@@ -44,7 +44,7 @@ for k = 1 : 1 : nColumns_Sk
 end
 
 
-PlotResiduals(vResiduals);
+%PlotResiduals(vResiduals);
 
 %Obtain the column for which the residual is minimal.
 [~,idx_col] = min(log10(vResiduals));
@@ -58,25 +58,21 @@ end
 function [] = PlotResiduals(vResiduals)
 
 global SETTINGS
-if SETTINGS.PLOT_GRAPHS == false
+if SETTINGS.PLOT_GRAPHS
     
-    return;
+    figure_name = 'Residuals';
+    figure('Name',figure_name)
+    
+    hold on
+    plot(log10(vResiduals),'-s','LineWidth',2)
+    
+    
+    xlabel('$i$ : Column Index', 'Interpreter', 'latex')
+    ylabel('$\log_{10} \left( r_{i} \right)$', 'Interpreter', 'latex')
+    hold off
+    
+    grid on
+    hold on
     
 end
-
-figure_name = 'Residuals';
-figure('Name',figure_name)
-
-hold on
-plot(log10(vResiduals),'-s','LineWidth',2)
-
-
-xlabel('$i$ : Column Index', 'Interpreter', 'latex')
-ylabel('$\log_{10} \left( r_{i} \right)$', 'Interpreter', 'latex')
-hold off
-
-grid on 
-hold on
-
-
 end

@@ -1,5 +1,5 @@
 
-if SETTINGS.PLOT_GRAPHS
+if SETTINGS.PLOT_GRAPHS_LRA
     
     fig_name = sprintf('%s : condition',mfilename);
     figure('name',fig_name)

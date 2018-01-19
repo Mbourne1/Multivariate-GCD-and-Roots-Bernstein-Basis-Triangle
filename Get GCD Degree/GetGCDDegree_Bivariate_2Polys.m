@@ -79,14 +79,17 @@ for i = 1:1:nSubresultants
     % Plot coefficients of unprocessed and preprocessed polynomails (Only on
     % first iteration, to avoid too many graphs
     if i == 1
-        PlotPolynomials(...
-            {fxy, fww, gxy, vAlpha(i)*gww},...
-            {...
-            '$f\left(x, y \right)$',...
-            '$\tilde{f}\left(\omega_{1},\omega_{2}\right)$',...
-            'g(x,y)',...
-            '$\alpha \tilde{g} \left(\omega_{1}, \omega_{2} \right)$'...
-            });
+        if SETTINGS.PLOT_GRAPHS_PREPROCESSING
+            
+            PlotPolynomials(...
+                {fxy, fww, gxy, vAlpha(i)*gww},...
+                {...
+                '$f\left(x, y \right)$',...
+                '$\tilde{f}\left(\omega_{1},\omega_{2}\right)$',...
+                'g(x,y)',...
+                '$\alpha \tilde{g} \left(\omega_{1}, \omega_{2} \right)$'...
+                });
+        end
         
     end
     
@@ -133,7 +136,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if (SETTINGS.PLOT_GRAPHS)
+        if (SETTINGS.PLOT_GRAPHS_RANK)
             
             plotRowNorms(arr_R1_RowNorms, limits_k, limits_t)
             plotMaxMinRowNorms(vMaxRowNormR1, vMinRowNormR1, limits_k, limits_t, rank_range)
@@ -159,7 +162,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
         
         vRatio_MaxMin_DiagonalEntry = vMinDiagonalEntry ./ vMaxDiagonalEntry;
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             %plotDiagonalsR1(arr_R1, limits_k, limits_t)
             plotMaxMinDiagonalR1(vRatio_MaxMin_DiagonalEntry, limits_k, limits_t, rank_range);
         end
@@ -182,7 +185,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             
             
             plotSingularValues(arr_NormalisedSingularValues, limits_k, limits_t);
@@ -208,7 +211,7 @@ switch SETTINGS.RANK_REVEALING_METRIC
             
         end
         
-        if(SETTINGS.PLOT_GRAPHS)
+        if(SETTINGS.PLOT_GRAPHS_RANK)
             
             plotSingularValues(arr_SingularValues, limits_k, limits_t);
             
@@ -300,7 +303,7 @@ end
 
 
 % axis labels
-% 
+%
 xlabel('$i$ : Coefficient Index','Interpreter','latex','FontSize', 20)
 ylabel('$\log_{10} \left( \Re \right)$','Interpreter', 'latex', 'FontSize', 20)
 

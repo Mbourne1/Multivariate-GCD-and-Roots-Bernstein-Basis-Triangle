@@ -292,7 +292,7 @@ while (condition(ite) > SETTINGS.MAX_ERROR_DECONVOLUTIONS)  && ...
     
 end
 
-if(SETTINGS.PLOT_GRAPHS)
+if(SETTINGS.PLOT_GRAPHS_DECONVOLUTION)
     
     % Plot termination condiiton
     figure_name = sprintf([mfilename ' : STLN Iterations']);

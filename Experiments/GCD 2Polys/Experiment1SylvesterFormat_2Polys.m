@@ -106,7 +106,7 @@ end
 %         %
 %         % str : (String)
 %         %
-%         % sylvester_build_method
+%         % sylvester_matrix_variant
 %         
 %         directory_name = strcat('UnivariateSylvesterFormatFigures/Example',(ex_num),'/Figures/');
 %         

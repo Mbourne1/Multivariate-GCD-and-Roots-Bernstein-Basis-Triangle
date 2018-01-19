@@ -1,6 +1,6 @@
 function [] = SetGlobalVariables_Roots( ex_num, emin, emax,...
     mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, ...
-    sylvester_build_method, rank_revealing_metric, ...
+    sylvester_matrix_variant, rank_revealing_metric, ...
     deconvolution_method_hx, deconvolution_method_wx, nEquations)
 %
 % % Inputs
@@ -25,7 +25,7 @@ function [] = SetGlobalVariables_Roots( ex_num, emin, emax,...
 %
 % apf_method : (String)
 %
-% sylvester_build_method : (String)
+% sylvester_matrix_variant : (String)
 %   * R1 Row Norms
 %   * R1 Row Diagonals
 %   * Singular Values
@@ -68,7 +68,7 @@ SETTINGS.SEED = 1024;
 %   TQ
 %   DTQ Denominator Removed
 
-SETTINGS.SYLVESTER_MATRIX_FORMAT = sylvester_build_method;
+SETTINGS.SYLVESTER_MATRIX_FORMAT = sylvester_matrix_variant;
 SETTINGS.SYLVESTER_MATRIX_3POLY_N_EQUATIONS = nEquations;
 
 % Set Noise
@@ -171,4 +171,5 @@ SETTINGS.DECONVOLUTION_METHOD_WXY = deconvolution_method_wx;
 SETTINGS.PREPROC_DECONVOLUTIONS = true;
 
 SETTINGS.MAX_ERROR_DECONVOLUTIONS = 1e-10;
+SETTINGS.MAX_ITERATIONS_DECONVOLUTIONS = 20;
 end

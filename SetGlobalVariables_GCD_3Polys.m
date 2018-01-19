@@ -1,6 +1,6 @@
 function [] = SetGlobalVariables_GCD_3Polys( ex_num, emin, emax,...
     mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, ...
-    sylvester_build_method, rank_revealing_metric, nEquations)
+    sylvester_matrix_variant, rank_revealing_metric, nEquations)
 %
 % % Inputs
 %
@@ -27,7 +27,7 @@ function [] = SetGlobalVariables_GCD_3Polys( ex_num, emin, emax,...
 %
 % apf_method : (String)
 %
-% sylvester_build_method : (String)
+% sylvester_matrix_variant : (String)
 %   * T
 %   * DT
 %   * TQ
@@ -47,7 +47,10 @@ global SETTINGS
 %   * false
 %
 SETTINGS.PLOT_GRAPHS = true;
-
+SETTINGS.PLOT_GRAPHS_PREPROCESSING = false;
+SETTINGS.PLOT_GRAPHS_DECONVOLUTION = false;
+SETTINGS.PLOT_GRAPHS_RANK = true;
+SETTINGS.PLOT_GRAPHS_LRA = false;
 
 
 SETTINGS.SEED = 1024;
@@ -59,7 +62,7 @@ SETTINGS.SEED = 1024;
 %   TQ
 %   DTQ Denominator Removed
 
-SETTINGS.SYLVESTER_MATRIX_FORMAT = sylvester_build_method;
+SETTINGS.SYLVESTER_MATRIX_FORMAT = sylvester_matrix_variant;
 SETTINGS.SYLVESTER_MATRIX_3POLY_N_EQUATIONS = nEquations;
 
 % Set Noise
