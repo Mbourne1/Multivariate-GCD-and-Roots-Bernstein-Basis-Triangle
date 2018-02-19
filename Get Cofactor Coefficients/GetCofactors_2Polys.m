@@ -68,7 +68,7 @@ x = ...
 % are given by the vector x, otherwise, the vector gives coefficients in 
 % scaled Bernstein form and must remove trinomial coefficients.
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     
     case 'T'
         Q = BuildQ_2Polys(m, n, t);
@@ -90,7 +90,7 @@ switch SETTINGS.SYLVESTER_MATRIX_FORMAT
         
         
     otherwise 
-        error('err')
+        error('SYLVESTER_MATRIX_VARIANT must be one of the following : \n T \n DT \n TQ \n DTQ')
 end
 
 

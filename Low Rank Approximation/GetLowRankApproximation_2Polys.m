@@ -7,6 +7,7 @@ function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
 %
 % % Inputs.
 %
+%
 % fxy : (Matrix) Coefficients of polynomial f(x,y).
 %
 % gxy : (Matrix) Coefficients of polynomial g(x,y).
@@ -24,6 +25,7 @@ function [fxy_lr, gxy_lr, uxy_lr, vxy_lr, alpha_lr, th1_lr, th2_lr] = ...
 % k : (Int) Total degree of d(x,y).
 %
 % % Outputs
+%
 %
 % fxy_lr : (Matrix) Coefficients of polynomial f_lr(x,y) which is used in the low
 % rank approximation of S_{t}(f,g).
@@ -109,11 +111,14 @@ switch SETTINGS.LOW_RANK_APPROX_METHOD
             
             % Plot the singular values.
             figure('name','STLN')
-            plot(log10(vSingularValues_1),'-s','DisplayName','(fxy,gxy)');
+            plot(log10(vSingularValues_1), '-s', 'DisplayName', '(f(x,y),g(x,y))');
             hold on
-            plot(log10(vSingularValues_2),'-s','displayname','(fww,gww)');
-            plot(log10(vSingularValues_3),'-s','displayname','(fxy_lr,gxy_lr)');
-            plot(log10(vSingularValues_4),'-s','displayname','(fww_lr,gww_lr)');
+            
+            myString = ['$ \tilde{f}(\omega_{1},\omega_{2}), \tilde{g}(\omega_{1}, \omega_{2}))']
+            
+            plot(log10(vSingularValues_2), '-s', 'displayname', myString);
+            plot(log10(vSingularValues_3), '-s', 'displayname', '(fxy_lr,gxy_lr)');
+            plot(log10(vSingularValues_4), '-s', 'displayname', '(fww_lr,gww_lr)');
             legend(gca,'show');
             hold off
             

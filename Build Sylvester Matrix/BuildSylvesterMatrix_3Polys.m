@@ -67,7 +67,7 @@ function Sk = BuildSylvesterMatrix_3Polys_2Eqns(fxy, gxy, hxy, m, n, o, k)
 
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     case 'T'
         
         
@@ -161,7 +161,7 @@ function Sk = BuildSylvesterMatrix_3Polys_3Eqns(fxy, gxy, hxy, m, n, o, k)
 
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     case 'T'
         
         

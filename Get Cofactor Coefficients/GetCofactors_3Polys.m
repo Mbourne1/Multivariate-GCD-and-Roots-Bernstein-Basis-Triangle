@@ -111,7 +111,7 @@ vxy = GetAsMatrix([v_vxy ; zeros(nZeros_vxy, 1)], n - t, n - t);
 wxy = GetAsMatrix([v_wxy ; zeros(nZeros_wxy, 1)], o - t, o - t);
 
 
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     case 'T'
         
         %Q = BuildQ_3Polys(m, n, o, t);

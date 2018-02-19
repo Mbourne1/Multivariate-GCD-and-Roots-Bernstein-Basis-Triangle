@@ -17,7 +17,7 @@ upperLimit_k = limits_k(2);
 vec_x = lowerLimit_k : 1 : upperLimit_k;
 global SETTINGS
 
-figure_name = sprintf('Minimum Singular Values of %s' ,SETTINGS.SYLVESTER_MATRIX_FORMAT);
+figure_name = sprintf('Minimum Singular Values of %s' ,SETTINGS.SYLVESTER_MATRIX_VARIANT);
 figure('name',figure_name)
 hold on
 

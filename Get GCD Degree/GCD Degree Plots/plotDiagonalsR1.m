@@ -23,7 +23,7 @@ nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 global SETTINGS
 
-figure_name = sprintf('Diagonals of R1 from QR decomposition of %s',SETTINGS.SYLVESTER_MATRIX_FORMAT);
+figure_name = sprintf('Diagonals of R1 from QR decomposition of %s',SETTINGS.SYLVESTER_MATRIX_VARIANT);
 figure('name',figure_name)
 hold on
 

@@ -293,9 +293,13 @@ else
     % Get the degree of the GCD
     t = GetGCDDegree_MultipleSubresultants(vMetric, limits_k, limits_t, rank_range);
     
+    try
     rank_range_low = vMetric(t - (lowerLimit_k - 1) );
     if (t < upperLimit_k)
         rank_range_high = vMetric(t - (lowerLimit_k - 1) + 1);
+    end
+    catch
+        fprintf('out of range')
     end
     
     % update rank range

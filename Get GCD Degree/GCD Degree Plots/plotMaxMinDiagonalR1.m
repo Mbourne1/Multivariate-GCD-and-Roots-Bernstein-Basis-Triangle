@@ -17,7 +17,7 @@ lowerLimit_k = limits_k(1);
 upperLimit_k = limits_k(2);
 
 
-figure_name = [mfilename ' : ' sprintf('Max;min Diagonals of R1 from QR Decomposition of %s', SETTINGS.SYLVESTER_MATRIX_FORMAT)];
+figure_name = [mfilename ' : ' sprintf('Max;min Diagonals of R1 from QR Decomposition of %s', SETTINGS.SYLVESTER_MATRIX_VARIANT)];
     
 figure('name', figure_name)
 hold on

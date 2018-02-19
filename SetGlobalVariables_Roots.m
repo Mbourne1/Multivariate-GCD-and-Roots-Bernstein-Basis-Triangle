@@ -68,7 +68,7 @@ SETTINGS.SEED = 1024;
 %   TQ
 %   DTQ Denominator Removed
 
-SETTINGS.SYLVESTER_MATRIX_FORMAT = sylvester_matrix_variant;
+SETTINGS.SYLVESTER_MATRIX_VARIANT = sylvester_matrix_variant;
 SETTINGS.SYLVESTER_MATRIX_3POLY_N_EQUATIONS = nEquations;
 
 % Set Noise

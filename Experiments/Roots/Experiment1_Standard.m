@@ -31,7 +31,7 @@ end
 % rank approximation is obtained.
 %   'None'
 %   'Standard STLN'
-low_rank_approx_method = 'None';
+low_rank_approx_method = 'Standard STLN';
 
 % Method used to add structure to t-th [C(u) ; C(v)] matrix
 apf_method = 'None';

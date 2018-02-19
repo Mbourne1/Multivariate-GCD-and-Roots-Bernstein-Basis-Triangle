@@ -25,7 +25,7 @@ clc;
 % Constants
 
 % Set upper and lower noise level
-el = 1e-5;
+el = 1e-6;
 eu = 1e-5;
 
 % Low rank approximation method
@@ -49,16 +49,23 @@ rank_revealing_metric = 'Minimum Singular Values';
 sylvester_format = 'DTQ';
 
 
+% Without Preprocessing
 
 mean_method = 'None';
 bool_alpha_theta = false;
 
-o_gcd_Bivariate_2Polys(ex_num, el, eu, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_format, rank_revealing_metric)
+o_gcd_Bivariate_2Polys(ex_num, el, eu, mean_method, bool_alpha_theta, ...
+    low_rank_approx_method, apf_method, sylvester_format, rank_revealing_metric)
+
+
+
+% With Preprocessing
 
 mean_method = 'Geometric Mean Matlab Method';
 bool_alpha_theta = true;
 
-o_gcd_Bivariate_2Polys(ex_num, el, eu, mean_method, bool_alpha_theta, low_rank_approx_method, apf_method, sylvester_format, rank_revealing_metric)
+o_gcd_Bivariate_2Polys(ex_num, el, eu, mean_method, bool_alpha_theta, ...
+    low_rank_approx_method, apf_method, sylvester_format, rank_revealing_metric)
 
 
 end

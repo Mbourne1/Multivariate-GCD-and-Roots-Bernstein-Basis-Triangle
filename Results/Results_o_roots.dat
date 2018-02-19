@@ -21,3 +21,6 @@ DATE, EX_NUM, ERROR_FXY, ERROR_HXY, ERROR_WXY,MEAN_METHOD, BOOL_ALPHA_THETA, LOW
 19-Jan-2018 15:03:45,1,1.884352e-09,2.322741e-09,1.651061e-09,None,0,None,0,None,0,1.000000e-10,1.000000e-08,DTQ,Minimum Singular Values,Batch With STLN,Batch 
 19-Jan-2018 15:03:54,1,1.884352e-09,1.768809e-09,1.231655e-09,None,0,None,0,None,0,1.000000e-10,1.000000e-08,DTQ,Minimum Singular Values,Batch Constrained,Batch 
 19-Jan-2018 15:04:04,1,1.884352e-09,2.092043e-09,1.487977e-09,None,0,None,0,None,0,1.000000e-10,1.000000e-08,DTQ,Minimum Singular Values,Batch Constrained With STLN,Batch 
+24-Jan-2018 13:42:08,1,1.489497e-10,2.106368e-10,1.671762e-10,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-08,DTQ,Minimum Singular Values,Batch,Batch 
+24-Jan-2018 13:57:57,2,1.160945e-01,6.015702e-01,2.233367e-01,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-08,DTQ,Minimum Singular Values,Batch,Batch 
+24-Jan-2018 13:59:32,3,3.872640e-07,5.167073e-07,2.817147e-07,Geometric Mean Matlab Method,1,None,0,None,0,1.000000e-10,1.000000e-08,DTQ,Minimum Singular Values,Batch,Batch 

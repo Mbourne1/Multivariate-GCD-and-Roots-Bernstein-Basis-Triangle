@@ -23,7 +23,7 @@ function Sk = BuildSylvesterMatrix_2Polys(fxy, gxy, m, n, k)
 
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     case 'T'
 
         % Build the matrix T_{n-k}(f(x,y))
@@ -88,7 +88,7 @@ switch SETTINGS.SYLVESTER_MATRIX_FORMAT
         Sk = D*[T1_fx T1_gx]*Q;
         
     otherwise
-        error('err')
+        error('SYLVESTER_MATRIX_VARIANT must be *T \n *DT \n *TQ \n *DTQ   ')
         
 end
 

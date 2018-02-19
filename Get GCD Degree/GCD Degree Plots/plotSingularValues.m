@@ -14,7 +14,7 @@ upperLimit_k = limits_k(2);
 nSubresultants = upperLimit_k - lowerLimit_k + 1;
 
 global SETTINGS
-figure_name = sprintf('Singular Values of %s' ,SETTINGS.SYLVESTER_MATRIX_FORMAT);
+figure_name = sprintf('Singular Values of %s' ,SETTINGS.SYLVESTER_MATRIX_VARIANT);
 figure('name',figure_name)
 
 

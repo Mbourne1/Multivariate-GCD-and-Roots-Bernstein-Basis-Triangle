@@ -19,7 +19,7 @@ function Cf = BuildSylvesterMatrixPartition_2Polys(fxy, m, n_k)
 
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     case 'T'
 
         % Build the matrix T_{n-k}(f(x,y))

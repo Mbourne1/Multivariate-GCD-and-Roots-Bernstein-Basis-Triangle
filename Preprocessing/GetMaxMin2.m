@@ -86,7 +86,7 @@ function [entry] = GetEntry(a_i1i2, m, n_k, i1, i2, j1, j2)
 % j2 : (Int)
 
 global SETTINGS
-switch SETTINGS.SYLVESTER_MATRIX_FORMAT
+switch SETTINGS.SYLVESTER_MATRIX_VARIANT
     
     case 'T'
         entry = a_i1i2 * Trinomial(m, i1, i2);

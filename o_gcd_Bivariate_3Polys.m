@@ -215,7 +215,7 @@ function []= PrintToResultsFile(m,n,o,t,my_error)
 
 global SETTINGS
 
-fullFileName = sprintf('Results/Results_o_gcd_3Polys_%s.txt',datetime('today'));
+fullFileName = sprintf('Results/Results_o_gcd_3Polys.dat');
 
 % If file already exists append a line
 if exist(fullFileName, 'file')
@@ -255,17 +255,28 @@ end
             num2str(SETTINGS.APF_REQ_ITE),...
             SETTINGS.EMIN,...
             SETTINGS.EMAX,...
-            SETTINGS.SYLVESTER_MATRIX_FORMAT...
+            SETTINGS.SYLVESTER_MATRIX_VARIANT...
             );
         % 19 arguments
         
     end
 
     function WriteHeader()
-        fprintf(fileID,'DATE,EX_NUM,m,n,o,t,ERROR_UXY,ERROR_VXY,ERROR_WXY,ERROR_DXY,MEAN_METHOD,BOOL_ALPHA_THETA,LOW_RANK_APPROX_METHOD,LRA_ITE,APF_METHOD,APF_ITE,error_min,error_max,Sylvester_Matrix_Type \n');
+        
+        headerString = ['DATE, EX_NUM, m, n, o, t, ERROR_UXY,' ...
+            'ERROR_VXY, ERROR_WXY, ERROR_DXY, MEAN_METHOD,' ...
+            'BOOL_ALPHA_THETA, LOW_RANK_APPROX_METHOD,'...
+            'LRA_ITE, APF_METHOD, APF_ITE, error_min,' ...
+            'error_max, Sylvester_Matrix_Variant \n'];
+        
+        fprintf(fileID,headerString);
     end
 
 end
+
+
+
+
 
 function [dist_fxy] = GetError(fxy,fxy_exact)
 % GetError : Get distance between f(x,y) and exact form.
